@@ -6,6 +6,10 @@ import Axios from 'axios';
 import * as yup from 'yup';
 import { useDispatch } from 'react-redux';
 import { setLogin } from '../state';
+import darkLogin from '../assets/darkLogin.jpg';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Lord_Voldemort from '../assets/Lord_Voldemort.jpg';
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -26,28 +30,46 @@ const SignUp = () => {
       return setError('Passwords do not match');
     }
 
+    if(usernameRef.current.value.length < 3){
+      return setError('Username must be atleast 3 characters long');
+    }
+
+
+    let loadingToast = toast.info('Brewing Magic...', { autoClose: 1000 });
+    try {
     const response = await Axios.post('http://localhost:5000/auth/register', {
       username: usernameRef.current.value,
       email: emailRef.current.value,
       password: passwordRef.current.value,
     });
-    if (response.data.error) {
-      setError(response.data.error);
-    } else {
-      navigate('/login');
+      toast.success('Crafting Your Wizard Profile...', { id: loadingToast, autoClose: 3000 });
+      setTimeout(() => {
+        navigate('/login');
+        toast.success('One step away, please login with your credentials', { autoClose: 3000 });
+      }, 5000);
+    } catch(error) {
+      if(error.message == "Wrong Password" ){
+        toast.error('Spell misfired!', { id: loadingToast, autoClose: 3000 })
+        setError("Username or password might already exist");
+      }
+      else if(error.message == "Username must be atleast 3 characters long"){
+        toast.error('Spell misfired!', { id: loadingToast, autoClose: 3000 })
+        setError("Username or password might already exist");
+      }
     }
   };
 
-
-
-
-  
   return (
-    <>
-      <Card>
+    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: '100vh', backgroundImage: `url(${darkLogin})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }}>
+      <ToastContainer />
+      <h2 className="text-center mb-4">SignUp</h2>
+      <Card style={{ maxWidth: "470px", background: "transparent", boxShadow: "9px 6px 6px 12px rgba(0,0,0,0.5)", borderRadius: "20px" }}>
         <CardContent>
-          <h2 className="text-center mb-4">SignUp</h2>
-          {error && <Alert severity="error">{error}</Alert>}
+        {error && 
+        <div style={{display:"grid",gridTemplateColumns:"auto auto", maxWidth:"400px", background:"white", height:"56px", marginBottom:"20px", boxShadow:"6px 6px 6px 6px rgba(0,0,0,0.4)" }}>
+          <Alert severity="error" style={{ marginBottom: "20px", height:"56px",background:"white", maxWidth:"364" }}>{error} </Alert>
+          <img style={{ height:"55px"}} src={Lord_Voldemort} alt="Lord Voldemort" />
+        </div> }
           <form onSubmit={signUp}>
             <FormControl sx={{ width: '100%', marginBottom: '20px' }}>
               <InputLabel htmlFor="email">Email</InputLabel>
@@ -65,16 +87,16 @@ const SignUp = () => {
               <InputLabel htmlFor="password-confirm">Password Confirmation</InputLabel>
               <Input type="password" id="password-confirm" inputRef={passwordConfirmRef} required />
             </FormControl>
-            <Button disabled={loading} variant="contained" type="submit" sx={{ width: '100%', marginTop: '20px' }}>
-              Sign Up
+            <Button disabled={loading} variant="contained" type="submit" sx={{ width: '100%', marginTop: '20px', borderRadius:"20px" }}>
+              Registed for the World of Quidditch!
             </Button>
           </form>
         </CardContent>
+        <div className="w-100 text-center mt-2">
+          Are you returning wizard? <MuiLink component={Link} to="/login">Open the Portkey!</MuiLink>
+        </div>
       </Card>
-      <div className="w-100 text-center mt-2">
-        Already have an account? <MuiLink component={Link} to="/login">Log In</MuiLink>
-      </div>
-    </>
+    </div>
   );
 };
 
