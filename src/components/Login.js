@@ -37,8 +37,7 @@ export default function Login() {
         email: emailRef.current.value,
         password: passwordRef.current.value,
       });
-      let data = response.data;
-      console.log(data);
+      
       if (error.message) {
         toast.success('Login successful', { id: loadingToastId, autoClose: 3000 });
         setError("Username or password didn't match");
