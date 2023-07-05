@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react';
 import { Card, Alert, Button, FormControl, InputLabel, Input, FormHelperText, Link as MuiLink, CardContent } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { styled } from '@mui/material/styles'; // Import the 'styled' function
+import  Axios  from 'axios';
 
 const StyledButton = styled(Button)({
   marginTop: '20px',
@@ -18,6 +19,19 @@ export default function ForgotPassword() {
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
 
+  const forgotPassword = async (e) => {
+    e.preventDefault();
+    Axios.post('http://localhost:5000/forgot-password', {
+      email: emailRef.current.value,
+    })
+      .then((response) => {
+        console.log("response");
+      })
+      .catch((error) => {
+        setError("check");
+      });
+  };
+
   return (
     <>
       <Card>
@@ -25,7 +39,7 @@ export default function ForgotPassword() {
           <h2 className="text-center mb-4">Password Reset</h2>
           {error && <Alert variant="danger">{error}</Alert>}
           {message && <Alert variant="success">{message}</Alert>}
-          <form>
+          <form onSubmit={forgotPassword}>
             <FormControl sx={{ width: '100%', marginBottom: '45px' }}>
               <InputLabel htmlFor="email">Email</InputLabel>
               <Input type="email" id="email" inputRef={emailRef} required />

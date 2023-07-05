@@ -14,6 +14,8 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist'; 
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import storage from 'redux-persist/lib/storage';
 import { PersistGate } from 'redux-persist/integration/react';
@@ -37,6 +39,7 @@ root.render(
   <React.StrictMode>
     <Provider store={store}> 
       <PersistGate loading={null} persistor={persistStore(store)}>
+        <ToastContainer />
     <App />
       </PersistGate>
     </Provider>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reset Password</title>
+    <script>
+        var status = '<%- JSON.stringify(status) %>';
+        if (JSON.parse(status) == "verified") {
+            if (confirm("Redirect to login page?")) {
+                window.location.href = "http://localhost:3000/login";
+            }
+        }
+    </script>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid black;
+            height: 300px;
+            width: 300px;
+            border-radius: 20px;
+            background-color: #f2f2f2;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        h1 {
+            text-align: center;
+        }
+        
+        form label {
+            margin-top: 20px;
+            color: #333;
+            font-weight: bold;
+        }
+        
+        input[type="password"] {
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        
+        input[type="submit"] {
+            margin-top: 20px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            background-color: #007bff;
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Reset Password</h1>
+    <div class="container">
+        <form method="post">
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password">
+            <label for="confirmPassword">Confirm Password</label>
+            <input type="password" name="confirmPassword" id="confirmPassword">
+            <input type="submit" value="Submit" id="submit">
+        </form>
+    </div>
+</body>
+</html>
