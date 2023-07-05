@@ -8,9 +8,13 @@ import { useMemo } from 'react';
 import { UseSelector, useSelector } from 'react-redux';
 import Dashboard from './components/Dashboard';
 import { Navigate } from 'react-router-dom';
+import AdminLogin from './components/Admin/AdminLogin';
+import AdminRegister from './components/Admin/AdminRegister';
+
+
 function App() {
   const isAuth = Boolean(useSelector(state => state.token));
-  return (
+    return (
       <div style={{ background: 'linear-gradient(#333333, #000000)', height: '100vh' }}>
         <Router>
           <Routes>
@@ -18,6 +22,10 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/forgotpassword" element={<ForgotPassword />} />
+          </Routes>
+          <Routes>
+            <Route path="/admin/login" element={<AdminLogin />} />
+            <Route path="/admin/register" element={<AdminRegister />} />
           </Routes>
         </Router>
       </div>

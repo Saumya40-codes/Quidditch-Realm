@@ -44,7 +44,6 @@ export default function ForgotPassword() {
               <InputLabel htmlFor="email">Email</InputLabel>
               <Input type="email" id="email" inputRef={emailRef} required />
             </FormControl>
-            {/* Use the StyledButton component instead of the regular Button */}
             <StyledButton disabled={loading} className="w-100" type="submit">
               Reset Password
             </StyledButton>

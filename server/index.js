@@ -3,6 +3,8 @@ const app = express();
 const cors = require('cors');
 
 const {register} = require('./controllers/auth.js');
+const { adminRegister } = require('./controllers/auth.js');
+
 const User = require('./models/User.js');
 app.use(cors());
 app.use(express.json());  
@@ -16,7 +18,6 @@ const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/users.js');
 app.use('/auth', authRoutes);
 
-
 // ejs
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: false }));
@@ -29,28 +30,44 @@ const PORT = process.env.PORT || 5000;
 
 
 app.post("/auth/register", register);
+app.post("/auth/admin/register", adminRegister);
 
 mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => app.listen(PORT, () => console.log(`Server running on port: ${PORT}`)))
     .catch((error) => console.log(error.message));
 
-app.post("/forgot-password", async (req, res) => {
-  const { email } = req.body;
-  try{
-  const oldUser = await User.findOne({ email });
-  if (!oldUser) {
-    return res.status(404).json({ message: "User doesn't exist" });
-  }
-  const secret = process.env.JWT_SECRET + oldUser.password;
-  const token = jwt.sign({ email: oldUser.email, id: oldUser._id }, secret, {expiresIn: "5m"});
-  const link = `http://localhost:5000/reset-password/${oldUser._id}/${token}`;
-  var transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: process.env.MAIL_USER,
-    pass: process.env.MAIL_PASS,
-  }
-});
+    app.post("/forgot-password", async (req, res) => {
+      const { email } = req.body;
+    
+      try {
+        const oldUser = await User.findOne({ email });
+        
+        if (!oldUser) {
+          return res.status(404).json({ message: "User doesn't exist" });
+        }
+        
+        if (!oldUser.email) {
+          return res.status(400).json({ message: "User doesn't have an email" });
+        }
+        
+        const secret = process.env.JWT_SECRET + oldUser.password;
+        let token;
+        
+        if (oldUser.isAdmin) {
+          token = jwt.sign({ email: oldUser.email, id: oldUser._id, isAdmin: oldUser.isAdmin }, secret, { expiresIn: "5m" });
+        } else {
+          token = jwt.sign({ email: oldUser.email, id: oldUser._id }, secret, { expiresIn: "5m" });
+        }
+        
+        const link = `http://localhost:5000/reset-password/${oldUser._id}/${token}`;
+        
+        const transporter = nodemailer.createTransport({
+          service: 'gmail',
+          auth: {
+            user: process.env.MAIL_USER,
+            pass: process.env.MAIL_PASS,
+          }
+        });
 
 var mailOptions = {
   from: 'abc@gmail.com',

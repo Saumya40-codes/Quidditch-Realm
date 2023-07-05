@@ -20,10 +20,15 @@ export const appSlice = createSlice({
         setLogout : (state, action) => {
             state.user = null;
             state.token = null;
+        },
+        setAdminLogin : (state, action) => {
+            state.user = action.payload.user;
+            state.isAdmin = action.payload.isAdmin;
+            state.token = action.payload.token;
         }
     }
 });
 
-export const { setMode, setLogin, setLogout } = appSlice.actions;
+export const { setMode, setLogin, setLogout, setAdminLogin } = appSlice.actions;
 
 export default appSlice.reducer;
