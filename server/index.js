@@ -18,7 +18,7 @@ app.use('/auth', authRoutes);
 
 app.use('/users',userRoutes)
 
-const CONNECTION_URL = "mongodb+srv://saumyab5181:saumyacodes@cluster1.xparrka.mongodb.net/"
+const CONNECTION_URL = "mongodb+srv://divyamshah04:divyamshah@cluster0.h6fegfr.mongodb.net/"
 const PORT = process.env.PORT || 5000;
 
 
