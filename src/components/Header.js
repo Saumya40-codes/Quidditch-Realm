@@ -1,29 +1,40 @@
 import React, { useEffect, useContext } from 'react';
 import '../App.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBroomBall } from '@fortawesome/free-solid-svg-icons';
 
-const Header = () => {
-
-  useEffect(() => {
-    const text = document.querySelector('.lst-note');
-    const textContent = text.textContent;
-    const chars = textContent.split('');
-
-    text.textContent = '';
-    chars.forEach((char, index) => {
-      const span = document.createElement('span');
-      span.textContent = char;
-      span.style.animationDelay = `${index * 0.1}s`;
-      text.appendChild(span);
-    });
-  }, []);
-
-  return (
-    <div className='app-header'>
-      <h1>
-        <span className='lst-note' style={{fontFamily: "Dancing Script, cursive", fontWeight:"bold",fontSize:"90px"}}>Quidditch <br/> Realm</span>
-      </h1>
-    </div>
-  );
-};
-
-export default Header;
+const Header = ({ text }) => {
+    return (
+      <div
+        className="app-header"
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          marginTop: "40px", 
+          fontFamily: "Dancing Script, cursive",
+          fontWeight: "bold",
+          fontSize: "40px",
+          textAlign: "center",
+          color: "white", 
+        }}
+      >
+        <h1>
+          <span
+            style={{
+                fontFamily: "'Dancing Script', cursive",
+            fontSize: '2.5rem',
+            fontWeight: 'bold',
+            color: 'white',
+            fontSize:"70px"
+            }}
+          >
+            {text}
+          </span>
+        </h1>
+      </div>
+    );
+  };
+  
+  export default Header;
+  

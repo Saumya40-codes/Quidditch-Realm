@@ -4,59 +4,81 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagic, faUser } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import Header from './Header';
+import landing from '../assets/landing.jpg';
+import {Tooltip} from '@mui/material';
 
 const LandingPage = () => {
   return (
-    <div style={{ background: "linear-gradient(135deg, #FFA500, #0000FF, #8A2BE2)" }}>
-    <div  style={{ display: "flex", justifyContent: "center", alignItems: "center"}}>
-    <Header/>
-    </div>
-      <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh", gap: "100px",marginTop:"-100px" }}>
-        <Box
-          sx={{
-            width: "200px",
-            height: "50px",
-            borderRadius: "20px",
-            background: "white",
-            color: "black",
-            fontWeight: "bold",
-            fontSize: "20px",
-            transition: "box-shadow 0.3s ease",
-            "&:hover": {
-              boxShadow: "6px 6px 9px 6px rgba(233, 3, 3, 0.5)",
-            },
-          }}
-        >
-        <Link to="/login">
-          <Button variant="contained" sx={{ width: "100%", height: "100%", p: 0,background:"white", color:"black", borderRadius:"15px" }}>
-            <FontAwesomeIcon icon={faMagic} style={{ marginRight: "8px" }} />
-            Wizards
-          </Button>
-        </Link>
+    <div style={{ backgroundImage: `url(${landing})`, backgroundRepeat: "no-repeat", backgroundSize: "cover", position: "relative", width: "100%", height: "100%" }}>
+      <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+        <Header text="Quidditch Realm" />
+      </div>
+      <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "50vh", gap: "100px", marginTop: "100px" }}>
+        <Box sx={{ position: "relative" }}>
+          <Link to="/login" style={{ textDecoration: "none" }}>
+            <Button variant="contained" sx={{
+              width: "200px",
+              height: "50px",
+              borderRadius: "30px",
+              background: "linear-gradient(45deg, #FFA500, #0000FF, #8A2BE2)",
+              color: "white",
+              fontWeight: "bold",
+              fontSize: "20px",
+              transition: "box-shadow 0.3s ease",
+              "&:hover": {
+                boxShadow: "6px 6px 9px 6px rgba(233, 3, 3, 0.5)",
+              },
+            }}>
+              <FontAwesomeIcon icon={faMagic} style={{ marginRight: "8px" }} />
+                <Tooltip title="Users" arrow>
+              Wizards
+            </Tooltip>
+            </Button>
+          </Link>
+          <span style={{
+            position: "absolute",
+            top: "50%",
+            left: "calc(100% + 10px)",
+            transform: "translateY(-50%)",
+            width: "1px",
+            height: "40px",
+            background: "white"
+          }} />
         </Box>
-        <Box
-          sx={{
-            width: "200px",
-            height: "50px",
-            backgroundColor: "white",
-            borderRadius: "20px",
-            background: "white",
-            color: "black",
-            fontWeight: "bold",
-            fontSize: "20px",
-            transition: "box-shadow 0.3s ease",
-            "&:hover": {
-              boxShadow: "6px 6px 9px 6px rgba(233, 3, 3, 0.5)",
-            },
-          }}
-        >
-        <Link to="/admin/login">
-          <Button variant="contained" sx={{ width: "100%", height: "100%", p: 0, background:"white", color:"black", borderRadius:"15px" }}>
-            <FontAwesomeIcon icon={faUser} style={{ marginRight: "8px" }} />
-            Muggles
-          </Button>
-        </Link>
+        <Box sx={{ position: "relative" }}>
+          <Link to="/admin/login" style={{ textDecoration: "none" }}>
+            <Button variant="contained" sx={{
+              width: "200px",
+              height: "50px",
+              borderRadius: "30px",
+              background: "linear-gradient(45deg, #FFA500, #0000FF, #8A2BE2)",
+              color: "white",
+              fontWeight: "bold",
+              fontSize: "20px",
+              transition: "box-shadow 0.3s ease",
+              "&:hover": {
+                boxShadow: "6px 6px 9px 6px rgba(233, 3, 3, 0.5)",
+              },
+            }}>
+              <FontAwesomeIcon icon={faUser} style={{ marginRight: "8px" }} />
+              <Tooltip title="Admins" arrow>
+              Professors
+            </Tooltip>
+            </Button>
+          </Link>
+          <span style={{
+            position: "absolute",
+            top: "50%",
+            left: "calc(-20px - 1px)",
+            transform: "translateY(-50%)",
+            width: "1px",
+            height: "40px",
+            background: "white"
+          }} />
         </Box>
+      </div>
+      <div>
+        <Header text="Embark on the journey" />
       </div>
     </div>
   );
