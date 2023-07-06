@@ -1,1 +1,26 @@
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
+
+
+.lst-note {
+    background: linear-gradient(to right, #ff0000, #00ff00); /* Replace with your desired gradient */
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  
+  .lst-note span {
+    display: inline-block;
+    animation: colorAnimation 4s infinite; /* Adjust the duration as needed */
+  }
+
+  @keyframes colorAnimation {
+    0% {
+      color: rgb(255, 89, 0); 
+    }
+    50% {
+      color: rgb(255, 0, 247);
+    }
+    100% {
+      color: rgb(10, 150, 113);
+    }
+  }

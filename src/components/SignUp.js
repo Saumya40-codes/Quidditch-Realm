@@ -3,13 +3,21 @@ import { Card, FormControl, InputLabel, Input, Button, Alert, CardContent, Link 
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import Axios from 'axios';
-import * as yup from 'yup';
+import { ThemeProvider, createTheme  } from '@mui/material/styles';
 import { useDispatch } from 'react-redux';
 import { setLogin } from '../state';
 import darkLogin from '../assets/darkLogin.jpg';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Lord_Voldemort from '../assets/Lord_Voldemort.jpg';
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#7D1702', 
+    },
+  },
+});
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -61,16 +69,17 @@ const SignUp = () => {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: '100vh', backgroundImage: `url(${darkLogin})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }}>
+    <ThemeProvider theme={theme}>
       <ToastContainer />
       <h2 className="text-center mb-4">SignUp</h2>
-      <Card style={{ maxWidth: "470px", background: "transparent", boxShadow: "9px 6px 6px 12px rgba(0,0,0,0.5)", borderRadius: "20px" }}>
+      <Card style={{ maxWidth: "510px", background: "transparent", boxShadow: "9px 6px 6px 12px rgba(0,0,0,0.5)", borderRadius: "20px", height:"520px" }}>
         <CardContent>
         {error && 
         <div style={{display:"grid",gridTemplateColumns:"auto auto", maxWidth:"400px", background:"white", height:"56px", marginBottom:"20px", boxShadow:"6px 6px 6px 6px rgba(0,0,0,0.4)" }}>
           <Alert severity="error" style={{ marginBottom: "20px", height:"56px",background:"white", maxWidth:"364" }}>{error} </Alert>
           <img style={{ height:"55px"}} src={Lord_Voldemort} alt="Lord Voldemort" />
         </div> }
-          <form onSubmit={signUp}>
+          <form onSubmit={signUp} style={{marginTop:"35px"}}>
             <FormControl sx={{ width: '100%', marginBottom: '20px' }}>
               <InputLabel htmlFor="email">Email</InputLabel>
               <Input type="email" id="email" inputRef={emailRef} required />
@@ -87,15 +96,31 @@ const SignUp = () => {
               <InputLabel htmlFor="password-confirm">Password Confirmation</InputLabel>
               <Input type="password" id="password-confirm" inputRef={passwordConfirmRef} required />
             </FormControl>
-            <Button disabled={loading} variant="contained" type="submit" sx={{ width: '100%', marginTop: '20px', borderRadius:"20px" }}>
+            <Button
+              variant="contained"
+              type="submit"
+              sx={{
+                width: '100%',
+                marginBottom: '40px',
+                height: '45px',
+                borderRadius: '18px',
+                background: '#7D1702', 
+                color: 'white',
+                marginTop:"20px",
+                '&:hover': {
+                  background: '#6D1402',
+                },
+              }}
+            >
               Registed for the World of Quidditch!
             </Button>
           </form>
         </CardContent>
         <div className="w-100 text-center mt-2">
-          Are you returning wizard? <MuiLink component={Link} to="/login">Open the Portkey!</MuiLink>
+          Are you returning wizard? <MuiLink component={Link} to="/login" style={{ color: 'white' }}>Open the Portkey!</MuiLink>
         </div>
       </Card>
+      </ThemeProvider>
     </div>
   );
 };

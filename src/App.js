@@ -10,15 +10,18 @@ import Dashboard from './components/Dashboard';
 import { Navigate } from 'react-router-dom';
 import AdminLogin from './components/Admin/AdminLogin';
 import AdminRegister from './components/Admin/AdminRegister';
+import LandingPage from './components/LandingPage';
 
 
 function App() {
   const isAuth = Boolean(useSelector(state => state.token));
+  
     return (
       <div style={{ background: 'linear-gradient(#333333, #000000)', height: '100vh' }}>
         <Router>
           <Routes>
-            <Route path="/" element={isAuth? <Dashboard />: <Navigate to="/login" /> } />
+            <Route path="/" element={isAuth? <Dashboard /> : <LandingPage />} />
+            <Route path="/dashboard" element={isAuth? <Dashboard />: <Navigate to="/login" /> } />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/forgotpassword" element={<ForgotPassword />} />
