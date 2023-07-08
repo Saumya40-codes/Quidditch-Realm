@@ -54,7 +54,7 @@ export default function Login() {
         dispatch(setAdminLogin({ user: response.data.isUser, token: response.data.token, isAdmin: response.data.isAdmin }));
         toast.success('Unlocking the Chamber...', { id: loadingToastId, autoClose: 3000 });
         setTimeout(() => {
-          navigate('/dashboard');
+          navigate('/admin');
         }, 4000);
       }
     } catch (error) {

@@ -9,7 +9,7 @@ import {Tooltip} from '@mui/material';
 
 const LandingPage = () => {
   return (
-    <div style={{ backgroundImage: `url(${landing})`, backgroundRepeat: "no-repeat", backgroundSize: "cover", position: "relative", width: "100%", height: "100%" }}>
+    <div style={{ backgroundImage: `url(${landing})`, backgroundRepeat: "no-repeat", backgroundSize: "cover", position: "relative", width: "100%", height: "100vh" }}>
       <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
         <Header text="Quidditch Realm" />
       </div>

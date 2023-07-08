@@ -30,7 +30,7 @@ function App() {
           </Routes>
           <Routes>
             <Route path="/add/event" element={<Stepper />} />
-            <Route path="/admin" element={isAuth ? <AdminDashboard />: <Navigate to="/admin/login" />} />
+            <Route path="/admin" element={<AdminDashboard /> } />
             <Route path="/admin/login" element={<AdminLogin />} />
             <Route path="/admin/register" element={<AdminRegister />} />
           </Routes>

@@ -7,7 +7,10 @@ import Button from '@mui/material/Button';
 import { useState } from 'react';
 import Typography from '@mui/material/Typography';
 import EventDetails from './EventDetails';
-const steps = ['Event Details', 'Team Details', 'About Registration'];
+import TeamDetails from './TeamDetails';
+import AboutRegister from './AboutRegister';
+
+const steps = ['Event Details', 'Team Details', 'Additionals'];
 
 export default function HorizontalLinearStepper() {
   const [activeStep, setActiveStep] = useState(0);
@@ -23,6 +26,7 @@ export default function HorizontalLinearStepper() {
   const handleFormSubmit = (e) => {
     e.preventDefault();
     setFormData(formchanged);
+    console.log(formData);
   }
 
   const isStepSkipped = (step) => {
@@ -46,6 +50,7 @@ export default function HorizontalLinearStepper() {
 
   const handleReset = () => {
     setActiveStep(0);
+    setFormChanged({});
   };
 
   return (
@@ -66,19 +71,29 @@ export default function HorizontalLinearStepper() {
       </Stepper>
       {activeStep === steps.length ? (
         <React.Fragment>
-          <Typography sx={{ mt: 2, mb: 1 }}>
-            All steps completed - you&apos;re finished
-          </Typography>
-          <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-            <Box sx={{ flex: '1 1 auto' }} />
-            <Button onClick={handleReset}>Reset</Button>
-          </Box>
+        <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
+        <Button
+          color="inherit"
+          disabled={activeStep === 0}
+          onClick={handleBack}
+          sx={{ position: 'fixed', bottom: '16px', left: '16px' }}
+        >
+              Back
+            </Button>
+        </Box>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection:"column"}}>
+        <Typography sx={{ mt: 2, mb: 1 }}>
+          All steps completed - want to add this event?
+        </Typography>
+        <Button onClick={handleFormSubmit}>Submit</Button>
+        <Button onClick={handleReset}>Reset</Button>
+        </div>
         </React.Fragment>
       ) : (
         <React.Fragment>
-        {activeStep === 0 && <EventDetails handleFormChange={handleFormChange} /> }
-      {activeStep === 1 && `Step ${activeStep + 1}: Team Details`}
-      {activeStep === 2 && `Step ${activeStep + 1}: About Registration`}
+        {activeStep === 0 && <EventDetails handleFormChange={handleFormChange} formchanged={formchanged} /> }
+      {activeStep === 1 && <TeamDetails    handleFormChange={handleFormChange} formchanged={formchanged} /> }
+      {activeStep === 2 && <AboutRegister handleFormChange={handleFormChange}  formchanged={formchanged} /> }
           <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
             <Button
               color="inherit"
