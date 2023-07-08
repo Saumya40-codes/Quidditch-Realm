@@ -2,12 +2,14 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Button, Avatar } from '@mui/material';
 import { useDispatch } from 'react-redux';
-import { setLogout } from '../state';
+import { setLogout } from '../../state';
 import { useNavigate } from 'react-router-dom';
 import { Badge } from '@mui/material';
-import badge from '../assets/badge.png';
+import badge from '../../assets/badge.png';
 import { styled } from '@mui/material/styles';
 import { Tooltip } from '@mui/material';
+import { Link } from 'react-router-dom';
+import Stepper from './AddEvent/Stepper';
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   '& .MuiBadge-badge': {
@@ -41,15 +43,15 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
   },
 }));
 
-const Dashboard = () => {
+const AdminDashboard = () => {
   const user = useSelector((state) => state.user);
   const name = user ? user.username : '';
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const logout = () => {
-    dispatch(setLogout());  
-      navigate('/login');
+    dispatch(setLogout());
+    navigate('/admin/login');
   };
 
   return (
@@ -67,6 +69,11 @@ const Dashboard = () => {
         </Tooltip>
         </StyledBadge>
       </div>
+      <Button type='contained'>
+        <Link to="/add/event" style={{ textDecoration: "none" }}>
+      Event Enchanter
+      </Link>
+      </Button>
       <div style={{ position: 'absolute', bottom: 0, right: 0 }}>
         <Button onClick={logout}>Logout</Button>
       </div>
@@ -74,4 +81,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default AdminDashboard;
