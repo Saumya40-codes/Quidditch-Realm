@@ -69,8 +69,17 @@ export default function Login() {
     <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: '100vh', backgroundImage: `url(${darkLogin})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }}>
     <ThemeProvider theme={theme}>
       <ToastContainer />
-      <h2 className="text-center mb-4" style={{ fontFamily: "'Dancing Script', cursive", fontSize: '2.5rem', fontWeight: 'bold' }}>Accio Account!</h2>
-      <p className='text-center mb-4' style={{ maxWidth: '430px', fontSize: '1.2rem', fontWeight: '400' }}>Prepare to be spellbound by the enchanting world of Quidditch. Are you ready for the magic? Join now and embark on a magical journey!</p>
+      <h2
+          className="text-center mb-4"
+          style={{
+            fontFamily: "'Dancing Script', cursive",
+            fontSize: '2.5rem',
+            fontWeight: 'bold',
+            color: 'white',
+          }}
+        >
+          Accio Account!
+        </h2>
       <Card style={{ height: '490px', padding: '20px', borderRadius: '15px', maxWidth: '500px', boxShadow: '6px 6px 9px 12px rgba(0,0,0,0.6)', background: 'transparent' }}>
       {error && 
       <div style={{display:"grid",gridTemplateColumns:"auto auto", maxWidth:"480px", columnGap:"96px", background:"white", height:"56px", boxShadow:"6px 6px 6px 6px rgba(0,0,0,0.4)"}}>
@@ -105,7 +114,7 @@ export default function Login() {
           </Button>
         </form>
         <div className="w-100 text-center mt-3" style={{ marginBottom: '10px' }}>
-          <MuiLink component={Link} to="/forgotpassword" style={{color:"white"}}>
+          <MuiLink component={Link} to="/admin/forgotpassword" style={{color:"white"}}>
             Forgetful Charm?
           </MuiLink>
         </div>

@@ -71,7 +71,15 @@ const SignUp = () => {
     <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: '100vh', backgroundImage: `url(${darkLogin})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }}>
     <ThemeProvider theme={theme}>
       <ToastContainer />
-      <h2 className="text-center mb-4">SignUp</h2>
+      <h2
+          className="text-center mb-4"
+          style={{
+            fontFamily: "'Dancing Script', cursive",
+            fontSize: '2.5rem',
+            fontWeight: 'bold',
+            color: 'white',
+          }}
+        >Begin your Quidditch Quest</h2>
       <Card style={{ maxWidth: "510px", background: "transparent", boxShadow: "9px 6px 6px 12px rgba(0,0,0,0.5)", borderRadius: "20px", height:"520px" }}>
         <CardContent>
         {error && 
