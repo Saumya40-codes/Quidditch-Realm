@@ -9,6 +9,10 @@ import Typography from '@mui/material/Typography';
 import EventDetails from './EventDetails';
 import TeamDetails from './TeamDetails';
 import AboutRegister from './AboutRegister';
+import  Axios  from 'axios';
+import { toast, ToastContainer } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
+import { set } from 'mongoose';
 
 const steps = ['Event Details', 'Team Details', 'Additionals'];
 
@@ -17,17 +21,27 @@ export default function HorizontalLinearStepper() {
   const [skipped, setSkipped] = useState(new Set());
   const [formData, setFormData] = useState({});
   const [formchanged, setFormChanged] = useState({});
+  const navigate = useNavigate();
 
   const handleFormChange = (name,value) => {
     setFormChanged({...formchanged, [name]: value});
   }
-  console.log(formchanged)
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
-    setFormData(formchanged);
-    console.log(formData);
-  }
+    console.log(formchanged);
+    Axios.post('http://localhost:5000/events/add', formchanged)
+    .then((res)=>{
+      setFormChanged({});
+      toast.success('Event Added Successfully', { autoClose: 3000 });
+      setTimeout(() => {
+        navigate('/admin');
+    },2000)
+  })
+    .catch((err)=>{
+      toast.error('Event Addition Failed', { autoClose: 3000 });
+    })
+}
 
   const isStepSkipped = (step) => {
     return skipped.has(step);
@@ -55,6 +69,7 @@ export default function HorizontalLinearStepper() {
 
   return (
     <Box sx={{ width: '100%' }}>
+    <ToastContainer />
       <Stepper activeStep={activeStep}>
         {steps.map((label, index) => {
           const stepProps = {};

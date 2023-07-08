@@ -31,7 +31,7 @@ const EventDetails = ({handleFormChange, formchanged}) => {
                         </FormControl>
                         <FormControl>
                         <h4 style={{marginTop:"40px"}}>Date & Time</h4>
-                        <TextField id="date" type="date" variant="filled" onChange={(e) => handleFormChange('date', e.target.value)} /> <TextField id="time" type="time" variant="filled" style={{marginBottom:"20px"}} onChange={(e) => handleFormChange('time', e.target.value)} value={date} />
+                        <TextField id="date" type="date" variant="filled" onChange={(e) => handleFormChange('date', e.target.value)} value={date} /> <TextField id="time" type="time" variant="filled" style={{marginBottom:"20px"}} onChange={(e) => handleFormChange('time', e.target.value)} value={time} />
                         </FormControl>
                     </FormGroup>
         </CardContent>
