@@ -14,6 +14,7 @@ import LandingPage from './components/LandingPage';
 import AdminDashboard from './components/Admin/AdminDashboard';
 import Stepper from './components/Admin/AddEvent/Stepper';
 import AdminForgotPassword from './components/Admin/AdminForgotPassword';
+import Schedule from './components/Schedule';
 
 function App() {
   const isAuth = Boolean(useSelector(state => state.token));
@@ -28,6 +29,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/forgotpassword" element={<ForgotPassword />} />
+            <Route path="/schedule" element={<Schedule />} />
           </Routes>
           <Routes>
             <Route path="/add/event" element={<Stepper />} />
