@@ -18,20 +18,20 @@ const EventDetails = ({handleFormChange, formchanged}) => {
                     <h2 className="text-center mb-4">Add Event</h2>
                     <FormGroup>
                         <FormControl>
-                        <TextField id="outlined-search" label="Event title" type="search" onChange={(e) => handleFormChange("title",e.target.value)} value={title}/>
+                        <TextField id="outlined-search" label="Event title" type="search" onChange={(e) => handleFormChange("title",e.target.value)} value={title}  required/>
                         </FormControl>
                         <FormControl>
-                        <TextField id="outlined-search" label="Description" type="search" style={{marginTop:"40px"}} onChange={(e) => handleFormChange("description",e.target.value)} value={description} />
+                        <TextField id="outlined-search" label="Description" type="search" style={{marginTop:"40px"}} onChange={(e) => handleFormChange("description",e.target.value)} value={description} required />
                         </FormControl>
                         <FormControl>
-                        <TextField id="outlined-search" label="Venue" type="search" style={{marginTop:"40px"}} onChange={(e) => handleFormChange("venue",e.target.value)} value={venue} />
+                        <TextField id="outlined-search" label="Venue" type="search" style={{marginTop:"40px"}} onChange={(e) => handleFormChange("venue",e.target.value)} value={venue} required  />
                         </FormControl>
                         <FormControl>
-                        <TextField id="outlined-search" label="Venue Size" type="number" style={{marginTop:"40px"}} onChange={(e) => handleFormChange("venuesize",e.target.value)} value={venuesize} />
+                        <TextField id="outlined-search" label="Venue Size" type="number" style={{marginTop:"40px"}} onChange={(e) => handleFormChange("venuesize",e.target.value)} value={venuesize} required/>
                         </FormControl>
                         <FormControl>
                         <h4 style={{marginTop:"40px"}}>Date & Time</h4>
-                        <TextField id="date" type="date" variant="filled" onChange={(e) => handleFormChange('date', e.target.value)} value={date} /> <TextField id="time" type="time" variant="filled" style={{marginBottom:"20px"}} onChange={(e) => handleFormChange('time', e.target.value)} value={time} />
+                        <TextField id="date" type="date" variant="filled" onChange={(e) => handleFormChange('date', e.target.value)} value={date} required /> <TextField id="time" type="time" variant="filled" style={{marginBottom:"20px"}} onChange={(e) => handleFormChange('time', e.target.value)} value={time} required />
                         </FormControl>
                     </FormGroup>
         </CardContent>

@@ -15,7 +15,7 @@ const AboutRegister = ({ handleFormChange, formchanged }) => {
                     <h2 className="text-center mb-4">About Register</h2>
                     <FormGroup>
                         <FormControl>
-                            <TextField id="date" type="date" variant="filled" onChange={(e) => handleFormChange('deadline', e.target.value)} value={deadline} />
+                            <TextField id="date" type="date" variant="filled" onChange={(e) => handleFormChange('deadline', e.target.value)} value={deadline} required/>
                         </FormControl>
                         <FormControl>
                             <TextField id="outlined-search" label="Rules and regulation(if any)" type="search" style={{ marginTop: "40px" }} onChange={(e) => handleFormChange('rules', e.target.value)} value={rules} />

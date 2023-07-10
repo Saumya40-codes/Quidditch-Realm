@@ -49,6 +49,7 @@ const TeamDetails = ({ handleFormChange, formchanged }) => {
               type="search"
               onChange={(e) => handleFormChange('format', e.target.value)}
               value={format}
+              required
             />
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
               {team1logo && (
@@ -73,6 +74,7 @@ const TeamDetails = ({ handleFormChange, formchanged }) => {
                 style={{ marginTop: '40px', width: '560px' }}
                 onChange={(e) => handleFormChange('team1', e.target.value)}
                 value={team1}
+                required
               />
 
               <TextField
@@ -82,6 +84,7 @@ const TeamDetails = ({ handleFormChange, formchanged }) => {
                 style={{ marginTop: '40px', width: '560px' }}
                 onChange={(e) => handleFormChange('team2', e.target.value)}
                 value={team2}
+                required
               />
             </div>
 
@@ -90,14 +93,14 @@ const TeamDetails = ({ handleFormChange, formchanged }) => {
                 <h3 style={{ textDecoration: 'none', fontWeight: '100', color: 'grey', fontSize: '20px' }}>
                   Add/Update team1 logo
                 </h3>
-                <Input type="file" id="file1" onChange={handleFileChange1} style={{ paddingRight: '250px' }} />
+                <Input type="file" id="file1" onChange={handleFileChange1} style={{ paddingRight: '250px' }} required/>
               </FormControl>
 
               <FormControl>
                 <h3 style={{ textDecoration: 'none', fontWeight: '100', color: 'grey', fontSize: '20px' }}>
                   Add/Update team2 logo
                 </h3>
-                <Input type="file" id="file2" onChange={handleFileChange2} style={{ paddingRight: '250px' }} />
+                <Input type="file" id="file2" onChange={handleFileChange2} style={{ paddingRight: '250px' }} required/>
               </FormControl>
             </div>
           </FormGroup>

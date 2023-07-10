@@ -8,9 +8,12 @@ import { faClock } from '@fortawesome/free-solid-svg-icons';
 import {Button} from '@mui/material';
 import state from '../state';
 import {  useSelector } from 'react-redux/es/hooks/useSelector';
+import { Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 
 const Schedule = () => {
   const [events, setEvents] = useState([]);
+  const [deleteConfirmationOpen, setDeleteConfirmationOpen] = useState(false);
+  const [eventToDelete, setEventToDelete] = useState(null);
   const isAdmin = Boolean(useSelector(state => state.isAdmin));
 
   const getEvents = async () => {
@@ -21,15 +24,6 @@ const Schedule = () => {
       console.log(error);
     }
   };
-
-  const delEvents = async (id) => {
-    try {
-        const res = await Axios.delete('http://localhost:5000/events/delete/'+id);
-        setEvents(res.data)
-        } catch (error) {
-        console.log(error);
-        }
-    };
 
   const dateTime = (date, time) => {
     const eventDate = new Date(date);
@@ -57,6 +51,27 @@ const Schedule = () => {
   useEffect(() => {
     getEvents();
   }, []);
+
+
+  const handleDeleteConfirmationOpen = (event) => {
+    setEventToDelete(event);
+    setDeleteConfirmationOpen(true);
+  };
+
+  const handleDeleteConfirmationClose = () => {
+    setDeleteConfirmationOpen(false);
+    setEventToDelete(null);
+  };
+
+  const handleDeleteEvent = async () => {
+    try {
+      await Axios.delete(`http://localhost:5000/events/delete/${eventToDelete._id}`);
+      getEvents();
+      handleDeleteConfirmationClose();
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
@@ -140,6 +155,7 @@ const Schedule = () => {
                 <FontAwesomeIcon
                   icon={faLocationDot}
                   style={{ marginRight: '8px', color: '#555' }}
+                  flip
                 />
                 <p
                   style={{
@@ -156,6 +172,7 @@ const Schedule = () => {
                 <FontAwesomeIcon
                   icon={faClock}
                   style={{ marginRight: '8px', color: '#555' }}
+                  spin
                 />
                 <p
                   style={{
@@ -216,7 +233,7 @@ const Schedule = () => {
                             cursor: 'pointer',
                             marginLeft: '10px',
                         }}
-                        onClick={() => delEvents(event._id)}
+                        onClick={() => handleDeleteConfirmationOpen(event)}
                     >
                         Delete
                     </Button>
@@ -225,6 +242,18 @@ const Schedule = () => {
             }
         </Card>
       ))}
+      <Dialog open={deleteConfirmationOpen} onClose={handleDeleteConfirmationClose}>
+        <DialogTitle>Delete Confirmation</DialogTitle>
+        <DialogContent>
+          <p>Are you sure you want to delete this event?</p>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleDeleteConfirmationClose}>Cancel</Button>
+          <Button onClick={handleDeleteEvent} autoFocus>
+            Delete
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 };
