@@ -10,8 +10,8 @@ import { useDispatch } from 'react-redux';
 import { setAdminLogin } from '../../state';
 import { useNavigate } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
-import e from 'cors';
 import Lord_Voldemort from '../../assets/Lord_Voldemort.jpg';
+import tenor from '../../assets/tenor.gif';
 
 const theme = createTheme({
   palette: {
@@ -38,27 +38,29 @@ export default function Login() {
     setError('');
 
     try {
-      let loadingToastId = toast.info('Unraveling Enchantments...', { autoClose: 1000 });
+      let loadingToastId = toast.info(
+        <div>
+          Unraveling Enchantments...
+          <img src={tenor} alt="Unraveling Enchantments" style={{width:"30px", height:"20px"}} />
+        </div>,
+        { autoClose: 1900 }
+      );
       const response = await Axios.post('http://localhost:5000/auth/admin/login', {
         email: emailRef.current.value,
         password: passwordRef.current.value,
       });
       
       if (error.message) {
-        toast.success('Login successful', { id: loadingToastId, autoClose: 3000 });
-        setError("Username or password didn't match");
-        setError(response.data.error);
         console.log(response.data.error);
-        loadingToastId = toast.update(loadingToastId, { render: 'Lets Blog It', type: 'success', isLoading: false, autoClose: 1000 });
       } else {
         dispatch(setAdminLogin({ user: response.data.isUser, token: response.data.token, isAdmin: response.data.isAdmin }));
-        toast.success('Unlocking the Chamber...', { id: loadingToastId, autoClose: 3000 });
+        toast.success('Unlocking the Chamber...', { id: loadingToastId, autoClose: 2000 });
         setTimeout(() => {
           navigate('/admin');
-        }, 4000);
+        }, 2000);
       }
     } catch (error) {
-      toast.error('Spell misfired!', {autoClose: 3000 })
+      toast.error('Spell misfired!', {autoClose: 2000 })
       setError("Username or password didn't match");
     }
 
