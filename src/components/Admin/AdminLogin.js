@@ -12,6 +12,8 @@ import { useNavigate } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import Lord_Voldemort from '../../assets/Lord_Voldemort.jpg';
 import tenor from '../../assets/tenor.gif';
+import { faBroomBall } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const theme = createTheme({
   palette: {
@@ -54,7 +56,13 @@ export default function Login() {
         console.log(response.data.error);
       } else {
         dispatch(setAdminLogin({ user: response.data.isUser, token: response.data.token, isAdmin: response.data.isAdmin }));
-        toast.success('Unlocking the Chamber...', { id: loadingToastId, autoClose: 2000 });
+        toast.success(
+          <div>
+          'Unlocking the Chamber...'
+          <FontAwesomeIcon icon={faBroomBall} flip />
+          </div>, 
+          { id: loadingToastId, autoClose: 2000 
+          });
         setTimeout(() => {
           navigate('/admin');
         }, 2000);

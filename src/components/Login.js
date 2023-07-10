@@ -11,6 +11,8 @@ import DarkLoginBackground from '../assets/darkLogin.jpg';
 import { Link } from 'react-router-dom';
 import Axios from 'axios';
 import tenor from '../assets/tenor.gif';
+import { faBroomBall } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const theme = createTheme({
   palette: {
@@ -52,7 +54,13 @@ export default function Login() {
         console.log(response.data.error);     
       } else {
         dispatch(setLogin({ user: response.data.user, token: response.data.token }));
-        toast.success('Unlocking the Chamber...', { id: loadingToastId, autoClose: 2000 });
+        toast.success(
+          <div>
+          'Unlocking the Chamber...'
+          <FontAwesomeIcon icon={faBroomBall} flip />
+          </div>, 
+          { id: loadingToastId, autoClose: 2000 
+          });
         setTimeout(() => {
           navigate('/dashboard');
         }, 2000);

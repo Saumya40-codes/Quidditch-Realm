@@ -9,12 +9,15 @@ import {Button} from '@mui/material';
 import state from '../state';
 import {  useSelector } from 'react-redux/es/hooks/useSelector';
 import { Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
+import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Schedule = () => {
   const [events, setEvents] = useState([]);
   const [deleteConfirmationOpen, setDeleteConfirmationOpen] = useState(false);
   const [eventToDelete, setEventToDelete] = useState(null);
   const isAdmin = Boolean(useSelector(state => state.isAdmin));
+  const navigate = useNavigate();
 
   const getEvents = async () => {
     try {
@@ -220,6 +223,7 @@ const Schedule = () => {
                             cursor: 'pointer',
                             marginLeft: '10px',
                         }}
+                        onClick={()=>navigate(`/add/event/${event._id}`)}
                     >
                         Edit
                     </Button>

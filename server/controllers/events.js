@@ -35,4 +35,26 @@ const deleteEvent = async (req, res) => {
     }
 }
 
-module.exports = {addEvent, getEvents, deleteEvent};
+const getEvent= async(req,res) =>{
+    try{
+        const {id} = req.params;
+        const event = await Event.findById(id);
+        res.status(200).json(event);
+    }catch(error){
+        res.status(500).json({message: "Something went wrong"});
+    }
+}
+
+const updateEvents = async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { date, deadline, description, format, rules, team1, team1logo, team2, team2logo, time, title, venue, venuesize } = req.body;
+      const updateEvent = await Event.findByIdAndUpdate(id, { date, deadline, description, format, rules, team1, team1logo, team2, team2logo, time, title, venue, venuesize }, { new: true });
+      res.status(200).json(updateEvent);
+    } catch (error) {
+      res.status(500).json({ message: "Something went wrong" });
+    }
+};
+  
+
+module.exports = {addEvent, getEvents, deleteEvent, getEvent, updateEvents};

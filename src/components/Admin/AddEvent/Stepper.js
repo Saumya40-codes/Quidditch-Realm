@@ -12,19 +12,49 @@ import AboutRegister from './AboutRegister';
 import  Axios  from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
-import { set } from 'mongoose';
+import { useParams } from 'react-router-dom';
 
 const steps = ['Event Details', 'Team Details', 'Additionals'];
 
-export default function HorizontalLinearStepper() {
+export default function HorizontalLinearStepper({mode}) {
   const [activeStep, setActiveStep] = useState(0);
   const [skipped, setSkipped] = useState(new Set());
   const [formData, setFormData] = useState({});
   const [formchanged, setFormChanged] = useState({});
+  const [eventId, setEventId] = useState('');
+
+
+  const {id} = useParams();
+
   const navigate = useNavigate();
+
+  //edit func
+  const [eventDetails, setEventDetails] = useState({});
+
+    const getDetails = async () => {
+      Axios.get(`http://localhost:5000/events/get/${id}`)
+    .then((res)=>{
+      setFormChanged(res.data);
+      console.log(formchanged)
+    })
+    .catch((err)=>{
+      console.log(err);
+    })
+  }
+
+
+  React.useEffect(() => {
+    if (mode === 'edit') {
+      getDetails();
+    }
+    console.log(formchanged);
+  }, [mode]);
+  
+
 
   const handleFormChange = (name,value) => {
     setFormChanged({...formchanged, [name]: value});
+    console.log(formchanged);
   }
 
   const handleFormSubmit = async (e) => {
@@ -42,6 +72,19 @@ export default function HorizontalLinearStepper() {
       toast.error('Event Addition Failed', { autoClose: 3000 });
     })
 }
+
+  const handleEdit = async (e) => {
+    e.preventDefault();
+    Axios.put(`http://localhost:5000/events/update/${id}`, formchanged)
+    .then((res)=>{
+      setFormChanged({});
+      toast.success('Event Edited Successfully', { autoClose: 3000 });
+      setTimeout(() => {
+        navigate('/admin');
+    },2000)
+  })
+}
+
 
   const isStepSkipped = (step) => {
     return skipped.has(step);
@@ -100,7 +143,9 @@ export default function HorizontalLinearStepper() {
         <Typography sx={{ mt: 2, mb: 1 }}>
           All steps completed - want to add this event?
         </Typography>
-        <Button onClick={handleFormSubmit}>Submit</Button>
+
+        {mode == 'add' && <Button onClick={handleFormSubmit}>Submit</Button>}
+        {mode === 'edit' && <Button onClick = {handleEdit}>Edit</Button>}
         <Button onClick={handleReset}>Reset</Button>
         </div>
         </React.Fragment>

@@ -32,7 +32,8 @@ function App() {
             <Route path="/schedule" element={<Schedule />} />
           </Routes>
           <Routes>
-            <Route path="/add/event" element={<Stepper />} />
+          <Route path="/add/event" element={<Stepper mode="add" />} />
+          <Route path="/add/event/:id" element={<Stepper mode="edit" />} />
             <Route path="/admin" element={<AdminDashboard /> } />
             <Route path="/admin/login" element={<AdminLogin />} />
             <Route path="/admin/register" element={<AdminRegister />} />
