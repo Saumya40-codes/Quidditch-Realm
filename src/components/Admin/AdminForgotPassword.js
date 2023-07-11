@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 import {ThemeProvider, createTheme} from '@mui/material';
 import 'react-toastify/dist/ReactToastify.css';
 import  Axios  from 'axios';
-import DarkLoginBackground from '../assets/darkLogin.jpg';
+import DarkLoginBackground from '../../assets/darkLogin.jpg';
 
-export default function ForgotPassword() {
+export default function AdminForgotPassword() {
   const emailRef = useRef();
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
@@ -79,11 +79,11 @@ export default function ForgotPassword() {
             </Button>
           </form>
           <div className="w-100 text-center mt-3">
-           Returning Wizard? <Link to="/login" style={{color:"white"}} >Open the Portkey!</Link>
+           Returning Wizard? <Link to="/admin/login" style={{color:"white"}} >Open the Portkey!</Link>
           </div>
         </CardContent>
         <div className="w-100 text-center mt-2">
-        New Here?<Link to="/signup" style={{color:"white"}}>Enter the Magical World</Link>
+        New Here?<Link to="/admin/register" style={{color:"white"}}>Enter the Magical World</Link>
       </div>
       </Card>
     </ThemeProvider>

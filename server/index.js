@@ -1,6 +1,11 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
+const bodyParser = require('body-parser');
+
+// Increase the payload limit
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
 const {register} = require('./controllers/auth.js');
 const { adminRegister } = require('./controllers/auth.js');
@@ -128,3 +133,9 @@ app.post("/reset-password/:id/:token", async (req, res) => {
     res.status(500).json({ message: "Something went wrong" });
   }
 });
+
+
+// events part
+
+const eventRoutes = require('./routes/event.js');
+app.use('/events',eventRoutes)

@@ -10,8 +10,10 @@ import { useDispatch } from 'react-redux';
 import { setAdminLogin } from '../../state';
 import { useNavigate } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
-import e from 'cors';
 import Lord_Voldemort from '../../assets/Lord_Voldemort.jpg';
+import tenor from '../../assets/tenor.gif';
+import { faBroomBall } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const theme = createTheme({
   palette: {
@@ -38,27 +40,35 @@ export default function Login() {
     setError('');
 
     try {
-      let loadingToastId = toast.info('Unraveling Enchantments...', { autoClose: 1000 });
+      let loadingToastId = toast.info(
+        <div>
+          Unraveling Enchantments...
+          <img src={tenor} alt="Unraveling Enchantments" style={{width:"30px", height:"20px"}} />
+        </div>,
+        { autoClose: 1900 }
+      );
       const response = await Axios.post('http://localhost:5000/auth/admin/login', {
         email: emailRef.current.value,
         password: passwordRef.current.value,
       });
       
       if (error.message) {
-        toast.success('Login successful', { id: loadingToastId, autoClose: 3000 });
-        setError("Username or password didn't match");
-        setError(response.data.error);
         console.log(response.data.error);
-        loadingToastId = toast.update(loadingToastId, { render: 'Lets Blog It', type: 'success', isLoading: false, autoClose: 1000 });
       } else {
         dispatch(setAdminLogin({ user: response.data.isUser, token: response.data.token, isAdmin: response.data.isAdmin }));
-        toast.success('Unlocking the Chamber...', { id: loadingToastId, autoClose: 3000 });
+        toast.success(
+          <div>
+          'Unlocking the Chamber...'
+          <FontAwesomeIcon icon={faBroomBall} flip />
+          </div>, 
+          { id: loadingToastId, autoClose: 2000 
+          });
         setTimeout(() => {
-          navigate('/dashboard');
-        }, 4000);
+          navigate('/admin');
+        }, 2000);
       }
     } catch (error) {
-      toast.error('Spell misfired!', {autoClose: 3000 })
+      toast.error('Spell misfired!', {autoClose: 2000 })
       setError("Username or password didn't match");
     }
 
@@ -69,8 +79,17 @@ export default function Login() {
     <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: '100vh', backgroundImage: `url(${darkLogin})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }}>
     <ThemeProvider theme={theme}>
       <ToastContainer />
-      <h2 className="text-center mb-4" style={{ fontFamily: "'Dancing Script', cursive", fontSize: '2.5rem', fontWeight: 'bold' }}>Accio Account!</h2>
-      <p className='text-center mb-4' style={{ maxWidth: '430px', fontSize: '1.2rem', fontWeight: '400' }}>Prepare to be spellbound by the enchanting world of Quidditch. Are you ready for the magic? Join now and embark on a magical journey!</p>
+      <h2
+          className="text-center mb-4"
+          style={{
+            fontFamily: "'Dancing Script', cursive",
+            fontSize: '2.5rem',
+            fontWeight: 'bold',
+            color: 'white',
+          }}
+        >
+          Accio Account!
+        </h2>
       <Card style={{ height: '490px', padding: '20px', borderRadius: '15px', maxWidth: '500px', boxShadow: '6px 6px 9px 12px rgba(0,0,0,0.6)', background: 'transparent' }}>
       {error && 
       <div style={{display:"grid",gridTemplateColumns:"auto auto", maxWidth:"480px", columnGap:"96px", background:"white", height:"56px", boxShadow:"6px 6px 6px 6px rgba(0,0,0,0.4)"}}>
@@ -105,7 +124,7 @@ export default function Login() {
           </Button>
         </form>
         <div className="w-100 text-center mt-3" style={{ marginBottom: '10px' }}>
-          <MuiLink component={Link} to="/forgotpassword" style={{color:"white"}}>
+          <MuiLink component={Link} to="/admin/forgotpassword" style={{color:"white"}}>
             Forgetful Charm?
           </MuiLink>
         </div>

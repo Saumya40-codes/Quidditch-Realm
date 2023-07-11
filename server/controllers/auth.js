@@ -81,6 +81,7 @@ const adminLogin = async (req, res) => {
     );
     res.status(200).json({ token, isUser, isAdmin: isUser.isAdmin });
   } catch (error) {
+    console.log(error);
     res.status(500).json({ message: "Something went wrong" });
   }
 };

@@ -10,6 +10,7 @@ import darkLogin from '../assets/darkLogin.jpg';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Lord_Voldemort from '../assets/Lord_Voldemort.jpg';
+import tenor from '../assets/tenor.gif';
 
 const theme = createTheme({
   palette: {
@@ -43,25 +44,31 @@ const SignUp = () => {
     }
 
 
-    let loadingToast = toast.info('Brewing Magic...', { autoClose: 1000 });
+    let loadingToastId = toast.info(
+      <div>
+        Unraveling Enchantments...
+        <img src={tenor} alt="Unraveling Enchantments" style={{width:"30px", height:"20px"}} />
+      </div>,
+      { autoClose: 1900 }
+    );
     try {
     const response = await Axios.post('http://localhost:5000/auth/register', {
       username: usernameRef.current.value,
       email: emailRef.current.value,
       password: passwordRef.current.value,
     });
-      toast.success('Crafting Your Wizard Profile...', { id: loadingToast, autoClose: 3000 });
+      toast.success('Crafting Your Wizard Profile...', { id: loadingToastId, autoClose: 2000 });
       setTimeout(() => {
         navigate('/login');
-        toast.success('One step away, please login with your credentials', { autoClose: 3000 });
-      }, 5000);
+        toast.success('One step away, please login with your credentials', { autoClose: 2000 });
+      }, 2000);
     } catch(error) {
       if(error.message == "Wrong Password" ){
-        toast.error('Spell misfired!', { id: loadingToast, autoClose: 3000 })
+        toast.error('Spell misfired!', { id: loadingToastId, autoClose: 2000 })
         setError("Username or password might already exist");
       }
       else if(error.message == "Username must be atleast 3 characters long"){
-        toast.error('Spell misfired!', { id: loadingToast, autoClose: 3000 })
+        toast.error('Spell misfired!', { id: loadingToastId, autoClose: 2000 })
         setError("Username or password might already exist");
       }
     }
@@ -71,7 +78,15 @@ const SignUp = () => {
     <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: '100vh', backgroundImage: `url(${darkLogin})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }}>
     <ThemeProvider theme={theme}>
       <ToastContainer />
-      <h2 className="text-center mb-4">SignUp</h2>
+      <h2
+          className="text-center mb-4"
+          style={{
+            fontFamily: "'Dancing Script', cursive",
+            fontSize: '2.5rem',
+            fontWeight: 'bold',
+            color: 'white',
+          }}
+        >Begin your Quidditch Quest</h2>
       <Card style={{ maxWidth: "510px", background: "transparent", boxShadow: "9px 6px 6px 12px rgba(0,0,0,0.5)", borderRadius: "20px", height:"520px" }}>
         <CardContent>
         {error && 
