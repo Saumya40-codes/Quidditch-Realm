@@ -39,7 +39,7 @@ const TeamDetails = ({ handleFormChange, formchanged }) => {
 
   return (
     <div>
-      <Card style={{ marginTop: '20px' }}>
+      <Card style={{ marginTop: '40px' }}>
         <CardContent>
           <h2 className="text-center mb-4">Team Details</h2>
           <FormGroup>
@@ -55,13 +55,13 @@ const TeamDetails = ({ handleFormChange, formchanged }) => {
               {team1logo && (
                 <img
                   src={team1logo}
-                  style={{ height: '120px', width: '120px', marginLeft: '250px', marginTop: '10px' }}
+                  style={{ height: '120px', width: '120px', marginLeft: '250px', marginTop: '40px' }}
                 />
               )}
               {team2logo && (
                 <img
                   src={team2logo}
-                  style={{ height: '140px', width: '140px', marginRight: '250px', marginTop: '10px' }}
+                  style={{ height: '140px', width: '140px', marginRight: '250px', marginTop: '40px' }}
                 />
               )}
             </div>
@@ -71,7 +71,7 @@ const TeamDetails = ({ handleFormChange, formchanged }) => {
                 id="team1"
                 label="Team 1"
                 type="search"
-                style={{ marginTop: '40px', width: '560px' }}
+                style={{ marginTop: '60px', width: '560px' }}
                 onChange={(e) => handleFormChange('team1', e.target.value)}
                 value={team1}
                 required
@@ -81,14 +81,14 @@ const TeamDetails = ({ handleFormChange, formchanged }) => {
                 id="team2"
                 label="Team 2"
                 type="search"
-                style={{ marginTop: '40px', width: '560px' }}
+                style={{ marginTop: '60px', width: '560px' }}
                 onChange={(e) => handleFormChange('team2', e.target.value)}
                 value={team2}
                 required
               />
             </div>
 
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '40px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '60px' }}>
               <FormControl>
                 <h3 style={{ textDecoration: 'none', fontWeight: '100', color: 'grey', fontSize: '20px' }}>
                   Add/Update team1 logo

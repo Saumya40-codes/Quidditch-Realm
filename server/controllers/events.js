@@ -23,6 +23,8 @@ const getEvents = async (req, res) => {
     }
 }
 
+// past events here...
+
 const deleteEvent = async (req, res) => {
     try {
         const {id} = req.params;
@@ -54,7 +56,6 @@ const updateEvents = async (req, res) => {
     } catch (error) {
       res.status(500).json({ message: "Something went wrong" });
     }
-};
-  
+};  
 
 module.exports = {addEvent, getEvents, deleteEvent, getEvent, updateEvents};
