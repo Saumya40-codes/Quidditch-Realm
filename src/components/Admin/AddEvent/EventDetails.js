@@ -37,40 +37,37 @@ const EventDetails = ({ handleFormChange, formchanged }) => {
                 required
               />
             </FormControl>
-            <FormControl>
+            <FormControl style={{marginTop:"40px"}}>
               <InputLabel htmlFor="description">Description</InputLabel>
               <Input
                 id="description"
                 type="search"
-                style={{ marginTop: "40px" }}
                 onChange={(e) => handleFormChange("description", e.target.value)}
                 value={description}
                 required
               />
             </FormControl>
-            <FormControl>
+            <FormControl style={{marginTop:"40px"}}>
               <InputLabel htmlFor="venue">Venue</InputLabel>
               <Input
                 id="venue"
                 type="search"
-                style={{ marginTop: "40px" }}
                 onChange={(e) => handleFormChange("venue", e.target.value)}
                 value={venue}
                 required
               />
             </FormControl>
-            <FormControl>
+            <FormControl style={{marginTop:"40px"}}>
               <InputLabel htmlFor="venuesize">Venue Size</InputLabel>
               <Input
                 id="venuesize"
                 type="number"
-                style={{ marginTop: "40px" }}
                 onChange={(e) => handleFormChange("venuesize", e.target.value)}
                 value={venuesize}
                 required
               />
             </FormControl>
-            <FormControl>
+            <FormControl style={{marginTop:"40px"}}>
               <h4 style={{ marginTop: "40px" }}>Date & Time</h4>
               <TextField
                 id="date"

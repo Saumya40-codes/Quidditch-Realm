@@ -58,7 +58,7 @@ export default function Login() {
         dispatch(setAdminLogin({ user: response.data.isUser, token: response.data.token, isAdmin: response.data.isAdmin }));
         toast.success(
           <div>
-          'Unlocking the Chamber...'
+          Unlocking the Chamber...
           <FontAwesomeIcon icon={faBroomBall} flip />
           </div>, 
           { id: loadingToastId, autoClose: 2000 

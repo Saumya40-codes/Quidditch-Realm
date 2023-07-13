@@ -74,6 +74,16 @@ const AdminDashboard = () => {
       Event Enchanter
       </Link>
       </Button>
+      <Button type='contained'>
+        <Link to="/admin/add/team" style={{ textDecoration: "none" }}>
+      Team Enchanter
+      </Link>
+      </Button>
+      <Button type='contained'>
+        <Link to="/schedule" style={{ textDecoration: "none" }}>
+      Schedule Enchanter
+      </Link>
+      </Button>
       <div style={{ position: 'absolute', bottom: 0, right: 0 }}>
         <Button onClick={logout}>Logout</Button>
       </div>

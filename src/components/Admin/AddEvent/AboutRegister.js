@@ -12,13 +12,14 @@ const AboutRegister = ({ handleFormChange, formchanged }) => {
         <div>
             <Card style={{ marginTop: "40px" }}>
                 <CardContent>
-                    <h2 className="text-center mb-4">About Register</h2>
+                    <h2 className="text-center mb-4">Additional</h2>
                     <FormGroup>
                         <FormControl>
+                        <h4 style={{marginTop:"40px"}}>Registration Deadline</h4>
                             <TextField id="date" type="date" variant="filled" onChange={(e) => handleFormChange('deadline', e.target.value)} value={deadline} required/>
                         </FormControl>
                         <FormControl>
-                            <TextField id="outlined-search" label="Rules and regulation(if any)" type="search" style={{ marginTop: "40px" }} onChange={(e) => handleFormChange('rules', e.target.value)} value={rules} />
+                            <TextField id="outlined-search" label="Rules and regulation(if any)" type="search" style={{ marginTop: "60px" }} onChange={(e) => handleFormChange('rules', e.target.value)} value={rules} />
                         </FormControl>
                     </FormGroup>
                 </CardContent>

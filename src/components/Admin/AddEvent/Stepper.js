@@ -159,12 +159,14 @@ export default function HorizontalLinearStepper({mode}) {
               color="inherit"
               disabled={activeStep === 0}
               onClick={handleBack}
-              sx={{ mr: 1 }}
+              sx={{ position: 'fixed', bottom: '16px', left: '16px' }}
             >
               Back
             </Button>
             <Box sx={{ flex: '1 1 auto' }} />
-            <Button onClick={handleNext}>
+            <Button onClick={handleNext}
+            sx={{ position: 'fixed', bottom: '16px', right: '16px' }}
+            >
               {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
             </Button>
           </Box>

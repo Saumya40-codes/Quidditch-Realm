@@ -1,14 +1,18 @@
 const mongoose = require('mongoose');
 
 const eventSchema = mongoose.Schema({
+    comment: {type: String, required: false},
     date: { type: Date, required: true },
     deadline: { type: Date, required: true },
     description: { type: String, required: true },
     format: { type: String, required: true },
+    favorite: { type: Boolean, required: false },
     rules: { type: String, required: false },
     team1: { type: String, required: true },
     team1logo: { type: String, required: true },
+    team1score: { type: Number, required: false },
     team2: { type: String, required: true },
+    team2score: { type: Number, required: false },
     team2logo: { type: String, required: true },
     time: { type: String, required: true },
     title: { type: String, required: true },
@@ -21,4 +25,3 @@ const eventSchema = mongoose.Schema({
 const Event = mongoose.model('Event', eventSchema);
 
 module.exports = Event;
-
