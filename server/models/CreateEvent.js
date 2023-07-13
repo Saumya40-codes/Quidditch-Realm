@@ -7,8 +7,6 @@ const eventSchema = mongoose.Schema({
     description: { type: String, required: true },
     format: { type: String, required: true },
     favorite: { type: Boolean, required: false },
-    interested: { type: Boolean, required: false, default: false },
-    totalInterested: { type: Number, required: false, default: 0 },
     rules: { type: String, required: false },
     team1: { type: String, required: true },
     team1logo: { type: String, required: true },

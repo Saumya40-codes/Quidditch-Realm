@@ -16,6 +16,7 @@ export const appSlice = createSlice({
         setLogin : (state, action) => {
             state.user = action.payload.user;
             state.token = action.payload.token;
+            state.id = action.payload.id;
         },
         setLogout : (state, action) => {
             state.user = null;
@@ -25,6 +26,7 @@ export const appSlice = createSlice({
             state.user = action.payload.user;
             state.isAdmin = action.payload.isAdmin;
             state.token = action.payload.token;
+            state.id = action.payload.id;
         }
     }
 });

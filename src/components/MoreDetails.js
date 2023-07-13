@@ -5,32 +5,46 @@ import { Card, CardContent, Typography, Button, Box } from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBan, faCalendarAlt, faMapMarkerAlt, faPerson, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import Timeline from './Timeline';
-import e from 'cors';
-import { set } from 'mongoose';
+import { useSelector } from 'react-redux';
 
 const MoreDetails = () => {
   const [event, setEvent] = useState({});
   const { id } = useParams();
   const [interest, setInterest] = useState(false);
+  const userId = useSelector(state => state.id);
 
-  const handleInterestChange = (e, state) => {
-    e.preventDefault();
+  const getInterest = async () => {
     try {
-      Axios.put(`http://localhost:5000/events/update/${id}`, {
-        ...event,
-        interested: !event.interested,
-        totalInterested: state === 'yes' ? event.totalInterested + 1 : event.totalInterested - 1,
-      })
-        .then((res)=>{
-      setEvent(res.data);
-      })
+        console.log(userId);
+        const res = await Axios.get(`http://localhost:5000/users/${userId}`);
+        console.log(res.data.interests[id]);
+        setInterest(res.data.interests[id]);
     } catch (error) {
-      console.log(error);
+        console.log(error);
     }
-  };
-  
-  
-  
+    }
+
+    useEffect(() => {
+        getInterest();
+    }, []);
+
+    const handleInterestChange = async (e) => {
+        e.preventDefault();
+        try {
+          const updatedInterest = { [id]: !interest };
+          const res = await Axios.put(`http://localhost:5000/users/update/${userId}`, {
+            interests: updatedInterest,
+          });
+          setInterest(!interest); // Update with the updated value (!interest)
+          console.log(res.data);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      
+      
+      
+      
 
   const dateTime = (date, time) => {
     const eventDate = new Date(date);
@@ -102,8 +116,8 @@ const MoreDetails = () => {
           <Typography variant="h4" component="h1" gutterBottom>
             {event.title}
           </Typography>
-          {event.interested == false ? (
-            <Button variant="contained" color="primary" size="small" sx={{ flex: 1, maxWidth: "150px" }} onClick={(e) => handleInterestChange(e, 'yes')}>
+          {!interest ? (
+            <Button variant="contained" color="primary" size="small" sx={{ flex: 1, maxWidth: "150px" }} onClick={handleInterestChange}>
              I'm Interested
             </Button>
             ) : (
@@ -112,7 +126,7 @@ const MoreDetails = () => {
                     <FontAwesomeIcon icon={faCheckCircle} style={{ marginRight: '5px' }} />
                     Your interest has been noted, we will notify you when the match kicksoff.
                 </Typography>
-                <Button variant="contained" color="primary" size="small" sx={{ flex: 1, maxWidth: "150px", color:'red', marginRight:"14px" }} onClick={(e) => handleInterestChange(e, 'no')}>
+                <Button variant="contained" color="primary" size="small" sx={{ flex: 1, maxWidth: "150px", color:'red', marginRight:"14px" }} onClick={handleInterestChange}>
                 undo
                 </Button>
                 </div>

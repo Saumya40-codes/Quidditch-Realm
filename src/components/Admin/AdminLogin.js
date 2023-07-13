@@ -55,7 +55,7 @@ export default function Login() {
       if (error.message) {
         console.log(response.data.error);
       } else {
-        dispatch(setAdminLogin({ user: response.data.isUser, token: response.data.token, isAdmin: response.data.isAdmin }));
+        dispatch(setAdminLogin({ user: response.data.isUser, token: response.data.token, isAdmin: response.data.isAdmin, id: response.data.userId }));
         toast.success(
           <div>
           Unlocking the Chamber...
