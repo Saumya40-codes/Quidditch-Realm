@@ -23,7 +23,16 @@ const getEvents = async (req, res) => {
     }
 }
 
-// past events here...
+const getPastEvents = async (req, res) => {
+    try {
+        const currentdate = new Date();
+        const events = await Event.find({ date: { $lt: currentdate } }).sort({ date: 1 });
+        res.status(200).json(events);
+    } catch (error) {
+        res.status(500).json({ message: "Something went wrong" });
+    }
+}
+
 
 const deleteEvent = async (req, res) => {
     try {
