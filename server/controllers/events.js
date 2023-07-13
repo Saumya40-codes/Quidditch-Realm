@@ -50,10 +50,12 @@ const getEvent= async(req,res) =>{
 const updateEvents = async (req, res) => {
     try {
       const { id } = req.params;
-      const { date, deadline, description, format, rules, team1, team1logo, team2, team2logo, time, title, venue, venuesize } = req.body;
-      const updateEvent = await Event.findByIdAndUpdate(id, { date, deadline, description, format, rules, team1, team1logo, team2, team2logo, time, title, venue, venuesize }, { new: true });
+      const { date, deadline, description, format, interested,totalInterested, rules, team1, team1logo, team2, team2logo, time, title, venue, venuesize } = req.body;
+      const updateEvent = await Event.findByIdAndUpdate(id, { date, deadline, description, format, interested,totalInterested, rules, team1, team1logo, team2, team2logo, time, title, venue, venuesize }, { new: true });
+
       res.status(200).json(updateEvent);
     } catch (error) {
+        console.log(error);
       res.status(500).json({ message: "Something went wrong" });
     }
 };  

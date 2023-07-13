@@ -16,6 +16,7 @@ import Stepper from './components/Admin/AddEvent/Stepper';
 import AdminForgotPassword from './components/Admin/AdminForgotPassword';
 import Schedule from './components/Schedule';
 import AddTeam from './components/Admin/AddTeam';
+import MoreDetails from './components/MoreDetails';
 
 function App() {
   const isAuth = Boolean(useSelector(state => state.token));
@@ -31,6 +32,7 @@ function App() {
             <Route path="/signup" element={<SignUp />} />
             <Route path="/forgotpassword" element={<ForgotPassword />} />
             <Route path="/schedule" element={<Schedule />} />
+            <Route path="/more-details/:id" element={<MoreDetails />} />
           </Routes>
           <Routes>
           <Route path="/add/event" element={<Stepper mode="add" />} />

@@ -207,7 +207,9 @@ const Schedule = () => {
                 cursor: 'pointer',
               }}
             >
+            <Link to={`/more-details/${event._id}`} style={{ textDecoration: 'none', color: '#555' }}>
               More Details...
+            </Link>
             </p>
             </div>
             {
