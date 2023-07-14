@@ -1,4 +1,4 @@
-const Teams = require('../models/teams');
+const Teams = require('../models/Teams');
 
 
 const addTeam = async (req, res) => {
@@ -23,4 +23,15 @@ const getTeams = async (req, res) => {
     }
 }
 
-module.exports = {addTeam, getTeams};
+const getTeam = async (req, res) => {
+  try {
+    const { name } = req.params;
+    const team = await Teams.findOne({ teamname: name }).select('teammembers');
+    res.status(200).json(team);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
+
+module.exports = {addTeam, getTeams, getTeam};

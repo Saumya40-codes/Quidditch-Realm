@@ -17,7 +17,6 @@ const MoreDetails = () => {
     try {
         console.log(userId);
         const res = await Axios.get(`http://localhost:5000/users/${userId}`);
-        console.log(res.data.interests[id]);
         setInterest(res.data.interests[id]);
     } catch (error) {
         console.log(error);
@@ -36,9 +35,8 @@ const MoreDetails = () => {
             interests: updatedInterest,
           });
           setInterest(!interest); // Update with the updated value (!interest)
-          console.log(res.data);
         } catch (error) {
-          console.log(error);
+            console.log(error);
         }
       };
       

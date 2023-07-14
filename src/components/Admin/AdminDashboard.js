@@ -84,6 +84,11 @@ const AdminDashboard = () => {
       Schedule Enchanter
       </Link>
       </Button>
+      <Button type='contained'>
+        <Link to="/past/events" style={{ textDecoration: "none" }}>
+      Past Events Enchanter
+      </Link>
+      </Button>
       <div style={{ position: 'absolute', bottom: 0, right: 0 }}>
         <Button onClick={logout}>Logout</Button>
       </div>
