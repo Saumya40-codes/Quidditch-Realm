@@ -6,12 +6,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBan, faCalendarAlt, faMapMarkerAlt, faPerson, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import Timeline from './Timeline';
 import { Dialog, DialogActions, DialogContent, DialogTitle, MenuItem } from '@mui/material';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import { set } from 'mongoose';
 
 const PastEventDetails = () => {
   const [event, setEvent] = useState({});
+  const navigate = useNavigate();
   const { id } = useParams();
-  const [team1Score, setTeam1Score] = useState(event.team1score || 0);
-  const [team2Score, setTeam2Score] = useState(event.team2score || 0);
   const [team1Scorer, setTeam1Scorer] = useState('');
 const [team2Scorer, setTeam2Scorer] = useState('');
 
@@ -26,6 +29,28 @@ const [team2Scorer, setTeam2Scorer] = useState('');
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [selectedTeam, setSelectedTeam] = useState('');
 
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+        const res = await Axios.put(`http://localhost:5000/events/updateScore/${id}`, {
+            comment: event.comment,
+            team1score: event.team1score,
+            team1scorer: event.team1scorer,
+            team2score: event.team2score,
+            team2scorer: event.team2scorer,
+        })
+        .then((res) => {
+            toast.success('Scorecard Updated Successfully', { autoClose: 1000 });
+            setTimeout(() => {
+                navigate('/past/events');
+            }, 2000);
+        })
+    } catch (error) {
+        console.log(error);
+    }
+}
+
   const handleDialogOpen = (team) => {
     setSelectedTeam(team);
     setIsDialogOpen(true);
@@ -37,12 +62,30 @@ const [team2Scorer, setTeam2Scorer] = useState('');
   };
 
   const handleTeam1Score = (name, minute) => {
-    setTeam1Scorers([...team1Scorers, { name, minute }]);
+    const pair = { name, minute };
+    const updatedEvent = { ...event, team1scorer: [...event.team1scorer, pair] };
+    setEvent(updatedEvent);
   };
 
   const handleTeam2Score = (name, minute) => {
-    setTeam2Scorers([...team2Scorers, { name, minute }]);
+    const pair = { name, minute };
+    const updatedEvent = { ...event, team2scorer: [...event.team2scorer, pair] };
+    setEvent(updatedEvent);
   };
+
+  const handleTeam1ScorerDeletion = (index) => {
+    const updatedScorers = [...event.team1scorer];
+    updatedScorers.splice(index, 1);
+    const updatedEvent = { ...event, team1scorer: updatedScorers };
+    setEvent(updatedEvent);
+  }
+
+    const handleTeam2ScorerDeletion = (index) => {
+    const updatedScorers = [...event.team2scorer];
+    updatedScorers.splice(index, 1);
+    const updatedEvent = { ...event, team2scorer: updatedScorers };
+    setEvent(updatedEvent);
+    }
 
   const dateTime = (date, time) => {
     const eventDate = new Date(date);
@@ -91,23 +134,23 @@ const [team2Scorer, setTeam2Scorer] = useState('');
 
   const handleTeam1ScoreUpdate = (type) => {
     if (type === 'decrease') {
-      if (team1Score === 0) return;
-      const updatedScore = team1Score - 1;
-      setTeam1Score(updatedScore);
+      if (event.team1score === 0) return;
+      const updatedEvent = { ...event, team1score: event.team1score - 1 };
+      setEvent(updatedEvent);
     } else {
-      const updatedScore = team1Score + 1;
-      setTeam1Score(updatedScore);
+      const updatedEvent = { ...event, team1score: event.team1score + 1 };
+      setEvent(updatedEvent);
     }
   };
 
   const handleTeam2ScoreUpdate = (type) => {
     if (type === 'decrease') {
-      if (team2Score === 0) return;
-      const updatedScore = team2Score - 1;
-      setTeam2Score(updatedScore);
+      if (event.team2score === 0) return;
+      const updatedEvent = { ...event, team2score: event.team2score - 1 };
+        setEvent(updatedEvent);
     } else {
-      const updatedScore = team2Score + 1;
-      setTeam2Score(updatedScore);
+      const updatedEvent = { ...event, team2score: event.team2score + 1 };
+        setEvent(updatedEvent);
     }
   };
 
@@ -157,6 +200,7 @@ const [team2Scorer, setTeam2Scorer] = useState('');
         backgroundImage: 'linear-gradient(135deg, #422b72 0%, #734b6d 100%)',
         padding: '20px',
         width: '100%',
+        minHeight: '100vh',
       }}
     >
       <Card
@@ -176,6 +220,10 @@ const [team2Scorer, setTeam2Scorer] = useState('');
           <Typography variant="body1" component="p" gutterBottom style={{ marginBottom: '40px' }}>
             Format: {event.format}
           </Typography>
+          <Typography variant="body1" component="p" gutterBottom style={{marginBottom:"40px" }}>
+            <FontAwesomeIcon icon={faMapMarkerAlt} style={{ marginRight: '5px'}} />
+            Venue: {event.venue}
+          </Typography>
           <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: '10px', justifyContent: 'center' }}>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
   <img src={event.team1logo} alt="team1logo" style={{ width: '50px', height: '50px', marginRight: '10px' }} />
@@ -188,9 +236,9 @@ const [team2Scorer, setTeam2Scorer] = useState('');
       id="outlined-basic"
       variant="outlined"
       size="small"
-      value={team1Score}
+      value={event.team1score}
       style={{ width: '50px', marginTop: '7px', border: 'none' }}
-      onChange={(e) => setTeam1Score(Number(e.target.value))}
+      onChange={(e) => setEvent({ ...event, team1score: Number(e.target.value) })}
     />
     <Button variant="contained" size="small" onClick={() => handleTeam1ScoreUpdate('increase')} style={{ marginLeft: '30px', marginRight: '30px' }}>
       +1
@@ -213,9 +261,9 @@ const [team2Scorer, setTeam2Scorer] = useState('');
       id="outlined-basic"
       variant="outlined"
       size="small"
-      value={team2Score}
+      value={event.team2score}
       style={{ width: '50px', marginTop: '7px', border: 'none' }}
-      onChange={(e) => setTeam2Score(Number(e.target.value))}
+      onChange={(e) => setEvent({ ...event, team2score: Number(e.target.value) })}
     />
     <Button variant="contained" color="primary" size="small" onClick={() => handleTeam2ScoreUpdate('increase')} style={{ marginLeft: '30px', marginRight: '30px' }}>
       +1
@@ -225,20 +273,34 @@ const [team2Scorer, setTeam2Scorer] = useState('');
 </Box>
         <div style={{display:"flex", justifyContent:"space-between", columnGap:"100px"}}>
         <div style={{marginLeft:"140px"}}>
-    {team1Scorers.map((scorer, index) => (
+        {event.team1scorer && event.team1scorer.length > 0 && (
+  <>
+    {event.team1scorer.map((scorer, index) => (
       <Typography key={index} variant="body1" component="p" gutterBottom>
         <span style={{ marginRight: '10px' }}>{scorer.name}</span>
         <span>{scorer.minute}</span>
+        <span style={{ marginLeft: '10px' }}>
+            <FontAwesomeIcon icon={faXmark} style={{cursor:"pointer"}} onClick={() => handleTeam1ScorerDeletion(index)} />
+        </span>
       </Typography>
     ))}
+  </>
+)}
   </div>
   <div style={{marginRight:"320px"}}>
-    {team2Scorers.map((scorer, index) => (
+  {event.team2scorer && event.team2scorer.length > 0 && (
+  <>
+    {event.team2scorer.map((scorer, index) => (
       <Typography key={index} variant="body1" component="p" gutterBottom>
         <span style={{ marginRight: '10px' }}>{scorer.name}</span>
         <span>{scorer.minute}</span>
+        <span style={{ marginLeft: '10px' }}>
+            <FontAwesomeIcon icon={faXmark} style={{cursor:"pointer"}} onClick={() => handleTeam2ScorerDeletion(index)} />
+        </span>
       </Typography>
     ))}
+  </>
+)}
   </div>
         </div>
 
@@ -256,51 +318,35 @@ const [team2Scorer, setTeam2Scorer] = useState('');
             </Button>
           </Typography>
 
-          <Typography variant="body1" component="p" gutterBottom>
-            <FontAwesomeIcon icon={faMapMarkerAlt} style={{ marginRight: '5px' }} />
-            Venue: {event.venue}
-          </Typography>
-          <Typography variant="body1" component="p" gutterBottom style={{ marginBottom: '40px' }}>
-            <FontAwesomeIcon icon={faPerson} style={{ marginRight: '5px' }} />
-            Maximum Registrants: {event.venuesize}
-          </Typography>
           <Box sx={{ display: 'flex', justifyContent: 'left' }}>
-            <Timeline start={'Registration Started'} deadline={date(event.date)} kickoff={dateTime(event.date, event.time)} />
           </Box>
         </CardContent>
         <Box
           sx={{
             borderTop: '1px solid #ccc',
             display: 'flex',
-            justifyContent: 'space-between',
             alignItems: 'center',
-            padding: '10px',
-            backgroundColor: '#f9f9f9',
-          }}
-        ></Box>
-        <Box
-          sx={{
-            display: 'flex',
             flexDirection: 'column',
             padding: '10px',
             backgroundColor: '#f9f9f9',
           }}
         >
-          <Typography variant="body1" component="p" gutterBottom sx={{ marginBottom: '10px' }}>
-            <FontAwesomeIcon icon={faBan} style={{ marginRight: '5px' }} />
-            Rules:
-          </Typography>
-          <Typography variant="body1" component="p" gutterBottom>
-            {event.rules}
-          </Typography>
-        </Box>
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', padding: '10px' }}>
-          <Button variant="contained" color="primary" size="large" startIcon={<FontAwesomeIcon icon={faCalendarAlt} />} sx={{ marginRight: '10px' }}>
-            Add to Calendar
-          </Button>
-          <Button variant="contained" color="primary" size="large" sx={{ flex: 1 }}>
-            Register
-          </Button>
+    <TextField
+    id="outlined-basic"
+    variant="outlined"
+    size="large"
+    label="Match Comments"
+    multiline
+    rows={4}
+    style={{ width: '100%', marginTop: '17px', marginBottom:"40px"}}
+    onChange={(e) => setEvent({...event, comment: e.target.value})}
+    value={event.comment}
+    />
+    <div style={{display:"block", justifyContent:"center", alignItems:"center"}}>
+    <Button variant="contained" color="primary" size="large" style={{width:"580px"}} onClick={handleSubmit}>
+                Update
+    </Button>
+    </div>
         </Box>
       </Card>
       <Dialog open={isDialogOpen} onClose={handleDialogClose}>
@@ -318,7 +364,7 @@ const [team2Scorer, setTeam2Scorer] = useState('');
       setTeam2Scorer(scorer);
     }
   }}
-  style={{ width: '200px' }}
+  style={{ width: '200px', marginRight:"20px" }}
 >
   {selectedTeam === 'team1'
     ? team1players.map((player, index) => (

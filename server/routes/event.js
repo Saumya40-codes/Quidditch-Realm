@@ -7,6 +7,7 @@ const { deleteEvent } = require('../controllers/events.js');
 const { getEvent } = require('../controllers/events.js');
 const { updateEvents } = require('../controllers/events.js');
 const { getPastEvents } = require('../controllers/events.js');
+const { updateScores } = require('../controllers/events.js');
 
 const router = express.Router();
 
@@ -16,5 +17,6 @@ router.delete('/delete/:id', deleteEvent);
 router.get('/get/:id', getEvent);
 router.put('/update/:id', updateEvents);
 router.get('/past', getPastEvents);
+router.put('/updateScore/:id', updateScores);
 
 module.exports = router;

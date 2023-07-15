@@ -69,4 +69,27 @@ const updateEvents = async (req, res) => {
     }
 };  
 
-module.exports = {addEvent, getEvents, deleteEvent, getEvent, updateEvents, getPastEvents};
+const updateScores = async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { comment, team1score, team1scorer, team2score, team2scorer } = req.body;
+  
+      const event = await Event.findById(id);
+  
+      event.comment = comment;
+      event.team1score = team1score;
+      event.team1scorer = team1scorer;
+      event.team2score = team2score;
+      event.team2scorer = team2scorer;
+  
+      const updatedEvent = await event.save();
+  
+      res.status(200).json(updatedEvent);
+    } catch (error) {
+      res.status(500).json({ message: "Something went wrong" });
+    }
+  };
+  
+
+
+module.exports = {addEvent, getEvents, deleteEvent, getEvent, updateEvents, getPastEvents, updateScores};
