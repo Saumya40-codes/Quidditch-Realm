@@ -1,6 +1,6 @@
 import Axios from 'axios';
 import { useEffect, useState } from 'react';
-import { Card, CardContent } from '@mui/material';
+import { Card, CardContent, Typography } from '@mui/material';
 import defaultvenue from '../assets/defaultvenue.jpeg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
@@ -113,15 +113,17 @@ const PastEvents = () => {
               }}
             >
               <h2
-                className="text-left mb-2"
+                className="text-centre mb-2"
                 style={{
                   fontFamily: 'Harry Potter',
-                  fontSize: '24px',
-                  fontWeight: 'bold',
+                  fontSize: '14px',
                   marginBottom: '8px',
                 }}
               >
-                {event.title}
+              {
+                event.team1score == event.team2score ? <span>{event.team1} ties with {event.team2}</span> :
+                event.team1score > event.team2score ? <span>{event.team1} seals the win against {event.team2}</span> : <span>{event.team2} sealse the win against {event.team1}</span>
+              }
               </h2>
               <h3
                 className="text-center mb-2"
@@ -133,7 +135,8 @@ const PastEvents = () => {
                   marginBottom: '12px',
                 }}
               >
-                {event.team1} vs {event.team2}
+                {`${event.team1}  ${event.team1score? event.team1score : ""} - ${event.team2score? event.team2score : ""}  ${event.team2}`}
+
               </h3>
               <p
                 className="text-center mb-4"
@@ -144,7 +147,12 @@ const PastEvents = () => {
                   marginBottom: '12px',
                 }}
               >
-                {String(event.description).length > 100 ? event.description + '...' : event.description}
+              {
+                event.comment ? (
+                String(event.comment).length > 175 ? String(event.comment).substring(0,175) + '...' : event.comment
+                )
+                : "Match completed tune in later for more details"
+              }
               </p>
               <div
                 style={{
@@ -158,7 +166,6 @@ const PastEvents = () => {
                   <FontAwesomeIcon
                     icon={faLocationDot}
                     style={{ marginRight: '8px', color: '#555' }}
-                    flip
                   />
                   <p
                     style={{
@@ -175,7 +182,6 @@ const PastEvents = () => {
                   <FontAwesomeIcon
                     icon={faClock}
                     style={{ marginRight: '8px', color: '#555' }}
-                    spin
                   />
                   <p
                     style={{
@@ -228,6 +234,20 @@ const PastEvents = () => {
                           onClick={()=>navigate(`/add/event/${event._id}`)}
                       >
                           Edit
+                      </Button>
+                      <Button
+                          variant="contained"
+                          style={{
+                              color: 'white',
+                              fontFamily: 'Harry Potter',
+                              fontSize: '14px',
+                              marginBottom: '0',
+                              cursor: 'pointer',
+                              marginLeft: '10px',
+                          }}
+                          onClick={() => navigate(`/past/event/${event._id}`)}
+                      >
+                        {event.team1score? "Edit Result" : "Add Result"}
                       </Button>
                       <Button
                           variant="contained"

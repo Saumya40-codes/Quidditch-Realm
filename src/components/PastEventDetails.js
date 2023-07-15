@@ -1,17 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
 import { useParams } from 'react-router-dom';
-import { Card, CardContent, Typography, Button, Box, TextField } from '@mui/material';
+import { Card, CardContent, Typography, Button, Box, TextField, ButtonGroup } from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBan, faCalendarAlt, faMapMarkerAlt, faPerson, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+import { faMapMarkerAlt} from '@fortawesome/free-solid-svg-icons';
 import Timeline from './Timeline';
 import { Dialog, DialogActions, DialogContent, DialogTitle, MenuItem } from '@mui/material';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
-import { set } from 'mongoose';
+import 'react-toastify/dist/ReactToastify.css';
+import { useSelector } from 'react-redux';
 
 const PastEventDetails = () => {
+  const isAdmin = Boolean(useSelector(state => state.isAdmin));
+
   const [event, setEvent] = useState({});
   const navigate = useNavigate();
   const { id } = useParams();
@@ -23,8 +26,6 @@ const [team2Scorer, setTeam2Scorer] = useState('');
   const [team1ScorerMinutes, setTeam1ScorerMinutes] = useState([]);
   const [team2players, setTeam2Players] = useState([]);
   const [team2ScorerMinutes, setTeam2ScorerMinutes] = useState([]);
-  const [team1Scorers, setTeam1Scorers] = useState([]);
-  const [team2Scorers, setTeam2Scorers] = useState([]);
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [selectedTeam, setSelectedTeam] = useState('');
@@ -229,20 +230,23 @@ const [team2Scorer, setTeam2Scorer] = useState('');
   <img src={event.team1logo} alt="team1logo" style={{ width: '50px', height: '50px', marginRight: '10px' }} />
   <Typography variant="body1" component="p" gutterBottom sx={{ marginRight: '30px', fontWeight: 'bold', fontSize: '35px' }}>
     {event.team1} -
-    <Button variant="contained" size="small" onClick={() => handleTeam1ScoreUpdate('decrease')} style={{ marginLeft: '30px', marginRight: '30px' }}>
-      -1
-    </Button>
     <TextField
       id="outlined-basic"
       variant="outlined"
       size="small"
       value={event.team1score}
-      style={{ width: '50px', marginTop: '7px', border: 'none' }}
+      style={{ width: '50px', marginTop: '7px', border: 'none', marginLeft: '30px' }}
       onChange={(e) => setEvent({ ...event, team1score: Number(e.target.value) })}
     />
-    <Button variant="contained" size="small" onClick={() => handleTeam1ScoreUpdate('increase')} style={{ marginLeft: '30px', marginRight: '30px' }}>
-      +1
-    </Button>
+    <ButtonGroup
+  disableElevation
+  variant="contained"
+  aria-label="Disabled elevation buttons"
+  style={{ marginLeft: '30px', marginRight: '30px'}}
+>
+  <Button onClick={(e)=>handleTeam1ScoreUpdate('increase')}>+</Button>
+  <Button onClick={(e)=>handleTeam1ScoreUpdate('decrease')}>-</Button>
+</ButtonGroup>
   </Typography>
 </Box>
 
@@ -254,20 +258,23 @@ const [team2Scorer, setTeam2Scorer] = useState('');
   <img src={event.team2logo} alt="team2logo" style={{ width: '50px', height: '50px', marginRight: '10px' }} />
   <Typography variant="body1" component="p" gutterBottom sx={{ marginRight: '30px', fontWeight: 'bold', fontSize: '35px' }}>
     {event.team2} -
-    <Button variant="contained" color="primary" size="small" onClick={() => handleTeam2ScoreUpdate('decrease')} style={{ marginLeft: '30px', marginRight: '30px' }}>
-      -1
-    </Button>
     <TextField
       id="outlined-basic"
       variant="outlined"
       size="small"
       value={event.team2score}
-      style={{ width: '50px', marginTop: '7px', border: 'none' }}
+      style={{ width: '50px', marginTop: '7px', border: 'none', marginLeft: '30px' }}
       onChange={(e) => setEvent({ ...event, team2score: Number(e.target.value) })}
     />
-    <Button variant="contained" color="primary" size="small" onClick={() => handleTeam2ScoreUpdate('increase')} style={{ marginLeft: '30px', marginRight: '30px' }}>
-      +1
-    </Button>
+   <ButtonGroup
+  disableElevation
+  variant="contained"
+  aria-label="Disabled elevation buttons"
+  style={{ marginLeft: '30px', marginRight: '30px'}}
+>
+  <Button onClick={(e)=>handleTeam2ScoreUpdate('increase')}>+</Button>
+  <Button onClick={(e)=>handleTeam2ScoreUpdate('decrease')}>-</Button>
+</ButtonGroup>
   </Typography>
 </Box>
 </Box>
@@ -337,6 +344,7 @@ const [team2Scorer, setTeam2Scorer] = useState('');
     size="large"
     label="Match Comments"
     multiline
+    required
     rows={4}
     style={{ width: '100%', marginTop: '17px', marginBottom:"40px"}}
     onChange={(e) => setEvent({...event, comment: e.target.value})}
