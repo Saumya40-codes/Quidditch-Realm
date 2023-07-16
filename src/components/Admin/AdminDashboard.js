@@ -21,8 +21,11 @@ import RosterIcon from '@mui/icons-material/Group';
 import TicketIcon from '@mui/icons-material/EventSeat';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Button } from '@mui/material';
+import { setLogout } from '../../state';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import Slider from '../Slider'
 
 
 const drawerWidth = 240;
@@ -96,6 +99,8 @@ export default function AdminDashboard() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const user = useSelector((state) => state.user);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -103,6 +108,11 @@ export default function AdminDashboard() {
 
   const handleDrawerClose = () => {
     setOpen(false);
+  };
+
+  const logout = () => {
+    dispatch(setLogout());
+    navigate('/admin/login');
   };
 
   return (
@@ -244,9 +254,10 @@ export default function AdminDashboard() {
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
-        <Typography>
-
-        </Typography>
+        <Slider />
+        <div style={{ position: 'absolute', bottom: 0, right: 0 }}>
+        <Button onClick={logout}>Logout</Button>
+      </div>
       </Box>
     </Box>
   );

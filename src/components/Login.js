@@ -53,7 +53,7 @@ export default function Login() {
       if (error.message) {
         console.log(response.data.error);     
       } else {
-        dispatch(setLogin({ user: response.data.user, token: response.data.token, id: response.data.userId }));
+        dispatch(setLogin({user: response.data.user, token: response.data.token, id: response.data.userId }));
         toast.success(
           <div>
           Unlocking the Chamber...

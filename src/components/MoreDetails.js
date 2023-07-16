@@ -6,6 +6,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBan, faCalendarAlt, faMapMarkerAlt, faPerson, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import Timeline from './Timeline';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const MoreDetails = () => {
   const [event, setEvent] = useState({});
@@ -194,14 +196,17 @@ const MoreDetails = () => {
             {event.rules}
           </Typography>
         </Box>
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', padding: '10px' }}>
-          <Button variant="contained" color="primary" size="large" startIcon={<FontAwesomeIcon icon={faCalendarAlt} />} sx={{ marginRight: '10px' }}>
-            Add to Calendar
-          </Button>
-          <Button variant="contained" color="primary" size="large" sx={{ flex: 1 }}>
-            Register
-          </Button>
-        </Box>
+        <Box sx={{ display: 'grid', gridTemplateColumns:"auto auto", padding: '10px' }}>
+  <Button variant="contained" color="primary" size="large" startIcon={<FontAwesomeIcon icon={faCalendarAlt} />} sx={{ marginRight: '10px', maxWidth:"400px" }}>
+    Add to Calendar
+  </Button>
+    <Link to={`/register/event/${event._id}`} style={{ textDecoration: "none" }}>
+      <Button variant="contained" color="primary" size="large" style={{width:"1090px"}}>
+        Register
+      </Button>
+    </Link>
+</Box>
+
       </Card>
     </Box>
   );

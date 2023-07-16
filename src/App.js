@@ -19,6 +19,7 @@ import AddTeam from './components/Admin/AddTeam';
 import MoreDetails from './components/MoreDetails';
 import PastEvents from './components/PastEvents';
 import PastEventDetails from './components/PastEventDetails';
+import Register from './components/RegisterEvents/Register';
 
 function App() {
   const isAuth = Boolean(useSelector(state => state.token));
@@ -37,6 +38,8 @@ function App() {
             <Route path="/more-details/:id" element={<MoreDetails />} />
             <Route path="/past/events" element={<PastEvents />} />
             <Route path="/past/event/:id" element={<PastEventDetails />} />
+            <Route path="/register/event/:id" element={<Register />} />
+            
           </Routes>
           <Routes>
           <Route path="/add/event" element={<Stepper mode="add" />} />
