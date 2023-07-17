@@ -12,6 +12,7 @@ import { autoPlay } from 'react-swipeable-views-utils';
 import slider1 from '../assets/slider1.jpeg';
 import Axios from 'axios';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
@@ -26,7 +27,6 @@ function SwipeableTextMobileStepper() {
       try {
         const res = await Axios.get('http://localhost:5000/events/past');
         setPastEvents(res.data);
-        console.log(res.data);
       } catch (error) {
         console.log(error);
       }
@@ -37,6 +37,7 @@ function SwipeableTextMobileStepper() {
     }, []);
   
     const events = pastEvents.map((event) => ({
+      id: event._id,
       imgPath: slider1,
       team1score: event.team1score,
       team2score: event.team2score,
@@ -58,89 +59,100 @@ function SwipeableTextMobileStepper() {
       setActiveStep(step);
     };
 
-  return (
-    <Box sx={{ maxWidth: "100%", flexGrow: 1 }}>
-      <Paper
-        square
-        elevation={0}
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          height: 50,
-          pl: 2,
-          bgcolor: 'background.default',
-        }}
-      >
-      </Paper>
-      <AutoPlaySwipeableViews
-        axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-        index={activeStep}
-        onChangeIndex={handleStepChange}
-        enableMouseEvents
-      >
-        {events.map((step, index) => (
-          <div key={step.team1}>
-            {Math.abs(activeStep - index) <= 2 ? (
-                <Box
-  sx={{
-    height: 300,
-    width: '100%',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    overflow: 'hidden',
-  }}
->
-  <Box
-    sx={{
-      backgroundImage: `url(${step.imgPath})`,
-      backgroundSize: "100% 300px",
-      backgroundRepeat: 'no-repeat',
-      backgroundPosition: 'center',
-      height: '100%',
-      width: '100%',
-    }}
-   >
-   <Typography variant="h5" color="black" sx={{ bottom: 10, left: 10, display:"flex", justifyContent:"center" }}>
-        {step.team1} {step.team1score} - {step.team2score} {step.team2}
-    </Typography>
-  </Box>
-</Box>
-            ) : null}
-          </div>
-        ))}
-      </AutoPlaySwipeableViews>
-      <MobileStepper
-        steps={maxSteps}
-        position="static"
-        activeStep={activeStep}
-        nextButton={
-          <Button
-            size="small"
-            onClick={handleNext}
-            disabled={activeStep === maxSteps - 1}
+    return (
+        <Box sx={{ maxWidth: "100%", flexGrow: 1 }}>
+          <Paper
+            square
+            elevation={0}
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              height: 50,
+              pl: 2,
+              bgcolor: 'background.default',
+            }}
           >
-            Next
-            {theme.direction === 'rtl' ? (
-              <KeyboardArrowLeft />
+          </Paper>
+          {events.length > 0 ? (
+          <AutoPlaySwipeableViews
+            axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+            index={activeStep}
+            onChangeIndex={handleStepChange}
+            enableMouseEvents
+          >
+            {events.map((step, index) => (
+              <div key={step.team1}>
+                {Math.abs(activeStep - index) <= 2 ? (
+                  <Box
+                    sx={{
+                      height: 300,
+                      width: '100%',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      overflow: 'hidden',
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        backgroundImage: `url(${step.imgPath})`,
+                        backgroundSize: "100% 300px",
+                        backgroundRepeat: 'no-repeat',
+                        backgroundPosition: 'center',
+                        height: '100%',
+                        width: '100%',
+                      }}
+                    >
+                      <div style={{display:"flex", justifyContent:"center", alignItems:"center", height:"40vh", flexDirection:"column"}}>
+                      <Typography variant="h5" color="black" sx={{ bottom: 10, left: 10, fontSize: "24px", fontWeight: "bold"}}>
+                        {step.team1} {step.team1score} - {step.team2score} {step.team2}
+                        <Link style={{display:"block",fontSize:"20px", color:"azure",textAlign:"center"}}   to={`/past/event/${step.id}`}> More Details</Link>
+                      </Typography>
+                      </div>
+                    </Box>
+                  </Box>
+                ) : null}
+              </div>
+            ))}
+          </AutoPlaySwipeableViews>
             ) : (
-              <KeyboardArrowRight />
+                <div style={{display:"flex", justifyContent:"center", alignItems:"center", height:"40vh", flexDirection:"column"}}>
+                <Typography variant="h5" color="black" sx={{ bottom: 10, left: 10, fontSize: "24px", fontWeight: "bold"}}>
+                Loading...
+                </Typography>
+                </div>
             )}
-          </Button>
-        }
-        backButton={
-          <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
-            {theme.direction === 'rtl' ? (
-              <KeyboardArrowRight />
-            ) : (
-              <KeyboardArrowLeft />
-            )}
-            Back
-          </Button>
-        }
-      />
-    </Box>
-  );
-}
-
-export default SwipeableTextMobileStepper;
+          <MobileStepper
+            steps={maxSteps}
+            position="static"
+            activeStep={activeStep}
+            nextButton={
+              <Button
+                size="small"
+                onClick={handleNext}
+                disabled={activeStep === maxSteps - 1}
+              >
+                Next
+                {theme.direction === 'rtl' ? (
+                  <KeyboardArrowLeft />
+                ) : (
+                  <KeyboardArrowRight />
+                )}
+              </Button>
+            }
+            backButton={
+              <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
+                {theme.direction === 'rtl' ? (
+                  <KeyboardArrowRight />
+                ) : (
+                  <KeyboardArrowLeft />
+                )}
+                Back
+              </Button>
+            }
+          />
+        </Box>
+      );
+    }
+    
+    export default SwipeableTextMobileStepper;

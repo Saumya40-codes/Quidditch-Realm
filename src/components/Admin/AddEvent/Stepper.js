@@ -9,82 +9,137 @@ import Typography from '@mui/material/Typography';
 import EventDetails from './EventDetails';
 import TeamDetails from './TeamDetails';
 import AboutRegister from './AboutRegister';
-import  Axios  from 'axios';
+import Axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 
 const steps = ['Event Details', 'Team Details', 'Additionals'];
 
-export default function HorizontalLinearStepper({mode}) {
+export default function HorizontalLinearStepper({ mode }) {
   const [activeStep, setActiveStep] = useState(0);
   const [skipped, setSkipped] = useState(new Set());
-  const [formData, setFormData] = useState({});
-  const [formchanged, setFormChanged] = useState({});
+  const [ticket, setTicket] = useState([]);
+
+
+  const handleTicketChange = (index, field, value) => {
+    const updatedTickets = [...ticket];
+    updatedTickets[index] = { ...updatedTickets[index], [field]: value };
+    setTicket(updatedTickets);
+  };
+
+  const handleAddTicket = () => {
+    setTicket([
+      ...ticket,
+      { type: "", price: "", accom: "", amount: "" }
+    ]);
+  };
+
+  const handleUpdateTicket = (index, field, value) => {
+    const updatedTickets = [...ticket];
+    updatedTickets[index] = { ...updatedTickets[index], [field]: value };
+    setTicket(updatedTickets);
+  };
+
+  const handleDeleteTicket = (index) => {
+    const updatedTickets = [...ticket];
+    updatedTickets.splice(index, 1);
+    setTicket(updatedTickets);
+  };
+
+  const [formchanged, setFormChanged] = useState({
+    comment: '',
+    date: new Date(),
+    deadline: new Date(),
+    description: '',
+    format: '',
+    rules: '',
+    team1: '',
+    team1logo: '',
+    team2: '',
+    team2logo: '',
+    time: '',
+    title: '',
+    venue: '',
+    venuesize: '',
+  });
+
   const [eventId, setEventId] = useState('');
 
-
-  const {id} = useParams();
+  const { id } = useParams();
 
   const navigate = useNavigate();
 
   //edit func
   const [eventDetails, setEventDetails] = useState({});
 
-    const getDetails = async () => {
-      Axios.get(`http://localhost:5000/events/get/${id}`)
-    .then((res)=>{
-      setFormChanged(res.data);
-      console.log(formchanged)
-    })
-    .catch((err)=>{
-      console.log(err);
-    })
-  }
+  const getDetails = async () => {
+    Axios.get(`http://localhost:5000/events/get/${id}`)
+      .then((res) => {
+        setFormChanged(res.data);
+        setTicket(res.data.ticket)
 
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   React.useEffect(() => {
     if (mode === 'edit') {
       getDetails();
     }
-    console.log(formchanged);
-  }, [mode]);
+  }, [mode, id]);
+
+  React.useEffect(() => {
+    
+  }, [ticket]);
   
 
-
-  const handleFormChange = (name,value) => {
-    setFormChanged({...formchanged, [name]: value});
-    console.log(formchanged);
-  }
+  const handleFormChange = (name, value) => {
+    setFormChanged({ ...formchanged, [name]: value });
+  };
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    console.log(formchanged);
-    Axios.post('http://localhost:5000/events/add', formchanged)
-    .then((res)=>{
-      setFormChanged({});
-      toast.success('Event Added Successfully', { autoClose: 3000 });
-      setTimeout(() => {
-        navigate('/admin');
-    },2000)
-  })
-    .catch((err)=>{
-      toast.error('Event Addition Failed', { autoClose: 3000 });
+    Axios.post('http://localhost:5000/events/add', {
+      ...formchanged,
+      ticket: ticket,
     })
-}
+      .then((res) => {
+        setFormChanged({});
+        toast.success('Event Added Successfully', { autoClose: 3000 });
+        setTimeout(() => {
+          navigate('/admin');
+        }, 2000);
+      })
+      .catch((err) => {
+        toast.error('Event Addition Failed', { autoClose: 3000 });
+      });
+  };
+  
 
   const handleEdit = async (e) => {
     e.preventDefault();
-    Axios.put(`http://localhost:5000/events/update/${id}`, formchanged)
-    .then((res)=>{
-      setFormChanged({});
-      toast.success('Event Edited Successfully', { autoClose: 3000 });
-      setTimeout(() => {
-        navigate('/admin');
-    },2000)
-  })
-}
-
+    const updatedData = {
+      ...formchanged,
+      ticket: ticket,
+    };
+    console.log(updatedData);
+    Axios.put(`http://localhost:5000/events/update/${id}`, updatedData)
+      .then((res) => {
+        setFormChanged({});
+        toast.success('Event Edited Successfully', { autoClose: 3000 });
+        setTimeout(() => {
+          navigate('/admin');
+        }, 2000);
+      })
+      .catch((err) => {
+        toast.error('Event Edit Failed', { autoClose: 3000 });
+      });
+  };
+  
+  
 
   const isStepSkipped = (step) => {
     return skipped.has(step);
@@ -112,7 +167,7 @@ export default function HorizontalLinearStepper({mode}) {
 
   return (
     <Box sx={{ width: '100%' }}>
-    <ToastContainer />
+      <ToastContainer />
       <Stepper activeStep={activeStep}>
         {steps.map((label, index) => {
           const stepProps = {};
@@ -129,31 +184,39 @@ export default function HorizontalLinearStepper({mode}) {
       </Stepper>
       {activeStep === steps.length ? (
         <React.Fragment>
-        <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-        <Button
-          color="inherit"
-          disabled={activeStep === 0}
-          onClick={handleBack}
-          sx={{ position: 'fixed', bottom: '16px', left: '16px' }}
-        >
+          <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
+            <Button
+              color="inherit"
+              disabled={activeStep === 0}
+              onClick={handleBack}
+              sx={{ position: 'fixed', bottom: '16px', left: '16px' }}
+            >
               Back
             </Button>
-        </Box>
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection:"column"}}>
-        <Typography sx={{ mt: 2, mb: 1 }}>
-          All steps completed - want to add this event?
-        </Typography>
+          </Box>
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
+            <Typography sx={{ mt: 2, mb: 1 }}>All steps completed - want to add this event?</Typography>
 
-        {mode == 'add' && <Button onClick={handleFormSubmit}>Submit</Button>}
-        {mode === 'edit' && <Button onClick = {handleEdit}>Edit</Button>}
-        <Button onClick={handleReset}>Reset</Button>
-        </div>
+            {mode === 'add' && <Button onClick={handleFormSubmit}>Submit</Button>}
+            {mode === 'edit' && <Button onClick={handleEdit}>Edit</Button>}
+            <Button onClick={handleReset}>Reset</Button>
+          </div>
         </React.Fragment>
       ) : (
         <React.Fragment>
-        {activeStep === 0 && <EventDetails handleFormChange={handleFormChange} formchanged={formchanged} /> }
-      {activeStep === 1 && <TeamDetails    handleFormChange={handleFormChange} formchanged={formchanged} /> }
-      {activeStep === 2 && <AboutRegister handleFormChange={handleFormChange}  formchanged={formchanged} /> }
+          {activeStep === 0 && <EventDetails handleFormChange={handleFormChange} formchanged={formchanged} />}
+          {activeStep === 1 && <TeamDetails handleFormChange={handleFormChange} formchanged={formchanged} />}
+          {activeStep === 2 && (
+  <AboutRegister
+    handleFormChange={handleFormChange}
+    formchanged={formchanged}
+    add={handleAddTicket} 
+    update={handleTicketChange}
+    del={handleDeleteTicket}
+    ticket={ticket}
+  />
+)}
+
           <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
             <Button
               color="inherit"
@@ -164,9 +227,7 @@ export default function HorizontalLinearStepper({mode}) {
               Back
             </Button>
             <Box sx={{ flex: '1 1 auto' }} />
-            <Button onClick={handleNext}
-            sx={{ position: 'fixed', bottom: '16px', right: '16px' }}
-            >
+            <Button onClick={handleNext} sx={{ position: 'fixed', bottom: '16px', right: '16px' }}>
               {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
             </Button>
           </Box>

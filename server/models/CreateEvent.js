@@ -15,6 +15,14 @@ const eventSchema = mongoose.Schema({
     team2: { type: String, required: true },
     team2score: { type: Number, required: false, default: 0 },
     team2scorer: { type: [{ name: String, minute: String }], required: false, default: [] },
+    ticket: [
+        {
+          type: { type: String, required: true },
+          price: { type: Number, required: true },
+          accom: { type: String, required: true },
+          amount: { type: Number, required: true }
+        }
+      ],  
     team2logo: { type: String, required: true },
     time: { type: String, required: true },
     title: { type: String, required: true },

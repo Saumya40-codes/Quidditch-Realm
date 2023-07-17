@@ -2,11 +2,13 @@ const Event  = require('../models/CreateEvent');
 
 const addEvent = async (req, res) => {
     try {
-        const {date, deadline, description, format, rules, team1, team1logo, team2, team2logo, time, title, venue, venuesize} = req.body;
-        const newEvent = new Event({date, deadline, description, format, rules, team1, team1logo, team2, team2logo, time, title, venue, venuesize});
+        const {date, deadline, description, format, rules, team1, team1logo, team2, team2logo, ticket, title, venue, venuesize, time} = req.body;
+        console.log(req.body);
+        const newEvent = new Event({date, deadline, description, format, rules, team1, team1logo, team2, team2logo, time, title, venue, venuesize,ticket});
         const savedEvent = await newEvent.save();
         res.status(201).json(savedEvent);
     } catch (error) {
+        console.log(error);
         res.status(500).json({message: "Something went wrong"});
     }
 }
@@ -59,8 +61,8 @@ const getEvent= async(req,res) =>{
 const updateEvents = async (req, res) => {
     try {
       const { id } = req.params;
-      const { date, deadline, description, format, interested,totalInterested, rules, team1, team1logo, team2, team2logo, time, title, venue, venuesize } = req.body;
-      const updateEvent = await Event.findByIdAndUpdate(id, { date, deadline, description, format, interested,totalInterested, rules, team1, team1logo, team2, team2logo, time, title, venue, venuesize }, { new: true });
+      const { date, deadline, description, format, interested,totalInterested, rules, team1, team1logo, team2, team2logo, time, title, venue, venuesize,ticket } = req.body;
+      const updateEvent = await Event.findByIdAndUpdate(id, { date, deadline, description, format, interested,totalInterested, rules, team1, team1logo, team2, team2logo, time, title, venue, venuesize, time,ticket }, { new: true });
 
       res.status(200).json(updateEvent);
     } catch (error) {
