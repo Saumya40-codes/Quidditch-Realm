@@ -1,11 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useSelector } from 'react-redux';
 import Login from './components/Login';
 import SignUp from './components/SignUp';
 import ForgotPassword from './components/ForgotPassword';
-import { useMemo } from 'react';
-import { UseSelector, useSelector } from 'react-redux';
 import Dashboard from './components/Dashboard';
 import { Navigate } from 'react-router-dom';
 import AdminLogin from './components/Admin/AdminLogin';
@@ -20,17 +19,24 @@ import MoreDetails from './components/MoreDetails';
 import PastEvents from './components/PastEvents';
 import PastEventDetails from './components/PastEventDetails';
 import Register from './components/RegisterEvents/Register';
+import { CssBaseline } from '@mui/material';
+import { themeSettings } from './theme';
 
 function App() {
-  const isAuth = Boolean(useSelector(state => state.token));
-  const isAdmin = Boolean(useSelector(state => state.isAdmin));
-  
-    return (
-      <div>
-        <Router>
+  const isAuth = useSelector(state => Boolean(state.token));
+  const isAdmin = useSelector(state => Boolean(state.isAdmin));
+  const mode = useSelector(state => state.mode);
+
+  const theme = createTheme(themeSettings(mode));
+
+  return (
+    <div>
+      <Router>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
           <Routes>
-            {isAuth ? isAdmin? <Route path="/" element={<Navigate to="/admin" />} /> : <Route path="/dashboard" element={<Dashboard />} /> : <Route path="/" element={<LandingPage />} />}
-            <Route path="/dashboard" element={isAuth? <Dashboard />: <Navigate to="/login" /> } />
+            {isAuth ? (isAdmin ? <Route path="/" element={<Navigate to="/admin" />} /> : <Route path="/dashboard" element={<Dashboard />} />) : <Route path="/" element={<LandingPage />} />}
+            <Route path="/dashboard" element={isAuth ? <Dashboard /> : <Navigate to="/login" />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/forgotpassword" element={<ForgotPassword />} />
@@ -39,19 +45,19 @@ function App() {
             <Route path="/past/events" element={<PastEvents />} />
             <Route path="/past/event/:id" element={<PastEventDetails />} />
             <Route path="/register/event/:id" element={<Register />} />
-            
           </Routes>
           <Routes>
-          <Route path="/add/event" element={<Stepper mode="add" />} />
-          <Route path="/add/event/:id" element={<Stepper mode="edit" />} />
-            <Route path="/admin" element={<AdminDashboard /> } />
+            <Route path="/add/event" element={<Stepper mode="add" />} />
+            <Route path="/add/event/:id" element={<Stepper mode="edit" />} />
+            <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/admin/login" element={<AdminLogin />} />
             <Route path="/admin/register" element={<AdminRegister />} />
             <Route path="/admin/forgotpassword" element={<AdminForgotPassword />} />
             <Route path="/admin/add/team" element={<AddTeam />} />
           </Routes>
-        </Router>
-      </div>
+        </ThemeProvider>
+      </Router>
+    </div>
   );
 }
 

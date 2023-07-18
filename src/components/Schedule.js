@@ -23,7 +23,6 @@ const Schedule = () => {
     try {
       const res = await Axios.get('http://localhost:5000/events/get');
       setEvents(res.data);
-      console.log(isAdmin)
     } catch (error) {
       console.log(error);
     }

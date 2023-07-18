@@ -199,6 +199,7 @@ const [team2Scorer, setTeam2Scorer] = useState('');
         justifyContent: 'center',
         alignItems: 'center',
         backgroundImage: 'linear-gradient(135deg, #422b72 0%, #734b6d 100%)',
+        color:"primary",
         padding: '20px',
         width: '100%',
         minHeight: '100vh',
@@ -207,7 +208,6 @@ const [team2Scorer, setTeam2Scorer] = useState('');
       <Card
         sx={{
           width: '100%',
-          backgroundColor: '#fff',
           borderRadius: '10px',
           boxShadow: '0px 5px 10px rgba(0, 0, 0, 0.1)',
         }}
@@ -335,7 +335,6 @@ const [team2Scorer, setTeam2Scorer] = useState('');
             alignItems: 'center',
             flexDirection: 'column',
             padding: '10px',
-            backgroundColor: '#f9f9f9',
           }}
         >
     <TextField

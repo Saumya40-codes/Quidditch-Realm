@@ -9,6 +9,7 @@ import { Button } from "@mui/material"
 import { setLogout } from "../../state"
 import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
+import TopBar from "../TopBar"
 
 const AdminDashboard = () => {
   const [sidebar, setSidebar] = useState(false)
@@ -25,7 +26,8 @@ const AdminDashboard = () => {
 
   return (
   <div>
-    <div className="navbar">
+  <TopBar />
+    <div>
     <FontAwesomeIcon icon={faBars} style={{color: "#2862c8", marginLeft:"10px", cursor:"pointer"}} onClick={showSidebar} />
     </div>
       <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
