@@ -13,16 +13,11 @@ export const appSlice = createSlice({
         setMode : (state, action) => {
             state.mode = state.mode === "light" ? "dark" : "light";
         },
-        setLogin : (state, action) => {
-            state.user = action.payload.user;
-            state.token = action.payload.token;
-            state.id = action.payload.id;
-        },
         setLogout : (state, action) => {
             state.user = null;
             state.token = null;
         },
-        setAdminLogin : (state, action) => {
+        setLogin : (state, action) => {
             state.user = action.payload.user;
             state.isAdmin = action.payload.isAdmin;
             state.token = action.payload.token;
@@ -31,6 +26,6 @@ export const appSlice = createSlice({
     }
 });
 
-export const { setMode, setLogin, setLogout, setAdminLogin } = appSlice.actions;
+export const { setMode, setLogin, setLogout } = appSlice.actions;
 
 export default appSlice.reducer;

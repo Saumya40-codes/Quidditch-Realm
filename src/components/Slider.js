@@ -13,67 +13,55 @@ import slider1 from '../assets/slider1.jpeg';
 import Axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-
+import loading from '../assets/loading.gif';
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
+function Slider() {
+  const theme = useTheme();
+  const [activeStep, setActiveStep] = React.useState(0);
+  const [pastEvents, setPastEvents] = useState([]);
 
-function SwipeableTextMobileStepper() {
-    const theme = useTheme();
-    const [activeStep, setActiveStep] = React.useState(0);
-    const [pastEvents, setPastEvents] = useState([]);
-  
-    const getPastEvents = async () => {
-      try {
-        const res = await Axios.get('http://localhost:5000/events/past');
-        setPastEvents(res.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-  
-    useEffect(() => {
-      getPastEvents();
-    }, []);
-  
-    const events = pastEvents.map((event) => ({
-      id: event._id,
-      imgPath: slider1,
-      team1score: event.team1score,
-      team2score: event.team2score,
-      team1: event.team1,
-      team2: event.team2,
-    }));
-  
-    const maxSteps = events.length;
-  
-    const handleNext = () => {
-      setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    };
-  
-    const handleBack = () => {
-      setActiveStep((prevActiveStep) => prevActiveStep - 1);
-    };
-  
-    const handleStepChange = (step) => {
-      setActiveStep(step);
-    };
+  const getPastEvents = async () => {
+    try {
+      const res = await Axios.get('http://localhost:5000/events/past');
+      setPastEvents(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-    return (
-        <Box sx={{ maxWidth: "100%", flexGrow: 1 }}>
-          <Paper
-            square
-            elevation={0}
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              height: 50,
-              pl: 2,
-              bgcolor: 'background.default',
-            }}
-          >
-          </Paper>
-          {events.length > 0 ? (
+  useEffect(() => {
+    getPastEvents();
+  }, []);
+
+  const events = pastEvents.map((event) => ({
+    id: event._id,
+    imgPath: slider1,
+    team1score: event.team1score,
+    team2score: event.team2score,
+    team1: event.team1,
+    team2: event.team2,
+  }));
+
+  const maxSteps = events.length;
+
+  const handleNext = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  };
+
+  const handleBack = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  };
+
+  const handleStepChange = (step) => {
+    setActiveStep(step);
+  };
+
+  return (
+    <div className="slider-container">
+      <Box sx={{ maxWidth: "1200px", flexGrow: 1, marginTop: "30px", marginLeft: "auto", marginRight: "auto", marginRight:"250px" }}>
+        {events.length > 0 ? (
           <AutoPlaySwipeableViews
             axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
             index={activeStep}
@@ -86,7 +74,7 @@ function SwipeableTextMobileStepper() {
                   <Box
                     sx={{
                       height: 300,
-                      width: '100%',
+                      width: "100%",
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
@@ -95,19 +83,22 @@ function SwipeableTextMobileStepper() {
                   >
                     <Box
                       sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
                         backgroundImage: `url(${step.imgPath})`,
-                        backgroundSize: "100% 300px",
+                        backgroundSize: "cover",
                         backgroundRepeat: 'no-repeat',
                         backgroundPosition: 'center',
                         height: '100%',
                         width: '100%',
                       }}
                     >
-                      <div style={{display:"flex", justifyContent:"center", alignItems:"center", height:"40vh", flexDirection:"column"}}>
-                      <Typography variant="h5" color="black" sx={{ bottom: 10, left: 10, fontSize: "24px", fontWeight: "bold"}}>
-                        {step.team1} {step.team1score} - {step.team2score} {step.team2}
-                        <Link style={{display:"block",fontSize:"20px", color:"azure",textAlign:"center"}}   to={`/past/event/${step.id}`}> More Details</Link>
-                      </Typography>
+                      <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100%", flexDirection: "column" }}>
+                        <Typography variant="h5" color="black" sx={{ bottom: 10, left: 10, fontSize: "24px", fontWeight: "bold" }}>
+                          {step.team1} {step.team1score} - {step.team2score} {step.team2}
+                          <Link style={{ display: "block", fontSize: "20px", color: "azure", textAlign: "center" }} to={`/past/event/${step.id}`}> More Details</Link>
+                        </Typography>
                       </div>
                     </Box>
                   </Box>
@@ -115,44 +106,46 @@ function SwipeableTextMobileStepper() {
               </div>
             ))}
           </AutoPlaySwipeableViews>
-            ) : (
-                <div style={{display:"flex", justifyContent:"center", alignItems:"center", height:"40vh", flexDirection:"column"}}>
-                <Typography variant="h5" color="black" sx={{ bottom: 10, left: 10, fontSize: "24px", fontWeight: "bold"}}>
-                Loading...
-                </Typography>
-                </div>
-            )}
-          <MobileStepper
-            steps={maxSteps}
-            position="static"
-            activeStep={activeStep}
-            nextButton={
-              <Button
-                size="small"
-                onClick={handleNext}
-                disabled={activeStep === maxSteps - 1}
-              >
-                Next
-                {theme.direction === 'rtl' ? (
-                  <KeyboardArrowLeft />
-                ) : (
-                  <KeyboardArrowRight />
-                )}
-              </Button>
-            }
-            backButton={
-              <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
-                {theme.direction === 'rtl' ? (
-                  <KeyboardArrowRight />
-                ) : (
-                  <KeyboardArrowLeft />
-                )}
-                Back
-              </Button>
-            }
-          />
-        </Box>
-      );
-    }
-    
-    export default SwipeableTextMobileStepper;
+        ) : (
+          <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100%", flexDirection: "column" }}>
+            <Typography variant="h5" color="black" sx={{ bottom: 10, left: 10, fontSize: "24px", fontWeight: "bold" }}>
+              Loading...
+              <img src={loading} alt="loading" style={{ width: "70px", height: "70px" }} />
+            </Typography>
+          </div>
+        )}
+        <MobileStepper
+          steps={maxSteps}
+          position="static"
+          activeStep={activeStep}
+          nextButton={
+            <Button
+              size="small"
+              onClick={handleNext}
+              disabled={activeStep === maxSteps - 1}
+            >
+              Next
+              {theme.direction === 'rtl' ? (
+                <KeyboardArrowLeft />
+              ) : (
+                <KeyboardArrowRight />
+              )}
+            </Button>
+          }
+          backButton={
+            <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
+              {theme.direction === 'rtl' ? (
+                <KeyboardArrowRight />
+              ) : (
+                <KeyboardArrowLeft />
+              )}
+              Back
+            </Button>
+          }
+        />
+      </Box>
+    </div>
+  );
+}
+
+export default Slider;

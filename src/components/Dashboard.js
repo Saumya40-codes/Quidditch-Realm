@@ -1,77 +1,60 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { Button, Avatar } from '@mui/material';
-import { useDispatch } from 'react-redux';
-import { setLogout } from '../state';
-import { useNavigate } from 'react-router-dom';
-import { Badge } from '@mui/material';
-import badge from '../assets/badge.png';
-import { styled } from '@mui/material/styles';
-import { Tooltip } from '@mui/material';
-
-const StyledBadge = styled(Badge)(({ theme }) => ({
-  '& .MuiBadge-badge': {
-    backgroundColor: '#44b700',
-    color: '#44b700',
-    width:"20px",
-    height:"20px",
-    borderRadius:"50%",
-    boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
-    '&::after': {
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      width: '100%',
-      height: '100%',
-      borderRadius: '50%',
-      animation: 'ripple 1.2s infinite ease-in-out',
-      border: '1px solid currentColor',
-      content: '""',
-    },
-  },
-  '@keyframes ripple': {
-    '0%': {
-      transform: 'scale(.8)',
-      opacity: 1,
-    },
-    '100%': {
-      transform: 'scale(2.4)',
-      opacity: 0,
-    },
-  },
-}));
+import { Link } from "react-router-dom"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons"
+import { useState } from "react"
+import { SidebarData } from "./SidebarData"
+import './Navbar.css'
+import Slider from './Slider'
+import { Button } from "@mui/material"
+import { setLogout } from "../state"
+import { useDispatch } from "react-redux"
+import { useNavigate } from "react-router-dom"
 
 const Dashboard = () => {
-  const user = useSelector((state) => state.user);
-  const name = user ? user.username : '';
+  const [sidebar, setSidebar] = useState(false)
+
+  const showSidebar = () => setSidebar(!sidebar);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const logout = () => {
-    dispatch(setLogout());  
-      navigate('/login');
-  };
+    dispatch(setLogout());
+    navigate('/login');
+  }
 
   return (
-    <div>
-      Hello {name}
-      <div style={{ display: 'flex', justifyContent: 'right', marginRight:"20px"}}>
-        <StyledBadge 
-          overlap="circular"
-          anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-          variant="dot"
-          borderRadius="50%"
-        >
-        <Tooltip title="Avatar" arrow>
-          <Avatar alt="Wizard" src={badge} style={{border:"2px solid blue",borderRadius:"50%", background:"azure",width:"70px",height:"70px"}} />
-        </Tooltip>
-        </StyledBadge>
-      </div>
-      <div style={{ position: 'absolute', bottom: 0, right: 0 }}>
-        <Button onClick={logout}>Logout</Button>
-      </div>
+  <div className="nav-container">
+    <div className="navbar">
+    <FontAwesomeIcon icon={faBars} style={{color: "#2862c8", marginLeft:"10px", cursor:"pointer"}} onClick={showSidebar} />
     </div>
-  );
-};
+      <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
+        <ul className="nav-menu-items" onClick={showSidebar}>
+          <li className="navbar-toggle">
+            <Link to="#" className="menu-bars">
+                <FontAwesomeIcon icon={faXmark} />
+            </Link>
+          </li>
+          {SidebarData.map((item,index)=>{
+            return(
+              <li key={index} className={item.cName}>
+                <Link to={item.path} >
+                  {item.icon}
+                  <span>{item.title}</span>
+                </Link>
+              </li>
+            )
+          })}
+        </ul>
+      </nav>
+      <Slider />
+      <div style={{ position: "fixed", bottom: "14px", right: "14px" }} onClick={logout}>
+  <Button variant="contained" color="primary" onClick={logout}>
+    Logout
+  </Button>
+</div>
+  </div>
+  )
+}
 
-export default Dashboard;
+export default Dashboard

@@ -11,6 +11,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import PersonalDetails from './PersonalDetails';
+import TicketDetails from './TicketDetails';
 
 const steps = ['Personal Details', 'Ticket Selection', 'Payment'];
 
@@ -88,7 +89,7 @@ export default function HorizontalLinearStepper() {
       ) : (
         <React.Fragment>
       {activeStep === 0 && <PersonalDetails /> }
-      {activeStep === 1 && "Ticker selection" }
+      {activeStep === 1 && <TicketDetails /> }
       {activeStep === 2 && "Payment" }
           <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
             <Button

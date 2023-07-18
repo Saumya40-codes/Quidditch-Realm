@@ -7,7 +7,7 @@ import Axios from 'axios';
 import darkLogin from '../../assets/darkLogin.jpg';
 import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch } from 'react-redux';
-import { setAdminLogin } from '../../state';
+import { setLogin } from '../../state';
 import { useNavigate } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import Lord_Voldemort from '../../assets/Lord_Voldemort.jpg';
@@ -55,7 +55,7 @@ export default function Login() {
       if (error.message) {
         console.log(response.data.error);
       } else {
-        dispatch(setAdminLogin({user: response.data.isUser, token: response.data.token, isAdmin: response.data.isAdmin, id: response.data.userId }));
+        dispatch(setLogin({user: response.data.isUser, token: response.data.token, isAdmin: response.data.isAdmin, id: response.data.userId }));
         toast.success(
           <div>
           Unlocking the Chamber...
