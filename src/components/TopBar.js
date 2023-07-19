@@ -22,6 +22,7 @@ import { Tooltip } from '@mui/material';
 import {Avatar} from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faBars } from "@fortawesome/free-solid-svg-icons"
+import './Navbar.css'
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
     '& .MuiBadge-badge': {
@@ -78,11 +79,14 @@ const TopBar = ({showSidebar}) => {
   };  
   
   return (
+    <div>
+      <div style={{ position: "fixed", top: "14px", left: "14px", backgroundColor:{alt} }} onClick={showSidebar}>
+        <IconButton>
+            <FontAwesomeIcon icon={faBars} style={{color: "#2862c8"}} />
+        </IconButton>
+     </div>
     <FlexBetween padding="1rem 6%" backgroundColor={alt}>
-<FlexBetween gap="1.75rem" alignItems="center">
-  <div style={{ position: "relative", display:"flex", justifyContent:"flex-start" }}>
-    <FontAwesomeIcon icon={faBars} style={{ color: "#2862c8", cursor: "pointer" }} onClick={showSidebar} />
-  </div>
+<FlexBetween gap="1rem" alignItems="centre" className="title">
   <Typography
     fontWeight="bold"
     fontSize="clamp(1rem, 2rem, 2.25rem)"
@@ -93,14 +97,11 @@ const TopBar = ({showSidebar}) => {
         color: primaryLight,
         cursor: "pointer",
       },
-      marginRight: "1rem",
     }}
   >
     Quidditch Realm
   </Typography>
 </FlexBetween>
-
-
         <FlexBetween gap="2rem">
         <IconButton onClick={() => dispatch(setMode())}>
   {isDarkMode ? (
@@ -140,6 +141,7 @@ const TopBar = ({showSidebar}) => {
 </Menu>
         </FlexBetween>
     </FlexBetween>
+    </div>
   );
 };
 

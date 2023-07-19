@@ -60,7 +60,7 @@ function Slider() {
 
   return (
     <div className="slider-container">
-      <Box sx={{ maxWidth: "1200px", flexGrow: 1, marginTop: "30px", marginLeft: "auto", marginRight: "auto", marginRight:"250px" }}>
+      <Box sx={{flexGrow: 1, marginTop: "30px", marginLeft: "auto", marginRight: "auto", marginRight:"250px" }}>
         {events.length > 0 ? (
           <AutoPlaySwipeableViews
             axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}

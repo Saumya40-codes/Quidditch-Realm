@@ -91,3 +91,7 @@ span {
     transition: 350ms;
   }
   
+  .nav-menu.active ~ .title {
+    margin-left:290px;
+    transition: 350ms;
+  }

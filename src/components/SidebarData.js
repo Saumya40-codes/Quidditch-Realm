@@ -1,6 +1,6 @@
 import React from 'react'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faHouse, faUserPlus,faCalendar } from "@fortawesome/free-solid-svg-icons"
+import { faHouse, faUserPlus,faCalendar, faCalendarDays } from "@fortawesome/free-solid-svg-icons"
 
 export const SidebarData = [
     {
@@ -12,7 +12,7 @@ export const SidebarData = [
     {
         title: 'Schedule',
         path: '/schedule',
-        icon:<FontAwesomeIcon icon={faCalendar} />,
+        icon:<FontAwesomeIcon icon={faCalendarDays} />,
         cName: 'nav-text'
     },
     {
