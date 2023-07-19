@@ -58,6 +58,7 @@ const TopBar = ({showSidebar}) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
+  const isAdmin = useSelector((state) => state.isAdmin);
   const [anchorEl, setAnchorEl] = useState(null);
 
   const theme = useTheme();
@@ -77,6 +78,11 @@ const TopBar = ({showSidebar}) => {
   const handleCloseMenu = () => {
     setAnchorEl(null);
   };  
+
+  const logout = () => {
+    dispatch(setLogout());
+    isAdmin ? navigate('/admin/login') : navigate('/login');
+};
   
   return (
     <div>
@@ -137,7 +143,7 @@ const TopBar = ({showSidebar}) => {
   <MenuItem value={fullName}>
     <Typography>{fullName}</Typography>
   </MenuItem>
-  <MenuItem onClick={() => dispatch(setLogout())}>Log Out</MenuItem>
+  <MenuItem onClick={logout}>Log Out</MenuItem>
 </Menu>
         </FlexBetween>
     </FlexBetween>

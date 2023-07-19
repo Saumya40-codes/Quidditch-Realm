@@ -5,15 +5,32 @@ import { faMagic, faUser } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import Header from './Header';
 import landing from '../assets/landing.jpg';
-import {Tooltip} from '@mui/material';
+import { Tooltip } from '@mui/material';
+import { styled } from '@mui/material/styles';
+import hogwarts_logo from '../assets/hogwarts_logo.png';
+
+const ParchmentBackground = styled('div')({
+  backgroundImage: `url(${landing})`,
+  backgroundRepeat: 'no-repeat',
+  backgroundSize: 'cover',
+  position: 'relative',
+  width: '100%',
+  height: '100vh',
+  backgroundAttachment: 'fixed',
+  fontFamily: 'Harry Potter Font, sans-serif',
+  color: '#fff',
+  textAlign: 'center',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+});
 
 const LandingPage = () => {
   return (
-    <div style={{ backgroundImage: `url(${landing})`, backgroundRepeat: "no-repeat", backgroundSize: "cover", position: "relative", width: "100%", height: "100vh" }}>
-      <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-        <Header text="Quidditch Realm" />
-      </div>
-      <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "50vh", gap: "100px", marginTop: "100px" }}>
+    <ParchmentBackground>
+      <Header text="Quidditch Realm" />
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '50vh', gap: '100px', marginTop: '100px' }}>
         <Box sx={{ position: "relative" }}>
           <Link to="/login" style={{ textDecoration: "none" }}>
             <Button variant="contained" sx={{
@@ -80,7 +97,7 @@ const LandingPage = () => {
       <div>
         <Header text="Embark on the journey" />
       </div>
-    </div>
+    </ParchmentBackground>
   );
 }
 

@@ -97,7 +97,7 @@ function Slider() {
                       <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100%", flexDirection: "column" }}>
                         <Typography variant="h5" color="black" sx={{ bottom: 10, left: 10, fontSize: "24px", fontWeight: "bold" }}>
                           {step.team1} {step.team1score} - {step.team2score} {step.team2}
-                          <Link style={{ display: "block", fontSize: "20px", color: "azure", textAlign: "center" }} to={`/past/event/${step.id}`}> More Details</Link>
+                          <Link style={{ display: "block", fontSize: "20px", color: "azure", textAlign: "center" }} to={`/post/match/${step.id}`}> More Details</Link>
                         </Typography>
                       </div>
                     </Box>

@@ -19,6 +19,7 @@ import MoreDetails from './components/MoreDetails';
 import PastEvents from './components/PastEvents';
 import PastEventDetails from './components/PastEventDetails';
 import Register from './components/RegisterEvents/Register';
+import PostMatch from './components/PastEvents/PostMatch';
 import { CssBaseline } from '@mui/material';
 import { themeSettings } from './theme';
 
@@ -45,6 +46,7 @@ function App() {
             <Route path="/past/events" element={<PastEvents />} />
             <Route path="/past/event/:id" element={<PastEventDetails />} />
             <Route path="/register/event/:id" element={<Register />} />
+            <Route path="/post/match/:id" element={<PostMatch />} />
           </Routes>
           <Routes>
             <Route path="/add/event" element={<Stepper mode="add" />} />

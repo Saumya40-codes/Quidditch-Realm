@@ -84,7 +84,6 @@ const PastEvents = () => {
             style={{
               margin: '20px',
               width: '100%',
-              backgroundColor: '#d6e7f5',
               borderRadius: '16px',
               boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)',
               transition: 'transform 0.3s',
@@ -197,7 +196,6 @@ const PastEvents = () => {
             </CardContent>
             <div
               style={{
-                backgroundColor: '#f5f5f5',
                 padding: '8px 16px',
                 borderTop: '1px solid #ddd',
                 textAlign: 'right',
@@ -212,14 +210,14 @@ const PastEvents = () => {
                   cursor: 'pointer',
                 }}
               >
-              <Link to={`/past/event/${event._id}`} style={{ textDecoration: 'none', color: '#555' }}>
+              <Link to={`/post/match/${event._id}`} style={{ textDecoration: 'none', color: '#555' }}>
                 More Details...
               </Link>
               </p>
               </div>
               {
                   isAdmin && (
-                      <div style={{backgroundColor: '#f5f5f5',display:"flex", justifyContent:"space-between", padding: '8px 16px', borderTop: '1px solid #ddd', textAlign: 'right'}}>
+                      <div style={{display:"flex", justifyContent:"space-between", padding: '8px 16px', borderTop: '1px solid #ddd', textAlign: 'right'}}>
                       <Button
                           variant="contained"
                           style={{
