@@ -103,7 +103,6 @@ const AddTeam = () => {
                       key={index}
                       style={{
                         marginBottom: '20px',
-                        backgroundColor: '#ffffff',
                         padding: '10px',
                         borderRadius: '5px',
                       }}
@@ -129,7 +128,6 @@ const AddTeam = () => {
                   <div
                     style={{
                       marginBottom: '20px',
-                      backgroundColor: '#ffffff',
                       padding: '10px',
                       borderRadius: '5px',
                     }}
@@ -152,7 +150,6 @@ const AddTeam = () => {
                       key={index}
                       style={{
                         marginBottom: '20px',
-                        backgroundColor: '#ffffff',
                         padding: '10px',
                         borderRadius: '5px',
                       }}
@@ -178,7 +175,6 @@ const AddTeam = () => {
                   <div
                     style={{
                       marginBottom: '20px',
-                      backgroundColor: '#ffffff',
                       padding: '10px',
                       borderRadius: '5px',
                     }}
@@ -201,7 +197,6 @@ const AddTeam = () => {
                       key={index}
                       style={{
                         marginBottom: '20px',
-                        backgroundColor: '#ffffff',
                         padding: '10px',
                         borderRadius: '5px',
                       }}
@@ -227,7 +222,6 @@ const AddTeam = () => {
                   <div
                     style={{
                       marginBottom: '20px',
-                      backgroundColor: '#ffffff',
                       padding: '10px',
                       borderRadius: '5px',
                     }}
@@ -250,7 +244,6 @@ const AddTeam = () => {
                       key={index}
                       style={{
                         marginBottom: '20px',
-                        backgroundColor: '#ffffff',
                         padding: '10px',
                         borderRadius: '5px',
                       }}
@@ -276,7 +269,6 @@ const AddTeam = () => {
                   <div
                     style={{
                       marginBottom: '20px',
-                      backgroundColor: '#ffffff',
                       padding: '10px',
                       borderRadius: '5px',
                     }}

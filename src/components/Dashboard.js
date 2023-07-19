@@ -27,10 +27,7 @@ const Dashboard = () => {
 
   return (
   <div className="nav-container">
-  <TopBar />
-    <div>
-    <FontAwesomeIcon icon={faBars} style={{color: "#2862c8", marginLeft:"10px", cursor:"pointer"}} onClick={showSidebar} />
-    </div>
+  <TopBar showSidebar = {showSidebar} />
       <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
         <ul className="nav-menu-items" onClick={showSidebar}>
           <li className="navbar-toggle">
