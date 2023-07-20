@@ -23,6 +23,7 @@ const AddTeam = ({mode}) => {
         setLogo(res.data.teamlogo);
         setHometown(res.data.hometown);
         setPlayers(res.data.teammembers);
+        setDescription(res.data.teamdescription);
       });
     } catch (error) {
       console.log(error);
@@ -66,11 +67,13 @@ const AddTeam = ({mode}) => {
     event.preventDefault();
     try {
       Axios.post('http://localhost:5000/teams/addTeam', {
+        teamdescription: description,
         teamname: teamName,
         teamlogo: logo,
         hometown: hometown,
         teammembers: players,
         registerDate: new Date(),
+        updatedDate: new Date(),
       }).then((res) => {
         toast.success('Team Added Successfully', { autoClose: 3000 });
         setTimeout(() => {

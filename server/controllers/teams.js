@@ -3,8 +3,8 @@ const Teams = require('../models/Teams');
 
 const addTeam = async (req, res) => {
     try {
-      const { teamname, teamlogo, hometown, teammembers } = req.body;
-      const newTeam = new Teams({ teamname, teamlogo, hometown, teammembers: { ...teammembers } });
+      const {teamdescription, teamname, teamlogo, hometown, teammembers, registerDate, updatedDate} = req.body;
+      const newTeam = new Teams({teamdescription, teamname, teamlogo, hometown, teammembers: { ...teammembers },registerDate, updatedDate });
       await newTeam.save();
       res.status(201).json({ message: 'Team added successfully' });
     } catch (error) {
@@ -46,8 +46,8 @@ const getTeamDetails = async (req, res) => {
 const updateTeam = async (req, res) => {
   try {
     const { id } = req.params;
-    const {teamdescription, teamname, teamlogo, hometown, teammembers, registerDate, updatedDate } = req.body;
-    const updatedTeam = await Teams.findByIdAndUpdate(id, {teamdescription, teamname, teamlogo, hometown, teammembers, registerDate, updatedDate }, { new: true });
+    const {teamdescription, teamname, teamlogo, hometown, teammembers, updatedDate } = req.body;
+    const updatedTeam = await Teams.findByIdAndUpdate(id, {teamdescription, teamname, teamlogo, hometown, teammembers, updatedDate }, { new: true });
     res.status(200).json(updatedTeam);
   } catch (error) {
     res.status(404).json({ message: error.message });
