@@ -1,13 +1,9 @@
 import React, { useState } from "react";
 import {
-  Box,
   IconButton,
-  InputBase,
   Typography,
-  Select,
   MenuItem,
   Menu,
-  FormControl,
 } from "@mui/material";
 import { DarkMode, LightMode, Notifications } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
@@ -142,6 +138,9 @@ const TopBar = ({showSidebar}) => {
 >
   <MenuItem value={fullName}>
     <Typography>{fullName}</Typography>
+  </MenuItem>
+  <MenuItem>
+    Profile
   </MenuItem>
   <MenuItem onClick={logout}>Log Out</MenuItem>
 </Menu>

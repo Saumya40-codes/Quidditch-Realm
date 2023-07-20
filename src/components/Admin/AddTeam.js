@@ -1,16 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, CardContent, TextField, Button, Typography, Input } from '@mui/material';
 import Axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 
-const AddTeam = () => {
+const AddTeam = ({mode}) => {
   const [teamName, setTeamName] = useState('');
   const [players, setPlayers] = useState({ seekers: [], keepers: [], beaters: [], chasers: [] });
+  const [description, setDescription] = useState('');
   const [logo, setLogo] = useState('');
   const [hometown, setHometown] = useState('');
+  const [team, setTeam] = useState({});
+  const { id } = useParams();
 
-    const navigate = useNavigate();
+  const getTeam = async () => {
+    try {
+      const res = await Axios.get(`http://localhost:5000/teams/getTeamDetails/${id}`)
+      .then((res) => {
+        setTeam(res.data);
+        setTeamName(res.data.teamname);
+        setLogo(res.data.teamlogo);
+        setHometown(res.data.hometown);
+        setPlayers(res.data.teammembers);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getTeam();
+  }, []);
+
+  const navigate = useNavigate();
 
   const handlePlayerChange = (role, index, event) => {
     const updatedPlayers = { ...players };
@@ -47,6 +70,7 @@ const AddTeam = () => {
         teamlogo: logo,
         hometown: hometown,
         teammembers: players,
+        registerDate: new Date(),
       }).then((res) => {
         toast.success('Team Added Successfully', { autoClose: 3000 });
         setTimeout(() => {
@@ -57,6 +81,28 @@ const AddTeam = () => {
       console.log(err);
     }
   };
+
+  const handleEdit = (event) => {
+    event.preventDefault();
+    try {
+      Axios.put(`http://localhost:5000/teams/updateTeam/${id}`, {
+        teamdescription: description,
+        teamname: teamName,
+        teamlogo: logo,
+        hometown: hometown,
+        teammembers: players,
+        updatedDate: new Date(),
+      }).then((res) => {
+        toast.success('Team Updated Successfully', { autoClose: 3000 });
+        setTimeout(() => {
+            navigate('/admin');
+            }, 2000);
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
 
   return (
     <div style={{ backgroundColor: '#b5b2ff', padding: '20px' }}>
@@ -76,6 +122,17 @@ const AddTeam = () => {
               InputProps={{ style: { color: '#663399' } }}
               InputLabelProps={{ style: { color: '#663399' } }}
             />
+            <TextField
+            label="Description"
+            value={description}
+            onChange={(event) => setDescription(event.target.value)}
+            required
+            multiline
+            rows={4}
+            style={{ width: '100%', marginTop: '20px', marginBottom: '40px' }}
+            InputProps={{ style: { color: '#663399' } }}
+            InputLabelProps={{ style: { color: '#663399' } }}
+          />
             <TextField
               label="Hometown"
               value={hometown}
@@ -98,7 +155,7 @@ const AddTeam = () => {
                   <Typography variant="h6" component="h4" style={{ color: '#663399', marginBottom: '10px' }}>
                     Seekers
                   </Typography>
-                  {players.seekers.map((player, index) => (
+                  {players?.seekers.map((player, index) => (
                     <div
                       key={index}
                       style={{
@@ -145,7 +202,7 @@ const AddTeam = () => {
                   <Typography variant="h6" component="h4" style={{ color: '#663399', marginBottom: '10px' }}>
                     Keepers
                   </Typography>
-                  {players.keepers.map((player, index) => (
+                  {players?.keepers.map((player, index) => (
                     <div
                       key={index}
                       style={{
@@ -192,7 +249,7 @@ const AddTeam = () => {
                   <Typography variant="h6" component="h4" style={{ color: '#663399', marginBottom: '10px' }}>
                     Beaters
                   </Typography>
-                  {players.beaters.map((player, index) => (
+                  {players?.beaters.map((player, index) => (
                     <div
                       key={index}
                       style={{
@@ -239,7 +296,7 @@ const AddTeam = () => {
                   <Typography variant="h6" component="h4" style={{ color: '#663399', marginBottom: '10px' }}>
                     Chasers
                   </Typography>
-                  {players.chasers.map((player, index) => (
+                  {players?.chasers.map((player, index) => (
                     <div
                       key={index}
                       style={{
@@ -285,9 +342,9 @@ const AddTeam = () => {
               </div>
             </div>
             <Button type="submit" variant="contained" color="primary" style={{ marginTop: '40px', width: '100%' }}
-            onClick={handleSubmit}
+            onClick={mode === 'add' ? handleSubmit : handleEdit}
             >
-              Submit
+              {mode === 'add' ? 'Add Team' : 'Edit Team'}
             </Button>
           </form>
         </CardContent>

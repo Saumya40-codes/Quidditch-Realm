@@ -20,6 +20,9 @@ import PastEvents from './components/PastEvents';
 import PastEventDetails from './components/PastEventDetails';
 import Register from './components/RegisterEvents/Register';
 import PostMatch from './components/PastEvents/PostMatch';
+import RegisteredTeams from './components/Admin/RegisteredTeams';
+import Team from './components/Team';
+
 import { CssBaseline } from '@mui/material';
 import { themeSettings } from './theme';
 
@@ -47,6 +50,7 @@ function App() {
             <Route path="/past/event/:id" element={<PastEventDetails />} />
             <Route path="/register/event/:id" element={<Register />} />
             <Route path="/post/match/:id" element={<PostMatch />} />
+            <Route path="/team/:id" element={<Team />} />
           </Routes>
           <Routes>
             <Route path="/add/event" element={<Stepper mode="add" />} />
@@ -55,7 +59,9 @@ function App() {
             <Route path="/admin/login" element={<AdminLogin />} />
             <Route path="/admin/register" element={<AdminRegister />} />
             <Route path="/admin/forgotpassword" element={<AdminForgotPassword />} />
-            <Route path="/admin/add/team" element={<AddTeam />} />
+            <Route path="/admin/add/team" element={<AddTeam mode="add" />} />
+            <Route path="/admin/add/team/:id" element={<AddTeam mode="edit" />} />
+            <Route path="/admin/registered/teams" element={<RegisteredTeams />} />
           </Routes>
         </ThemeProvider>
       </Router>

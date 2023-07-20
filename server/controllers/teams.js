@@ -33,5 +33,26 @@ const getTeam = async (req, res) => {
   }
 };
 
+const getTeamDetails = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const team = await Teams.findById(id);
+    res.status(200).json(team);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
 
-module.exports = {addTeam, getTeams, getTeam};
+const updateTeam = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const {teamdescription, teamname, teamlogo, hometown, teammembers, registerDate, updatedDate } = req.body;
+    const updatedTeam = await Teams.findByIdAndUpdate(id, {teamdescription, teamname, teamlogo, hometown, teammembers, registerDate, updatedDate }, { new: true });
+    res.status(200).json(updatedTeam);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
+
+module.exports = {addTeam, getTeams, getTeam, getTeamDetails, updateTeam};

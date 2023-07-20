@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Timeline from './Timeline';
+import TeamPlayers from './TeamPlayers';
 
 export default function CenteredTabs() {
   const [value, setValue] = React.useState(0);
@@ -16,9 +17,11 @@ export default function CenteredTabs() {
       <Tabs value={value} onChange={handleChange} centered>
         <Tab label="Scorers" />
         <Tab label="Comments" />
+        <Tab label="Players" />
       </Tabs>
       {value === 0 && <Timeline />}
       {value === 1 && <Box>Item Two</Box>}
+      {value === 2 && <TeamPlayers />}
     </Box>
   );
 }

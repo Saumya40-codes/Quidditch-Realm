@@ -120,7 +120,7 @@ const PastEvents = () => {
               >
               {
                 event.team1score == event.team2score ? <span>{event.team1} ties with {event.team2}</span> :
-                event.team1score > event.team2score ? <span>{event.team1} seals the win against {event.team2}</span> : <span>{event.team2} sealse the win against {event.team1}</span>
+                event.team1score > event.team2score ? <span>{event.team1} seals the win against {event.team2}</span> : <span>{event.team2} seals the win against {event.team1}</span>
               }
               </h2>
               <h3
