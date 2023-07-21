@@ -1,5 +1,28 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,300&display=swap');
 
+button {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  button:after {
+    content: "";
+    display: block;
+    height: 2px; /* Adjust the height of the line */
+    width: 0;
+    background-color: #2bd576; /* Adjust the background color of the line */
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+  }
+  
+  button:hover:after {
+    transform: scaleX(1);
+  }
+
 .nav-container {
     margin: 0;
     padding: 0;

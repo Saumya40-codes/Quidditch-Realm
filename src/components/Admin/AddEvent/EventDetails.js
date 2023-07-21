@@ -25,7 +25,7 @@ const EventDetails = ({ handleFormChange, formchanged }) => {
     <div>
       <Card style={{ marginTop: "40px" }}>
         <CardContent>
-          <h2 className="text-center mb-4">Add Event</h2>
+          <h2 className="text-center mb-4">Add Quidditch Match</h2>
           <FormGroup>
             <FormControl>
               <InputLabel htmlFor="title">Event title</InputLabel>

@@ -10,7 +10,7 @@ export const SidebarData = [
         cName: 'nav-text'
     },
     {
-        title: 'Add Events',
+        title: 'Add Quidditch Match',
         path: '/add/event',
         icon:<FontAwesomeIcon icon={faCalendarPlus} />,
         cName: 'nav-text'
@@ -34,3 +34,4 @@ export const SidebarData = [
         cName: 'nav-text'
     },
 ]
+export default SidebarData;
