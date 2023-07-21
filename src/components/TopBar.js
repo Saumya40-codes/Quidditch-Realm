@@ -17,8 +17,11 @@ import { styled } from '@mui/material/styles';
 import { Tooltip } from '@mui/material';
 import {Avatar} from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faBars } from "@fortawesome/free-solid-svg-icons"
+import { faBars, faUser } from "@fortawesome/free-solid-svg-icons"
 import './Navbar.css'
+import noUser from '../assets/noUser.png'
+import { Link } from "react-router-dom";
+import Axios from 'axios'
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
     '& .MuiBadge-badge': {
@@ -57,6 +60,9 @@ const TopBar = ({showSidebar}) => {
   const isAdmin = useSelector((state) => state.isAdmin);
   const [anchorEl, setAnchorEl] = useState(null);
 
+  const[profilePic, setProfilePic] = useState(null);
+  const id = useSelector((state) => state.id);
+
   const theme = useTheme();
   const isDarkMode = useSelector((state) => state.mode === "dark");
   const neutralLight = theme.palette.grey[100];
@@ -79,6 +85,21 @@ const TopBar = ({showSidebar}) => {
     dispatch(setLogout());
     isAdmin ? navigate('/admin/login') : navigate('/login');
 };
+
+   const getProfilePic = async () => {
+    try {
+      const res = await Axios.get(`http://localhost:5000/users/${id}`);
+      setProfilePic(res.data.profilePic);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  React.useEffect(() => {
+    getProfilePic();
+  }, []);
+
+
   
   return (
     <div>
@@ -120,7 +141,7 @@ const TopBar = ({showSidebar}) => {
           onClick={handleBadgeClick}
         >
         <Tooltip title="Avatar" arrow>
-          <Avatar alt="Wizard" src={badge} style={{border:`2px solid #2862c8`,borderRadius:"50%", background:dark ,width:"55px",height:"55px"}} />
+          <Avatar alt="Wizard" src={profilePic || noUser} style={{border:`2px solid #2862c8`,borderRadius:"50%", background:dark ,width:"55px",height:"55px"}} />
         </Tooltip>
         </StyledBadge>
 <Menu
@@ -139,9 +160,11 @@ const TopBar = ({showSidebar}) => {
   <MenuItem value={fullName}>
     <Typography>{fullName}</Typography>
   </MenuItem>
+  <Link to='/profile' style={{textDecoration:"none", color:"black"}}>
   <MenuItem>
     Profile
   </MenuItem>
+  </Link>
   <MenuItem onClick={logout}>Log Out</MenuItem>
 </Menu>
         </FlexBetween>

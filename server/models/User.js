@@ -5,7 +5,9 @@ const userSchema = mongoose.Schema({
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     isAdmin: { type: Boolean, default: false },
-    interests: { type: Object, default: {} }, // Change the interests field to an object
+    interests: { type: Object, default: {} }, 
+    profilePic: { type: String },
+    favouriteTeam: { type: String, default: "" }
 });
   
 

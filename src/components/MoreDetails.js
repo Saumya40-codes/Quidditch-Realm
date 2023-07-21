@@ -106,7 +106,6 @@ const MoreDetails = () => {
       <Card
         sx={{
           width: '100%',
-          backgroundColor: '#fff',
           borderRadius: '10px',
           boxShadow: '0px 5px 10px rgba(0, 0, 0, 0.1)',
         }}
@@ -117,7 +116,7 @@ const MoreDetails = () => {
             {event.title}
           </Typography>
           {!interest ? (
-            <Button variant="contained" color="primary" size="small" sx={{ flex: 1, maxWidth: "150px" }} onClick={handleInterestChange}>
+            <Button variant="contained" size="small" sx={{ flex: 1, maxWidth: "150px" }} onClick={handleInterestChange}>
              I'm Interested
             </Button>
             ) : (
@@ -126,7 +125,7 @@ const MoreDetails = () => {
                     <FontAwesomeIcon icon={faCheckCircle} style={{ marginRight: '5px' }} />
                     Your interest has been noted, we will notify you when the match kicksoff.
                 </Typography>
-                <Button variant="contained" color="primary" size="small" sx={{ flex: 1, maxWidth: "150px", color:'red', marginRight:"14px" }} onClick={handleInterestChange}>
+                <Button variant="contained" size="small" sx={{ flex: 1, maxWidth: "150px", color:'red', marginRight:"14px" }} onClick={handleInterestChange}>
                 undo
                 </Button>
                 </div>
@@ -176,7 +175,6 @@ const MoreDetails = () => {
             justifyContent: 'space-between',
             alignItems: 'center',
             padding: '10px',
-            backgroundColor: '#f9f9f9',
           }}
         >
         </Box>
@@ -185,7 +183,6 @@ const MoreDetails = () => {
             display: 'flex',
             flexDirection: 'column',
             padding: '10px',
-            backgroundColor: '#f9f9f9',
           }}
         >
           <Typography variant="body1" component="p" gutterBottom sx={{ marginBottom: '10px' }}>
@@ -197,11 +194,11 @@ const MoreDetails = () => {
           </Typography>
         </Box>
         <Box sx={{ display: 'grid', gridTemplateColumns:"auto auto", padding: '10px' }}>
-  <Button variant="contained" color="primary" size="large" startIcon={<FontAwesomeIcon icon={faCalendarAlt} />} sx={{ marginRight: '10px', maxWidth:"400px" }}>
+  <Button variant="contained" size="large" startIcon={<FontAwesomeIcon icon={faCalendarAlt} />} sx={{ marginRight: '10px', maxWidth:"400px" }}>
     Add to Calendar
   </Button>
     <Link to={`/register/event/${event._id}`} style={{ textDecoration: "none" }}>
-      <Button variant="contained" color="primary" size="large" style={{width:"1090px"}}>
+      <Button variant="contained" size="large" style={{width:"1090px"}}>
         Register
       </Button>
     </Link>

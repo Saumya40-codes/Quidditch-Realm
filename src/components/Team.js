@@ -7,7 +7,7 @@ import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import { Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
-import { UseSelector, useSelector } from 'react-redux/es/hooks/useSelector';
+import {  useSelector } from 'react-redux/es/hooks/useSelector';
 
 const Team = () => {
   const { id } = useParams();

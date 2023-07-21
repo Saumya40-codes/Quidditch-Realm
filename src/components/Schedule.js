@@ -192,7 +192,7 @@ const Schedule = () => {
           </CardContent>
           <div
             style={{
-              backgroundColor: '#f5f5f5',
+              
               padding: '8px 16px',
               borderTop: '1px solid #ddd',
               textAlign: 'right',
@@ -214,11 +214,10 @@ const Schedule = () => {
             </div>
             {
                 isAdmin && (
-                    <div style={{backgroundColor: '#f5f5f5',display:"flex", justifyContent:"space-between", padding: '8px 16px', borderTop: '1px solid #ddd', textAlign: 'right'}}>
+                    <div style={{display:"flex", justifyContent:"space-between", padding: '8px 16px', borderTop: '1px solid #ddd', textAlign: 'right'}}>
                     <Button
                         variant="contained"
                         style={{
-                            color: 'white',
                             fontFamily: 'Harry Potter',
                             fontSize: '14px',
                             marginBottom: '0',
@@ -232,7 +231,6 @@ const Schedule = () => {
                     <Button
                         variant="contained"
                         style={{
-                            color: 'white',
                             fontFamily: 'Harry Potter',
                             fontSize: '14px',
                             marginBottom: '0',
