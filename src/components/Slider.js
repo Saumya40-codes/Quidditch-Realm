@@ -10,6 +10,7 @@ import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import SwipeableViews from 'react-swipeable-views';
 import { autoPlay } from 'react-swipeable-views-utils';
 import slider1 from '../assets/slider1.jpeg';
+import slider2 from '../assets/slider2.jpg';
 import Axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -35,9 +36,11 @@ function Slider() {
     getPastEvents();
   }, []);
 
-  const events = pastEvents.map((event) => ({
+  const images = [slider1, slider2]
+
+  const events = pastEvents.map((event, index) => ({
     id: event._id,
-    imgPath: slider1,
+    imgPath: images[index % images.length],
     team1score: event.team1score,
     team2score: event.team2score,
     team1: event.team1,
@@ -60,7 +63,7 @@ function Slider() {
 
   return (
     <div className="slider-container">
-      <Box sx={{flexGrow: 1, marginTop: "30px", marginLeft: "auto", marginRight: "auto", marginRight:"250px" }}>
+      <Box sx={{ flexGrow: 1, marginTop: "30px", marginLeft: "auto", marginRight: "auto", marginRight: "250px" }}>
         {events.length > 0 ? (
           <AutoPlaySwipeableViews
             axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
@@ -90,14 +93,14 @@ function Slider() {
                         backgroundSize: "cover",
                         backgroundRepeat: 'no-repeat',
                         backgroundPosition: 'center',
-                        height: '100%',
-                        width: '100%',
+                        width: "100%",
+                        height: "100%",
                       }}
                     >
                       <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100%", flexDirection: "column" }}>
-                        <Typography variant="h5" color="black" sx={{ bottom: 10, left: 10, fontSize: "24px", fontWeight: "bold" }}>
+                        <Typography variant="h5" color="primary" sx={{ bottom: 10, left: 10, fontSize: "24px", fontWeight: "bold", color: "#fff", fontFamily: "'Dancing Script', cursive" }}>
                           {step.team1} {step.team1score} - {step.team2score} {step.team2}
-                          <Link style={{ display: "block", fontSize: "20px", color: "azure", textAlign: "center" }} to={`/post/match/${step.id}`}> More Details</Link>
+                          <Link style={{ display: "block", fontSize: "28px", color: "azure", textAlign: "center" }} to={`/post/match/${step.id}`}>More Details</Link>
                         </Typography>
                       </div>
                     </Box>
@@ -108,7 +111,7 @@ function Slider() {
           </AutoPlaySwipeableViews>
         ) : (
           <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100%", flexDirection: "column" }}>
-            <Typography variant="h5" color="black" sx={{ bottom: 10, left: 10, fontSize: "24px", fontWeight: "bold" }}>
+            <Typography variant="h5" sx={{ bottom: 10, left: 10, fontSize: "24px", fontWeight: "bold", color: "#555" }}>
               Loading...
               <img src={loading} alt="loading" style={{ width: "70px", height: "70px" }} />
             </Typography>

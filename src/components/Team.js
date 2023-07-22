@@ -1,13 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Box, Card, CardContent, Button } from '@mui/material';
+import { Box, Paper, Button, Typography, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import Axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
-import { Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
-import {  useSelector } from 'react-redux/es/hooks/useSelector';
+import { useSelector } from 'react-redux/es/hooks/useSelector';
+import { toast } from 'react-toastify';
 
 const Team = () => {
   const { id } = useParams();
@@ -15,7 +14,7 @@ const Team = () => {
   const [deleteConfirmationOpen, setDeleteConfirmationOpen] = useState(false);
   const [eventToDelete, setEventToDelete] = useState(null);
   const navigate = useNavigate();
-  const isAdmin = Boolean(useSelector((state)=>state.isAdmin))
+  const isAdmin = Boolean(useSelector((state) => state.isAdmin));
 
   const getTeam = async () => {
     try {
@@ -40,105 +39,104 @@ const Team = () => {
     setEventToDelete(null);
   };
 
-  const handleTeamDel = async(req,res) => {
-    try{
-        const res = Axios.delete(`http://localhost:5000/teams/del/team/${team._id}`)
-        .then((res)=>{
-            toast.error('Team Deleted', {autoClose: 2000 });
-            setTimeout(()=>{
-                navigate('/admin');
-            },1000);
-        })
+  const handleTeamDel = async (req, res) => {
+    try {
+      const res = Axios.delete(`http://localhost:5000/teams/del/team/${team._id}`).then((res) => {
+        toast.error('Team Deleted', { autoClose: 2000 });
+        setTimeout(() => {
+          navigate('/admin');
+        }, 1000);
+      });
+    } catch (error) {
+      console.log(error);
     }
-    catch(error){
-        console.log(error)
-    }
-  }
+  };
 
   return (
-    <div>
-      <Box sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'column' }}>
-        <Card sx={{ marginTop: '30px', marginBottom: '20px' }}>
-          <CardContent>
-          { isAdmin && 
-          (  
-        <div style={{display:"flex", justifyContent:"space-between", alignItems:"center"}}>  
-          <div>
-            <Link to={`/admin/add/team/${team._id}`} style={{textDecoration:"none"}}>
-               <Button variant='outlined'>
-                   Edit
-               </Button>
-            </Link>   
-          </div>
-          <div>
-               <Button variant='container' style={{color:'red'}} onClick={handleDeleteConfirmationOpen}>
-                   Delete
-               </Button>
-          </div>
-          </div>
-          )
-          }
-            <div style={{ textAlign: 'center', marginBottom: '30px' }}>
-              <h1
-                className='text-center mb4'
-                style={{
-                  fontFamily: "'Dancing Script', cursive",
-                  fontSize: '2.5rem',
-                  fontWeight: 'bold',
-                  marginTop: '30px',
-                }}
-              >
-                {team.teamname}
-              </h1>
-              <img
-                src={team.teamlogo}
-                alt="team logo"
-                style={{
-                  width: '250px',
-                  height: '290px',
-                  objectFit: 'cover',
-                  margin: '0 auto',
-                  boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)',
-                  borderRadius: '8px',
-                }}
-              />
-            </div>
-            <div style={{ display: 'flex', alignItems: 'center', marginTop:"40px" }}>
-              <FontAwesomeIcon icon={faLocationDot} style={{ marginRight: '10px' }} />
-              <span>Hometown: {team.hometown}</span>
-            </div>
-            <div style={{marginTop:"40px"}}>
-              <h3 style={{ position: 'relative', paddingBottom: '10px', fontWeight: 'bold', marginBottom:"10px" }}>
-              Team Description
-              </h3>
-              <p>{team.teamdescription}</p>
-            </div>
-            <div style={{marginTop:"40px"}}>
-            <h3 style={{ position: 'relative', paddingBottom: '10px', fontWeight: 'bold' }}>
+    <Box sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'column' }}>
+      <Paper sx={{ marginTop: '30px', marginBottom: '20px', padding: '20px' }}>
+        {/* Admin edit and delete buttons */}
+        {isAdmin && (
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+            <Link to={`/admin/add/team/${team._id}`} style={{ textDecoration: 'none' }}>
+              <Button variant='outlined'>Edit</Button>
+            </Link>
+            <Button variant='contained' style={{ color: 'red' }} onClick={handleDeleteConfirmationOpen}>
+              Delete
+            </Button>
+          </Box>
+        )}
+
+        {/* Team Name and Logo */}
+        <Box sx={{ textAlign: 'center', marginBottom: '30px' }}>
+          <Typography variant="h3" component="h1" style={{ fontFamily: "'Dancing Script', cursive", fontWeight: 'bold', marginTop: '30px' }}>
+            {team.teamname}
+          </Typography>
+          <img
+            src={team.teamlogo}
+            alt="team logo"
+            style={{
+              width: '250px',
+              height: '290px',
+              objectFit: 'cover',
+              margin: '0 auto',
+              boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)',
+              borderRadius: '8px',
+            }}
+          />
+        </Box>
+
+        {/* Hometown */}
+        <Box sx={{ display: 'flex', alignItems: 'center', marginTop: '40px' }}>
+          <FontAwesomeIcon icon={faLocationDot} style={{ marginRight: '10px' }} />
+          <Typography variant="body1" component="span">
+            Hometown: {team.hometown}
+          </Typography>
+        </Box>
+
+        {/* Team Description */}
+        <Box sx={{ marginTop: '40px' }}>
+          <Typography variant="h4" component="h3" style={{ fontWeight: 'bold', marginBottom: '10px' }}>
+            Team Description
+          </Typography>
+          <Typography variant="body1" component="p">
+            {team.teamdescription}
+          </Typography>
+        </Box>
+
+        {/* Team Members */}
+        <Box sx={{ marginTop: '40px' }}>
+          <Typography variant="h4" component="h3" style={{ fontWeight: 'bold', marginBottom: '20px' }}>
             Team Members
-             </h3>
-              {team?.teammembers &&
-                Object.keys(team.teammembers).map((type) => (
-                  <div key={type} style={{ marginBottom: '20px' }}>
-                    <h4 style={{ fontWeight: 'bold' }}>{type}</h4>
-                    <ul style={{marginTop:"12px", marginBottom:"12px"}}>
-                      {team?.teammembers[type]?.map((name, index) => (
-                        <li key={index} style={{ fontFamily: 'italic' }}>
-                          {name}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-            </div>
-          </CardContent>
-        </Card>
-      </Box>
+          </Typography>
+          {team?.teammembers &&
+            Object.keys(team.teammembers).map((type) => (
+              <Box key={type} sx={{ marginBottom: '20px' }}>
+                <Typography variant="h5" component="h4" style={{ fontWeight: 'bold' }}>
+                  {type}
+                </Typography>
+                <ul style={{ marginTop: '12px', marginBottom: '12px', listStyleType: 'none', paddingLeft: '0' }}>
+                  {team?.teammembers[type]?.map((name, index) => (
+                    <li key={index} style={{ fontFamily: 'italic' }}>
+                      {name}
+                    </li>
+                  ))}
+                </ul>
+              </Box>
+            ))}
+        </Box>
+      </Paper>
+
+      {/* Delete Confirmation Dialog */}
       <Dialog open={deleteConfirmationOpen} onClose={handleDeleteConfirmationClose}>
         <DialogTitle>Delete Confirmation</DialogTitle>
         <DialogContent>
-          <p>Are you sure you want to delete this team?</p>
-          <p style={{color:"red"}}>Many unexpected things may happen!!</p> 
+          <Typography variant="body1" component="p">
+            Are you sure you want to delete this team?
+          </Typography>
+          <Typography variant="body1" component="p" style={{ color: 'red' }}>
+            Many unexpected things may happen!!
+          </Typography>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleDeleteConfirmationClose}>Cancel</Button>
@@ -147,7 +145,7 @@ const Team = () => {
           </Button>
         </DialogActions>
       </Dialog>
-    </div>
+    </Box>
   );
 };
 

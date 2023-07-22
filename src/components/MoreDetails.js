@@ -36,15 +36,16 @@ const MoreDetails = () => {
           const res = await Axios.put(`http://localhost:5000/users/update/${userId}`, {
             interests: updatedInterest,
           });
-          setInterest(!interest); // Update with the updated value (!interest)
+          setInterest(!interest)
+
+          const res2 = await Axios.put(`http://localhost:5000/events/interest/${id}`,{
+            interest: interest ? event.interest-1 : event.interest+1,
+          });
+
         } catch (error) {
             console.log(error);
         }
       };
-      
-      
-      
-      
 
   const dateTime = (date, time) => {
     const eventDate = new Date(date);

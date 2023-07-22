@@ -86,7 +86,7 @@ const LandingPage = () => {
           <span style={{
             position: "absolute",
             top: "50%",
-            left: "calc(-20px - 1px)",
+            left: "calc(-30px - 1px)",
             transform: "translateY(-50%)",
             width: "1px",
             height: "40px",

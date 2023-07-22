@@ -77,7 +77,9 @@ const PastEvents = () => {
   
     return (
       <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
-        <h2 className="text-center">Schedule</h2>
+      <Typography variant="h3" component="h1" gutterBottom style={{margin:"20px", fontFamily:"'Dancing Script', cursive", fontSize:"38px", marginBottom:"45px", fontWeight:"bold"}}>
+        Match Results
+      </Typography>
         {events.map((event) => (
           <Card
             key={event._id}

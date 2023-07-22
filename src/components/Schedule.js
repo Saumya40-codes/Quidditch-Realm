@@ -1,16 +1,17 @@
 import Axios from 'axios';
 import { useEffect, useState } from 'react';
-import { Card, CardContent } from '@mui/material';
+import { Card, CardContent, Typography } from '@mui/material';
 import defaultvenue from '../assets/defaultvenue.jpeg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import { faClock } from '@fortawesome/free-solid-svg-icons';
 import {Button} from '@mui/material';
-import state from '../state';
+import '../App.css'
 import {  useSelector } from 'react-redux/es/hooks/useSelector';
 import { Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { faThumbsUp } from '@fortawesome/free-solid-svg-icons';
 
 const Schedule = () => {
   const [events, setEvents] = useState([]);
@@ -78,19 +79,24 @@ const Schedule = () => {
 
   return (
     <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
-      <h2 className="text-center">Schedule</h2>
+      <Typography variant="h3" component="h1" gutterBottom style={{margin:"20px", fontFamily:"'Dancing Script', cursive", fontSize:"38px", marginBottom:"45px", fontWeight:"bold"}}>
+        Upcoming Matches
+      </Typography>
       {events.map((event) => (
         <Card
           key={event._id}
-          style={{
+          sx={{
             margin: '20px',
             width: '100%',
-            backgroundColor: '#d6e7f5',
             borderRadius: '16px',
             boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)',
             transition: 'transform 0.3s',
             cursor: 'pointer',
             overflow: 'hidden',
+            '&:hover': {
+              transform: 'scale(1.01)',
+              transition: 'transform 0.3s',
+            },
           }}
           elevation={3}
         >
@@ -112,24 +118,22 @@ const Schedule = () => {
               paddingRight: '20px',
             }}
           >
-            <h2
-              className="text-left mb-2"
-              style={{
-                fontFamily: 'Harry Potter',
-                fontSize: '24px',
-                fontWeight: 'bold',
-                marginBottom: '8px',
-              }}
-            >
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom:"40px"}}>
+          <div>
+            <Typography variant="h4" component="h1" gutterBottom style={{fontFamily:"'Dancing Script', cursive", fontSize:"28px", marginBottom:"5px"}}>
               {event.title}
-            </h2>
+            </Typography>
+          </div>
+          <div style={{ marginTop: "20px", marginLeft: "25px"}}>
+            <FontAwesomeIcon icon={faThumbsUp} style={{ color: "green", width: "30px", height: "30px", cursor:"pointer", marginRight:"7px"}}  /> {event.interest} users are interested!!
+          </div>
+          </div>
             <h3
               className="text-center mb-2"
               style={{
                 fontFamily: 'Harry Potter',
                 fontSize: '18px',
                 fontWeight: 'bold',
-                color: '#777',
                 marginBottom: '12px',
               }}
             >
@@ -202,7 +206,6 @@ const Schedule = () => {
               style={{
                 fontFamily: 'Harry Potter',
                 fontSize: '14px',
-                color: '#555',
                 marginBottom: '0',
                 cursor: 'pointer',
               }}

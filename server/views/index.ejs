@@ -8,7 +8,7 @@
     <script>
         var status = '<%- JSON.stringify(status) %>';
         if (JSON.parse(status) == "verified") {
-            if (confirm("Redirect to login page?")) {
+            if (confirm("Redirect to the login page?")) {
                 window.location.href = "http://localhost:3000/login";
             }
         }
@@ -18,52 +18,60 @@
             height: 100%;
             margin: 0;
             padding: 0;
-            background-image: url('../assets/darkLogin.jpg');
-            background-size: cover;
-            background-repeat: no-repeat;
-
-            }        
-        
-        .container {
+            background: linear-gradient(135deg, #422b72 0%, #734b6d 100%);
             display: flex;
-            flex-direction: column;
-            justify-content: center;
             align-items: center;
-            height: 100vh;
+            justify-content: center;
+            font-family: Arial, sans-serif;
         }
-        
-        form {
+
+        .container {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             border: 1px solid black;
-            height: 300px;
-            width: 300px;
+            height: 500px;
+            width: 580px;
             border-radius: 20px;
             background-color: #f2f2f2;
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
         }
-        
+
         h1 {
             text-align: center;
+            color: #fff;
+            font-family: italic;
+            color:black;
+            padding: 10px;
+            border-radius: 20px 20px 0 0;
+            margin: 0;
         }
-        
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+
         form label {
             margin-top: 20px;
             color: #333;
             font-weight: bold;
         }
-        
+
         input[type="password"] {
             padding: 8px;
+            width: 300px;
             border-radius: 4px;
             border: 1px solid #ccc;
         }
-        
+
         input[type="submit"] {
-            margin-top: 20px;
-            padding: 10px 20px;
+            margin-top: 30px;
+            padding: 15px 25px;
             border: none;
             border-radius: 6px;
             background-color: #007bff;
@@ -71,15 +79,15 @@
             font-weight: bold;
             cursor: pointer;
         }
-        
+
         input[type="submit"]:hover {
             background-color: #0056b3;
         }
     </style>
 </head>
-<body style="background-image: url('http://localhost:3000/assets/darkLogin.jpg'); background-size: cover; background-repeat: no-repeat;">
-    <h1>Reset Password</h1>
+<body>
     <div class="container">
+        <h1>Reset Password</h1>
         <form method="post">
             <label for="password">Password</label>
             <input type="password" name="password" id="password">

@@ -1,4 +1,5 @@
 const Event  = require('../models/CreateEvent');
+const User = require('../models/User');
 
 const addEvent = async (req, res) => {
     try {
@@ -61,8 +62,8 @@ const getEvent= async(req,res) =>{
 const updateEvents = async (req, res) => {
     try {
       const { id } = req.params;
-      const { date, deadline, description, format, interested,totalInterested, rules, team1, team1logo, team2, team2logo, time, title, venue, venuesize,ticket } = req.body;
-      const updateEvent = await Event.findByIdAndUpdate(id, { date, deadline, description, format, interested,totalInterested, rules, team1, team1logo, team2, team2logo, time, title, venue, venuesize, time,ticket }, { new: true });
+      const { date, deadline, description, format, rules, team1, team1logo, team2, team2logo, time, title, venue, venuesize,ticket } = req.body;
+      const updateEvent = await Event.findByIdAndUpdate(id, { date, deadline, description, format, rules, team1, team1logo, team2, team2logo, time, title, venue, venuesize, time,ticket }, { new: true });
 
       res.status(200).json(updateEvent);
     } catch (error) {
@@ -91,7 +92,30 @@ const updateScores = async (req, res) => {
       res.status(500).json({ message: "Something went wrong" });
     }
   };
+
+  const updateInterested = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { interest } = req.body;
+        const updatedEvent = await Event.findByIdAndUpdate(id, { interest: interest }, { new: true });
+        res.status(200).json(updatedEvent);
+    } catch (error) {
+        res.status(500).json({ message: "Something went wrong" });
+    }
+};
+
+const addComments = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { comment, username, date } = req.body;
+        console.log(req.body);
+        const updatedEvent = await Event.findByIdAndUpdate(id, { $push: { usercomments: { comment: comment, username: username, date: date } } }, { new: true });
+        res.status(200).json(updatedEvent);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: "Something went wrong" });
+    }
+};
+
   
-
-
-module.exports = {addEvent, getEvents, deleteEvent, getEvent, updateEvents, getPastEvents, updateScores};
+module.exports = {addEvent, getEvents, deleteEvent, getEvent, updateEvents, getPastEvents, updateScores, updateInterested, addComments};

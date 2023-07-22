@@ -96,7 +96,7 @@ const Profile = () => {
       <Box sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', height:"100%" }}>
         <Card sx={{ width: "100%", margin: 'auto', marginTop: 10 }}>
           <CardContent>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginLeft: "300px" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginLeft: "200px" }}>
               <div>
                 <TextField
                   id="outlined-basic"
@@ -115,7 +115,7 @@ const Profile = () => {
                   style={{ marginBottom: "30px" }}
                 />
               </div>
-              <div style={{ marginRight: "300px" }}>
+              <div style={{ marginRight: "200px" }}>
                   <img
                     src={profilePic ? profilePic : noUser}
                     alt="profile"
@@ -132,7 +132,7 @@ const Profile = () => {
                 <Input type="file" id="file1" onChange={handleProfileChange} style={{ paddingRight: '250px' }} required />
               </div>
             </div>
-            <div style={{ display: "flex", marginTop: "55px", marginLeft: "300px", flexDirection: "column" }}>
+            <div style={{ display: "flex", marginTop: "55px", marginLeft: "200px", flexDirection: "column" }}>
               {!favouriteTeam ? (
                 <Typography variant="subtitle1" color="textSecondary" style={{marginBottom:"10px"}}>
                   You haven't selected your favourite team yet. Choose one and get regular updates!

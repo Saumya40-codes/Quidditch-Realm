@@ -13,11 +13,8 @@ const userSchema = mongoose.Schema({
 
 const NotificationsSchema = mongoose.Schema({
     message: { type: String, required: true },
-    time: { type: Date, required: true, default: Date.now() },
-    sender: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+     time: { type: Date, required: true, default: Date.now },
     receiver: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-    read: { type: Boolean, default: false },
-    type: { type: String, enum: ['message', 'request', 'notification'], default: 'notification' }
 });
 
 const User = mongoose.model('User', userSchema);

@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react'
 import Axios from 'axios'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCalendarTimes } from '@fortawesome/free-solid-svg-icons'
 
 const DashboardData = () => {
     const [events , setEvents] = useState([])
@@ -47,7 +49,7 @@ const DashboardData = () => {
         <Box sx={{ display: 'flex', marginTop:"60px", borderRadius:"12px" }}>
         <Card style={{width:"100%"}}>
         <div style={{ display:"flex", justifyContent:"center", alignItems:"center"}}>
-        <Typography variant="h3" component="h1" gutterBottom style={{margin:"20px", fontFamily:"italic", fontSize:"18px", marginBottom:"5px"}}>
+        <Typography variant="h3" component="h1" gutterBottom style={{margin:"20px", fontFamily:"italic", fontSize:"18px", marginBottom:"5px", fontWeight:"bold"}}>
         {
   favouriteTeam ? (
     <>
@@ -69,6 +71,10 @@ const DashboardData = () => {
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '40px' }}>
             <Typography variant="h4" component="h1" gutterBottom>
               {event.title}
+            </Typography>
+            <Typography variant="h5" component="h1" gutterBottom>
+            <FontAwesomeIcon icon={faCalendarTimes} style={{ marginRight: "8px" }} />
+              {String(event.date).toLocaleString().substring(0,10)} {event.time}
             </Typography>
           </div>
           <Typography variant="body1" component="p" gutterBottom style={{ marginBottom: '40px' }}>
