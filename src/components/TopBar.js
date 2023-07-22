@@ -12,12 +12,11 @@ import { useNavigate } from "react-router-dom";
 import FlexBetween from "./FlexBetween";
 import { useTheme } from "@mui/material/styles";
 import { Badge } from '@mui/material';
-import badge from '../assets/badge.png';
 import { styled } from '@mui/material/styles';
 import { Tooltip } from '@mui/material';
 import {Avatar} from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faBars, faUser } from "@fortawesome/free-solid-svg-icons"
+import { faBars } from "@fortawesome/free-solid-svg-icons"
 import './Navbar.css'
 import noUser from '../assets/noUser.png'
 import { Link } from "react-router-dom";
@@ -59,10 +58,8 @@ const TopBar = ({showSidebar}) => {
   const user = useSelector((state) => state.user);
   const isAdmin = useSelector((state) => state.isAdmin);
   const [anchorEl, setAnchorEl] = useState(null);
-
   const[profilePic, setProfilePic] = useState(null);
   const id = useSelector((state) => state.id);
-
   const theme = useTheme();
   const isDarkMode = useSelector((state) => state.mode === "dark");
   const neutralLight = theme.palette.grey[100];
@@ -160,7 +157,7 @@ const TopBar = ({showSidebar}) => {
   <MenuItem value={fullName}>
     <Typography>{fullName}</Typography>
   </MenuItem>
-  <Link to='/profile' style={{textDecoration:"none", color:"black"}}>
+  <Link to='/profile' style={{textDecoration:"none", color:isDarkMode? "white":"black"}}>
   <MenuItem>
     Profile
   </MenuItem>

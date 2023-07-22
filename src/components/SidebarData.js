@@ -5,7 +5,7 @@ import { faHouse, faUserPlus,faCalendar, faCalendarDays } from "@fortawesome/fre
 export const SidebarData = [
     {
         title: 'Home',
-        path: '/admin',
+        path:'/dashboard',
         icon:<FontAwesomeIcon icon={faHouse} />,
         cName: 'nav-text'
     },

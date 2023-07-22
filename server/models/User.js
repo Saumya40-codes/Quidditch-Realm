@@ -7,7 +7,8 @@ const userSchema = mongoose.Schema({
     isAdmin: { type: Boolean, default: false },
     interests: { type: Object, default: {} }, 
     profilePic: { type: String },
-    favouriteTeam: { type: String, default: "" }
+    favouriteTeam: { type: String, default: "" },
+    notifications: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Notifications' }],
 });
 
 const NotificationsSchema = mongoose.Schema({
@@ -17,13 +18,8 @@ const NotificationsSchema = mongoose.Schema({
     receiver: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     read: { type: Boolean, default: false },
     type: { type: String, enum: ['message', 'request', 'notification'], default: 'notification' }
-    // Add more fields as per your requirements
 });
 
 const User = mongoose.model('User', userSchema);
-const Notification = mongoose.model('Notification', NotificationsSchema);
-
-module.exports = {
-    User: User,
-    Notification: Notification
-};
+const Notifications = mongoose.model('Notifications', NotificationsSchema);
+module.exports = User;

@@ -49,16 +49,16 @@ const AdminDashboard = () => {
         <Slider />
       </div>
       <div style={{ marginTop: "100px" }}>
-        <Card style={{ width: "100%", background: "#f7f7f7", boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)" }}>
+        <Card style={{ width: "100%", boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.4)" }}>
           <CardContent>
-            <Typography variant="h4" style={{ fontFamily: "Harry Potter", color: "#2268e2", textAlign: "center", marginBottom: "20px" }}>
+            <Typography variant="h4" style={{ fontFamily: "Harry Potter",  textAlign: "center", marginBottom: "20px" }}>
               Welcome to the Wizarding World's Administrative Chamber!
             </Typography>
             <Grid container spacing={3}>
               <Grid item xs={12} sm={6} md={4}>
-                <Card style={{ height: "100%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", background: "#ffffff", boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)" }}>
-                  <FontAwesomeIcon icon={faBroom} style={{ color: "#2268e2", width: "100px", height: "100px" }} />
-                  <Typography variant="h5" style={{ fontFamily: "Harry Potter", color: "#2268e2", marginTop: "10px" }}>
+                <Card style={{ height: "100%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.4)" }}>
+                  <FontAwesomeIcon icon={faBroom} style={{  width: "100px", height: "100px" }} />
+                  <Typography variant="h5" style={{ fontFamily: "Harry Potter",  marginTop: "10px" }}>
                     View Registered Teams
                   </Typography>
                   <IconButton>
@@ -69,9 +69,9 @@ const AdminDashboard = () => {
                 </Card>
               </Grid>
               <Grid item xs={12} sm={6} md={4}>
-                <Card style={{ height: "100%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", background: "#ffffff", boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)" }}>
-                  <FontAwesomeIcon icon={faBook} style={{ color: "#2268e2", width: "100px", height: "100px" }} />
-                  <Typography variant="h5" style={{ fontFamily: "Harry Potter", color: "#2268e2", marginTop: "10px" }}>
+                <Card style={{ height: "100%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",  boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.4)" }}>
+                  <FontAwesomeIcon icon={faBook} style={{  width: "100px", height: "100px" }} />
+                  <Typography variant="h5" style={{ fontFamily: "Harry Potter",  marginTop: "10px" }}>
                     Manage Events
                   </Typography>
                   <IconButton>
@@ -82,9 +82,9 @@ const AdminDashboard = () => {
                 </Card>
               </Grid>
               <Grid item xs={12} sm={6} md={4}>
-                <Card style={{ height: "100%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", background: "#ffffff", boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)" }}>
-                  <FontAwesomeIcon icon={faMagic} style={{ color: "#2268e2", width: "100px", height: "100px" }} />
-                  <Typography variant="h5" style={{ fontFamily: "Harry Potter", color: "#2268e2", marginTop: "10px" }}>
+                <Card style={{ height: "100%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.4)" }}>
+                  <FontAwesomeIcon icon={faMagic} style={{  width: "100px", height: "100px" }} />
+                  <Typography variant="h5" style={{ fontFamily: "Harry Potter",  marginTop: "10px" }}>
                     Wizards and Witches
                   </Typography>
                   <IconButton>
@@ -94,7 +94,6 @@ const AdminDashboard = () => {
                   </IconButton>
                 </Card>
               </Grid>
-              {/* Add more grid items with different functionalities */}
             </Grid>
           </CardContent>
         </Card>

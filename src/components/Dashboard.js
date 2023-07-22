@@ -2,15 +2,15 @@ import { Link } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons"
 import { useState } from "react"
-import { SidebarData } from "./SidebarData"
+import {SidebarData} from "./SidebarData"
 import './Navbar.css'
 import Slider from './Slider'
 import { Button } from "@mui/material"
 import { setLogout } from "../state"
 import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import FlexBetween from "./FlexBetween"
 import TopBar from "./TopBar"
+import DashboardData from "./DashboardData"
 
 const Dashboard = () => {
   const [sidebar, setSidebar] = useState(false)
@@ -19,11 +19,6 @@ const Dashboard = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const logout = () => {
-    dispatch(setLogout());
-    navigate('/login');
-  }
 
   return (
   <div className="nav-container">
@@ -48,11 +43,7 @@ const Dashboard = () => {
         </ul>
       </nav>
       <Slider />
-      <div style={{ position: "fixed", bottom: "14px", right: "14px" }} onClick={logout}>
-  <Button variant="contained" color="primary" onClick={logout}>
-    Logout
-  </Button>
-</div>
+      <DashboardData />
   </div>
   )
 }
