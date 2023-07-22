@@ -75,7 +75,7 @@ const AdminDashboard = () => {
                     Manage Events
                   </Typography>
                   <IconButton>
-                    <Link to="/admin/manage/events">
+                    <Link to="/add/event">
                       <VisibilityIcon />
                     </Link>
                   </IconButton>
@@ -88,7 +88,7 @@ const AdminDashboard = () => {
                     Wizards and Witches
                   </Typography>
                   <IconButton>
-                    <Link to="/admin/wizards">
+                     <Link to="/">   {/*// Link to the page where all the users are displayed (to be created) */}
                       <VisibilityIcon />
                     </Link>
                   </IconButton>
