@@ -23,6 +23,7 @@ import PostMatch from './components/PastEvents/PostMatch';
 import RegisteredTeams from './components/Admin/RegisteredTeams';
 import Team from './components/Team';
 import Profile from './components/Profile';
+import BrowseTeams from './components/BrowseTeams';
 
 import { CssBaseline } from '@mui/material';
 import { themeSettings } from './theme';
@@ -53,6 +54,7 @@ function App() {
             <Route path="/post/match/:id" element={<PostMatch />} />
             <Route path="/team/:id" element={<Team />} />
             <Route path='/profile' element={<Profile />} />
+            <Route path='/browse/teams' element={<BrowseTeams />} />
           </Routes>
           <Routes>
             <Route path="/add/event" element={<Stepper mode="add" />} />
