@@ -168,7 +168,7 @@ export default function HorizontalLinearStepper({ mode }) {
   return (
     <Box sx={{ width: '100%' }}>
       <ToastContainer />
-      <Stepper activeStep={activeStep}>
+      <Stepper activeStep={activeStep} sx={{ pt: 4 }}>
         {steps.map((label, index) => {
           const stepProps = {};
           const labelProps = {};
