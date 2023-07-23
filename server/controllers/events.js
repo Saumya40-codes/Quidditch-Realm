@@ -107,9 +107,8 @@ const updateScores = async (req, res) => {
 const addComments = async (req, res) => {
     try {
         const { id } = req.params;
-        const { comment, username, date } = req.body;
-        console.log(req.body);
-        const updatedEvent = await Event.findByIdAndUpdate(id, { $push: { usercomments: { comment: comment, username: username, date: date } } }, { new: true });
+        const { comment, username, date, likes } = req.body;
+        const updatedEvent = await Event.findByIdAndUpdate(id, { $push: { usercomments: { comment: comment, username: username, date: date, likes:likes } } }, { new: true });
         res.status(200).json(updatedEvent);
     } catch (error) {
         console.log(error);
@@ -117,5 +116,33 @@ const addComments = async (req, res) => {
     }
 };
 
+const editComment = async (req, res) => {
+    try {
+      const { id } = req.params;
+      const {usercomments} = req.body;
+      console.log(usercomments);
+      const updateEvent = await Event.findByIdAndUpdate(id, {$set: {usercomments: usercomments}}, { new: true });
+      res.status(200).json(updateEvent);
+    }
+    catch (error) {
+        console.log(error);
+        res.status(500).json({ message: "Something went wrong" });
+    }
+  };
   
-module.exports = {addEvent, getEvents, deleteEvent, getEvent, updateEvents, getPastEvents, updateScores, updateInterested, addComments};
+
+
+const deleteComment = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { commentId } = req.body;
+        const updatedEvent = await Event.findByIdAndUpdate(id, { $pull: { usercomments: { _id: commentId } } }, { new: true });  
+        console.log(updatedEvent);
+        res.status(200).json(updatedEvent);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: "Something went wrong" });
+    }
+};
+  
+module.exports = {addEvent, getEvents, deleteEvent, getEvent, updateEvents, getPastEvents, updateScores, updateInterested, addComments, deleteComment, editComment};

@@ -131,7 +131,7 @@ const Schedule = () => {
             <h3
               className="text-center mb-2"
               style={{
-                fontFamily: 'Harry Potter',
+                fontFamily: 'Harry Potter', 
                 fontSize: '18px',
                 fontWeight: 'bold',
                 marginBottom: '12px',

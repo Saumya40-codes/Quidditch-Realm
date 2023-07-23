@@ -10,6 +10,8 @@ const { getPastEvents } = require('../controllers/events.js');
 const { updateScores } = require('../controllers/events.js');
 const { updateInterested } = require('../controllers/events.js');
 const { addComments } = require('../controllers/events.js');
+const { deleteComment } = require('../controllers/events.js');
+const { editComment } = require('../controllers/events.js');
 
 const router = express.Router();
 
@@ -23,5 +25,7 @@ router.put('/updateScore/:id', updateScores);
 router.put('/interest/:id', updateInterested);
 
 router.put('/addComment/:id', addComments);
+router.put('/deleteComment/:id', deleteComment);
+router.put('/editComment/:id', editComment);
 
 module.exports = router;

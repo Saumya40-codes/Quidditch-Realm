@@ -2,7 +2,24 @@ const mongoose = require('mongoose');
 
 const eventSchema = mongoose.Schema({
     comment: {type: String, required: false},
-    usercomments: {type: [{comment: String, username: String, date: Date}], required: false, default: []},
+    usercomments: {
+      type: [
+        {
+          _id: {
+            type: mongoose.Schema.Types.ObjectId,
+            required: true,
+            auto: true, 
+          },
+          comment: String,
+          username: String,
+          date: Date,
+          likes: Number,
+        },
+      ],
+      required: false,
+      default: [],
+    },
+    
     date: { type: Date, required: true },
     deadline: { type: Date, required: true },
     description: { type: String, required: true },

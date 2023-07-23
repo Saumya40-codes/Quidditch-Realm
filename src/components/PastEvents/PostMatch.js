@@ -97,25 +97,33 @@ const PostMatch = () => {
             Venue: {event.venue}
           </Typography>
           <Box sx={{ display: "grid", gridTemplateColumns: "auto auto auto", marginBottom: "40px" }}>
-  <Typography variant="body1" component="p" gutterBottom style={{ marginLeft: '250px' }}>
+          <div style={{ display:"flex", justifyContent:"flex-end", alignItems:"center"}}>
+  <Typography variant="h5" component="h2" gutterBottom style={{fontFamily:"italic", fontWeight:"bold"}}>
     {event.team1}
   </Typography>
-  <div style={{ display: 'flex', justifyContent: 'centre', alignItems: 'center' }}>
-
   </div>
-  <Typography variant="body1" component="p" gutterBottom>
+  <div style={{ display: 'flex', justifyContent: 'centre', alignItems: 'center' }}>
+  <span>
+    
+  </span>
+  </div>
+  <div style={{ display: 'flex', justifyContent: 'centre', alignItems: 'center' }}>
+  <Typography variant="h5" component="h2" gutterBottom style={{fontFamily:"italic", fontWeight:"bold"}}>
     {event.team2}
   </Typography>
+  </div>
 </Box>
 <div style={{ display: "grid", gridTemplateColumns: "auto auto auto", marginBottom: "40px" }}>
-  <div style={{ marginLeft: '250px' }}>
-    <img src={event.team1logo} alt="team1logo" style={{ width: '50px', height: '50px' }} />
+  <div style={{ display:"flex", justifyContent:"flex-end", alignItems:"center"}}>
+    <img src={event.team1logo} alt="team1logo" style={{ width: '70px', height: '70px' }} />
+  </div>
+  <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+  <span style={{fontWeight:"bold", fontSize:"30px"}}>
+    {event.team1score} - {event.team2score}
+  </span>
   </div>
   <div style={{ display: 'flex', justifyContent: 'centre', alignItems: 'center' }}>
-    {event.team1score} - {event.team2score}
-  </div>
-  <div>
-    <img src={event.team2logo} alt="team2logo" style={{ width: '50px', height: '50px' }} />
+    <img src={event.team2logo} alt="team2logo" style={{ width: '70px', height: '70px' }} />
   </div>
 </div>
     <Tabs />
