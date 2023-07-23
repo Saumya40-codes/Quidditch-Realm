@@ -14,6 +14,7 @@ const Comments = () => {
   const [likes, setLikes] = useState(0);
   const [existingComments, setExistingComments] = useState([]);
   const [editMode, setEditMode] = useState({});
+  const [userhasLiked, setUserHasLiked] = useState([]);
 
   const getAdminComments = async () => {
     try {
@@ -108,15 +109,26 @@ const handleLike = async (comment_id) => {
       const commentIndex = existingComments.findIndex((comment) => comment._id === comment_id);
       if (commentIndex !== -1) {
         const updatedComments = [...existingComments];
-        if (updatedComments[commentIndex].likes === 0) {
-          updatedComments[commentIndex].likes += 1;
+        const comment = updatedComments[commentIndex];
+  
+        const hasLiked = userhasLiked.includes(comment_id);
+  
+        if (hasLiked) {
+          comment.likes -= 1;
         } else {
-          updatedComments[commentIndex].likes -= 1;
+          comment.likes += 1;
         }
+  
+        setUserHasLiked((prevUserLikes) =>
+          hasLiked
+            ? prevUserLikes.filter((likedCommentId) => likedCommentId !== comment_id)
+            : [...prevUserLikes, comment_id]
+        );
+  
         setExistingComments(updatedComments);
-
+  
         const res = await Axios.put(`http://localhost:5000/events/editComment/${id}`, {
-            usercomments: existingComments,
+          usercomments: updatedComments,
         });
         setExistingComments(res.data.usercomments);
       }
@@ -124,6 +136,7 @@ const handleLike = async (comment_id) => {
       console.log(error);
     }
   };
+  
   
 
   return (
