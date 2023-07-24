@@ -22,6 +22,8 @@ import noUser from '../assets/noUser.png'
 import { Link } from "react-router-dom";
 import Axios from 'axios'
 
+import Notifs from "./Notifs";
+
 const StyledBadge = styled(Badge)(({ theme }) => ({
     '& .MuiBadge-badge': {
       backgroundColor: '#44b700',
@@ -68,6 +70,9 @@ const TopBar = ({showSidebar}) => {
   const primaryLight = theme.palette.primary.light;
   const alt = theme.palette.background.alt;
 
+  const [showNotif, setShowNotif] = useState(false);
+  const [anchorEl1, setAnchorEl1] = useState(null);
+
   const fullName = `${user.username}`;
 
   const handleBadgeClick = (event) => {
@@ -76,7 +81,16 @@ const TopBar = ({showSidebar}) => {
 
   const handleCloseMenu = () => {
     setAnchorEl(null);
-  };  
+  };
+  
+  const handleNotifClick = (event) => {
+    setShowNotif(!showNotif);
+    setAnchorEl1(event.currentTarget);
+  };
+
+  const handleNotifMenu = () => {
+    setAnchorEl1(null);
+  };
 
   const logout = () => {
     dispatch(setLogout());
@@ -130,7 +144,7 @@ const TopBar = ({showSidebar}) => {
     <LightMode sx={{ color: dark, fontSize: "40px" }} />
   )}
 </IconButton>
-          <Notifications sx={{ fontSize: "40px", color:dark }} />
+          <Notifs showNotif={showNotif} handleBadgeClick={handleNotifClick} handleCloseMenu={handleNotifMenu} enchorEl1 = {anchorEl1} />
           <StyledBadge 
           overlap="circular"
           variant="dot"
