@@ -8,15 +8,41 @@ const userSchema = mongoose.Schema({
     interests: { type: Object, default: {} }, 
     profilePic: { type: String },
     favouriteTeam: { type: String, default: "" },
-    notifications: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Notifications' }],
-});
+    
+    notifications: {
+        type: [
+            {
+                _id: {
+                    type: mongoose.Schema.Types.ObjectId,
+                    required: true,
+                    auto: true,
+                },
+                message: String,
+                date: Date,
+                receiver: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+            },
+        ],
+        required: false,
+        default: [],
+    },
 
-const NotificationsSchema = mongoose.Schema({
-    message: { type: String, required: true },
-     time: { type: Date, required: true, default: Date.now },
-    receiver: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    occuredNotifications: {
+        type: [
+            {
+                _id: {
+                    type: mongoose.Schema.Types.ObjectId,
+                    required: true,
+                    auto: true,
+                },
+                message: String,
+                date: Date,
+                receiver: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+            },
+        ],
+        required: false,
+        default: [],
+    }
 });
 
 const User = mongoose.model('User', userSchema);
-const Notifications = mongoose.model('Notifications', NotificationsSchema);
 module.exports = User;

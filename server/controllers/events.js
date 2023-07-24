@@ -19,7 +19,9 @@ const addEvent = async (req, res) => {
 const getEvents = async (req, res) => {
     try {
         const currentdate = new Date();
-        const events = await Event.find({date:{$gte:currentdate}}).sort({date:1});
+        const onlyDate = currentdate.toISOString().slice(0,10);
+
+        const events = await Event.find({ date: { $gte: onlyDate } }).sort({ date: 1 });
         res.status(200).json(events);
     } catch (error) {
         res.status(500).json({message: "Something went wrong"});

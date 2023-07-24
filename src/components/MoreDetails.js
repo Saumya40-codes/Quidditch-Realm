@@ -14,6 +14,7 @@ const MoreDetails = () => {
   const { id } = useParams();
   const [interest, setInterest] = useState(false);
   const userId = useSelector(state => state.id);
+  const [notifs, setNotifs] = useState([]);
 
   const getInterest = async () => {
     try {
@@ -37,6 +38,25 @@ const MoreDetails = () => {
             interests: updatedInterest,
           });
           setInterest(!interest)
+          
+          const date = String(event.date).substring(0, 10);
+          const time = String(event.time).substring(0, 5);
+          const dateTime = `${date}T${time}:00.000+05:30`;
+          console.log(dateTime);
+
+          if(interest){
+            const res = await Axios.put(`http://localhost:5000/users/del/notif/${userId}`, {
+              message: `You had shown interest in match between ${event.team1} and ${event.team2}. It has started, join in!!`,
+              date: dateTime,
+              receiver: userId,
+            });
+          }else{
+            const res = await Axios.put(`http://localhost:5000/users/addNotification/${userId}`, {
+              message: `You have shown interest in match between ${event.team1} and ${event.team2}. It will start at ${dateTime}.`,
+              date: dateTime,
+              receiver: userId,
+            });
+          }
 
           const res2 = await Axios.put(`http://localhost:5000/events/interest/${id}`,{
             interest: interest ? event.interest-1 : event.interest+1,

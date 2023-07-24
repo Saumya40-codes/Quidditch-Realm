@@ -131,7 +131,7 @@ export default function HorizontalLinearStepper({ mode }) {
         setFormChanged({});
         toast.success('Event Edited Successfully', { autoClose: 3000 });
         setTimeout(() => {
-          navigate('/admin');
+          navigate('/schedule');
         }, 2000);
       })
       .catch((err) => {
