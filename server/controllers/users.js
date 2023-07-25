@@ -1,6 +1,5 @@
 const User = require('../models/User.js');
 const schedule = require('node-schedule');
-const moment = require('moment-timezone');
 
 const getUsers = async (req, res) => {
     try {
@@ -42,7 +41,6 @@ const updateProfile = async (req, res) => {
   };
 
   const occuredNotifs = async (req, id, notifId) => {
-    console.log(notifId, id);
     try {
       const getNotif = await User.findOne({ _id: id }).select("notifications");
   
@@ -52,8 +50,6 @@ const updateProfile = async (req, res) => {
       }
 
       const str_notifId = notifId.toString();
-      console.log(str_notifId);
-      console.log(getNotif);
 
       const notif = getNotif.notifications.filter((notif) => notif._id.toString() === str_notifId);
 
@@ -65,10 +61,7 @@ const updateProfile = async (req, res) => {
         { new: true }
       );
       const delNotif = await User.findByIdAndUpdate(id, { $pull: { notifications: { _id: notifId } } }, { new: true });
-  
-      console.log("addNotif:", addNotif);
-      console.log("delNotif:", delNotif);
-  
+
       return { addNotif, delNotif };
     } catch (error) {
       console.log("Error in occuredNotifs:", error);
@@ -105,7 +98,6 @@ const updateProfile = async (req, res) => {
             res.status(500).json({ message: "Something went wrong" });
           }
         });
-        console.log(job);
       } else {
         console.log("Scheduled date is in the past. Job cannot be scheduled.");
       }

@@ -2,7 +2,6 @@ import * as React from 'react';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MobileStepper from '@mui/material/MobileStepper';
-import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
@@ -60,10 +59,10 @@ function Slider() {
   const handleStepChange = (step) => {
     setActiveStep(step);
   };
-
+  
   return (
-    <div className="slider-container">
-      <Box sx={{ flexGrow: 1, marginTop: "30px", marginLeft: "auto", marginRight: "auto", marginRight: "250px" }}>
+    <div className="slider-container" style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent:"center" }}>
+      <Box sx={{marginTop: "30px", width: "60%"}}>
         {events.length > 0 ? (
           <AutoPlaySwipeableViews
             axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
@@ -121,29 +120,25 @@ function Slider() {
           steps={maxSteps}
           position="static"
           activeStep={activeStep}
+          sx={{
+            alignSelf: "center",
+            width: "100%",
+          }}
           nextButton={
-            <Button
-              size="small"
-              onClick={handleNext}
-              disabled={activeStep === maxSteps - 1}
-            >
-              Next
-              {theme.direction === 'rtl' ? (
-                <KeyboardArrowLeft />
-              ) : (
-                <KeyboardArrowRight />
-              )}
-            </Button>
+            <div style={{ display: "flex", justifyContent: "flex-end", alignItems: "center", width: "50%" }}>
+              <Button size="small" onClick={handleNext} disabled={activeStep === maxSteps - 1}>
+                Next
+                {theme.direction === "rtl" ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
+              </Button>
+            </div>
           }
           backButton={
-            <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
-              {theme.direction === 'rtl' ? (
-                <KeyboardArrowRight />
-              ) : (
-                <KeyboardArrowLeft />
-              )}
-              Back
-            </Button>
+            <div style={{ display: "flex", justifyContent: "flex-start", alignItems: "center", width: "50%" }}>
+              <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
+                {theme.direction === "rtl" ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
+                Back
+              </Button>
+            </div>
           }
         />
       </Box>

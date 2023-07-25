@@ -3,10 +3,10 @@ const User = require('../models/User');
 
 const addEvent = async (req, res) => {
     try {
-        const {date, deadline, description, format, rules, team1, team1logo, team2, team2logo, ticket, title, venue, venuesize, time} = req.body;
-        console.log(req.body);
-        const newEvent = new Event({date, deadline, description, format, rules, team1, team1logo, team2, team2logo, time, title, venue, venuesize,ticket});
+        const {date, deadline, description, endtime, format, rules, team1, team1logo, team2, team2logo, ticket, title, venue, venuesize, time} = req.body;
+        const newEvent = new Event({date, deadline, description, endtime, format, rules, team1, team1logo, team2, team2logo, time, title, venue, venuesize,ticket});
         const savedEvent = await newEvent.save();
+        console.log(savedEvent);
         res.status(201).json(savedEvent);
     } catch (error) {
         console.log(error);
@@ -64,8 +64,8 @@ const getEvent= async(req,res) =>{
 const updateEvents = async (req, res) => {
     try {
       const { id } = req.params;
-      const { date, deadline, description, format, rules, team1, team1logo, team2, team2logo, time, title, venue, venuesize,ticket } = req.body;
-      const updateEvent = await Event.findByIdAndUpdate(id, { date, deadline, description, format, rules, team1, team1logo, team2, team2logo, time, title, venue, venuesize, time,ticket }, { new: true });
+      const { date, deadline, description,endtime, format, rules, team1, team1logo, team2, team2logo, time, title, venue, venuesize,ticket } = req.body;
+      const updateEvent = await Event.findByIdAndUpdate(id, { date, deadline, description,endtime, format, rules, team1, team1logo, team2, team2logo, time, title, venue, venuesize, time,ticket }, { new: true });
 
       res.status(200).json(updateEvent);
     } catch (error) {

@@ -52,7 +52,7 @@ const MoreDetails = () => {
             });
           }else{
             const res = await Axios.put(`http://localhost:5000/users/addNotification/${userId}`, {
-              message: `You have shown interest in match between ${event.team1} and ${event.team2}. It will start at ${dateTime}.`,
+              message: `You had shown interest in match between ${event.team1} and ${event.team2}. It has started, join in!! ${dateTime}`,
               date: dateTime,
               receiver: userId,
             });

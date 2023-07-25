@@ -103,11 +103,6 @@ button {
 span {
     margin-left: 16px;
 }
-
-.slider-container {
-    margin-left: 250px; 
-    transition: 350ms;
-  }
   
   .nav-menu.active ~ .slider-container {
     margin-left:290px;

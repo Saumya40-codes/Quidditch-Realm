@@ -23,6 +23,7 @@ const eventSchema = mongoose.Schema({
     date: { type: Date, required: true },
     deadline: { type: Date, required: true },
     description: { type: String, required: true },
+    endtime: { type: String, required: false },
     format: { type: String, required: true },
     interest: { type: Number, required: false, default: 0 },
     rules: { type: String, required: false },

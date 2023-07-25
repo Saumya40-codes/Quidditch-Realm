@@ -11,6 +11,7 @@ const EventDetails = ({ handleFormChange, formchanged }) => {
   const [venuesize, setVenueSize] = useState(formchanged.venuesize);
   const [date, setDate] = useState(formchanged.date);
   const [time, setTime] = useState(formchanged.time);
+  const [endtime, setEndTime] = useState(formchanged.endtime);
 
   useEffect(() => {
     setTitle(formchanged.title || "");
@@ -19,6 +20,7 @@ const EventDetails = ({ handleFormChange, formchanged }) => {
     setVenueSize(formchanged.venuesize || "");
     setDate(formchanged.date || "");
     setTime(formchanged.time || "");
+    setEndTime(formchanged.endtime || "");
   }, [formchanged]);
 
   return (
@@ -84,6 +86,16 @@ const EventDetails = ({ handleFormChange, formchanged }) => {
                 style={{ marginBottom: "20px" }}
                 onChange={(e) => handleFormChange("time", e.target.value)}
                 value={time}
+                required
+              />
+              <h4 style={{ marginTop: "20px" }}> Please provide approximate match end time </h4>
+              <TextField
+                id="endtime"
+                type="time"
+                variant="filled"
+                style={{ marginBottom: "20px" }}
+                onChange={(e) => handleFormChange("endtime", e.target.value)}
+                value={endtime}
                 required
               />
             </FormControl>

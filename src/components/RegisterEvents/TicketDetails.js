@@ -1,15 +1,19 @@
 import React from 'react';
 import Axios from 'axios';
 import { Card, CardContent, Typography, Button, Grid, Slider } from '@mui/material';
+import { useParams } from 'react-router-dom';
 
 const styles = {
   root: {
+    marginLeft: '20px',
     marginTop: '60px',
     padding: '20px',
   },
   card: {
     boxShadow: '6px 5px 5px rgba(0,0,0,0.5)',
     minHeight: '250px',
+    maxWidth: '980px',
+    margin: 'auto',
   },
   buyButton: {
     marginTop: '10px',
@@ -34,12 +38,13 @@ const styles = {
 };
 
 const TicketDetails = () => {
-  const [events, setEvents] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState(null);
   const [buyClicked, setBuyClicked] = React.useState([]);
-  const [ticketQuantity, setTicketQuantity] = React.useState([]);
   const [price, setPrice] = React.useState(0);
+  const { id } = useParams();
+  const [tickets, setTickets] = React.useState([]);
+  const [ticketQuantity, setTicketQuantity] = React.useState([]);
 
   const handleTicketQuantityChange = (event, index, newValue, ticketPrice) => {
     const newTicketQuantity = [...ticketQuantity];
@@ -49,39 +54,30 @@ const TicketDetails = () => {
   };
 
   const handleBuyClick = (ticketId) => () => {
-    const newBuyClicked = [...buyClicked];
-    newBuyClicked[ticketId] = !newBuyClicked[ticketId];
-    setBuyClicked(newBuyClicked);
+    setBuyClicked((prevBuyClicked) => ({
+      ...prevBuyClicked,
+      [ticketId]: !prevBuyClicked[ticketId],
+    }));
   };
 
   React.useEffect(() => {
     const getEvents = async () => {
       try {
-        const res = await Axios.get('http://localhost:5000/events/get');
-        setEvents(res.data);
+        const res = await Axios.get(`http://localhost:5000/events/get/${id}`);
+        setTickets(res.data.ticket);
         setLoading(false);
       } catch (error) {
         setError(error);
         setLoading(false);
       }
     };
-
     getEvents();
-  }, []);
-
-  const getTickets = () => {
-    if (events.length > 0) {
-      const tickets = events.map((event) => event.ticket).flat();
-      return tickets;
-    }
-    return [];
-  };
-
-  const tickets = getTickets();
+  }, [id]);
 
   React.useEffect(() => {
-    setBuyClicked(new Array(tickets.length).fill(false));
-  }, [tickets.length]);
+    setTicketQuantity([]);
+    setBuyClicked([]);
+  }, [tickets]);
 
   if (loading) {
     return <p>Loading...</p>;
@@ -95,11 +91,11 @@ const TicketDetails = () => {
     <div style={styles.root}>
       <Grid container spacing={3}>
         {tickets.map((ticket, index) => (
-          <Grid item key={ticket._id} xs={12} sm={6} md={6} lg={6}>
+          <Grid item key={ticket?._id} xs={12} sm={6} md={6} lg={6}>
             <Card style={styles.card}>
               <CardContent>
                 <Typography variant="h5" component="h2">
-                  {ticket.type}
+                  {ticket?.type}
                   <Button
                     variant="contained"
                     color="primary"
@@ -110,10 +106,10 @@ const TicketDetails = () => {
                   </Button>
                 </Typography>
                 <Typography color="textSecondary" gutterBottom>
-                  Price: {ticket.price}$
+                  Price: {ticket?.price}$
                 </Typography>
                 <Typography variant="body2" component="ul">
-                  {ticket.accom.split(',').map((accom, index) => (
+                  {ticket?.accom.split(',').map((accom, index) => (
                     <li key={index} style={{ margin: '14px 0' }}>
                       {accom}
                     </li>
@@ -124,24 +120,20 @@ const TicketDetails = () => {
                     <Typography id="ticket-quantity-slider" gutterBottom>
                       Select Quantity:
                     </Typography>
-                    <Grid container spacing={2} alignItems="center">
-                      <Grid item xs={2}>
-                        <Typography variant="body2">{ticketQuantity[index]}</Typography>
-                      </Grid>
-                      <Grid item xs={10}>
-                        <Slider
-                          aria-labelledby="ticket-quantity-slider"
-                          value={ticketQuantity[index]}
-                          onChange={(event, newValue) =>
-                            handleTicketQuantityChange(event, index, newValue, ticket.price)
-                          }
-                          min={1}
-                          max={ticket.amount}
-                          step={1}
-                          sx={{ '& .MuiSlider-thumb': styles.thumb }}
-                        />
-                      </Grid>
-                    </Grid>
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                      <Typography variant="body2">{ticketQuantity[index]}</Typography>
+                      <Slider
+                        aria-labelledby="ticket-quantity-slider"
+                        value={ticketQuantity[index]}
+                        onChange={(event, newValue) =>
+                          handleTicketQuantityChange(event, index, newValue, ticket?.price)
+                        }
+                        min={1}
+                        max={ticket.amount}
+                        step={1}
+                        sx={{marginTop:"20px", marginLeft: '20px', marginRight: '20px', width: '80%' }}
+                      />
+                    </div>
                   </div>
                 )}
               </CardContent>
@@ -149,7 +141,7 @@ const TicketDetails = () => {
           </Grid>
         ))}
       </Grid>
-      {buyClicked.includes(true) && (
+      {Object.values(buyClicked).includes(true) && (
         <Typography variant="h5" component="h2" style={styles.totalPrice}>
           Total Price: {price}$
         </Typography>

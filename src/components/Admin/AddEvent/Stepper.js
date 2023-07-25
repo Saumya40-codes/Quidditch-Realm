@@ -13,6 +13,7 @@ import Axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const steps = ['Event Details', 'Team Details', 'Additionals'];
 
@@ -20,6 +21,7 @@ export default function HorizontalLinearStepper({ mode }) {
   const [activeStep, setActiveStep] = useState(0);
   const [skipped, setSkipped] = useState(new Set());
   const [ticket, setTicket] = useState([]);
+  const userId = useSelector((state) => state.id);
 
 
   const handleTicketChange = (index, field, value) => {
@@ -52,6 +54,7 @@ export default function HorizontalLinearStepper({ mode }) {
     date: new Date(),
     deadline: new Date(),
     description: '',
+    endtime: '',
     format: '',
     rules: '',
     team1: '',
@@ -102,11 +105,20 @@ export default function HorizontalLinearStepper({ mode }) {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
+    console.log(formchanged);
     Axios.post('http://localhost:5000/events/add', {
       ...formchanged,
       ticket: ticket,
     })
-      .then((res) => {
+      .then(async (res) => {
+        const date = String(formchanged.date).substring(0, 10);
+        const time = String(formchanged.endtime).substring(0, 5);
+        const dateTime = `${date}T${time}:00.000+05:30`;
+        await Axios.put(`http://localhost:5000/users/addNotification/${userId}`, {
+          message: `Match between ${formchanged.team1} and ${formchanged.team2} has been ended. Please add the post match details. If not already added. ${dateTime}`,
+          date: dateTime,
+          receiver: userId,
+        });
         setFormChanged({});
         toast.success('Event Added Successfully', { autoClose: 3000 });
         setTimeout(() => {
@@ -117,6 +129,7 @@ export default function HorizontalLinearStepper({ mode }) {
         toast.error('Event Addition Failed', { autoClose: 3000 });
       });
   };
+  
   
 
   const handleEdit = async (e) => {
