@@ -8,6 +8,9 @@ import Timeline from './Timeline';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import { useRef } from 'react';
 
 const MoreDetails = () => {
   const [event, setEvent] = useState({});
@@ -15,6 +18,8 @@ const MoreDetails = () => {
   const [interest, setInterest] = useState(false);
   const userId = useSelector(state => state.id);
   const [notifs, setNotifs] = useState([]);
+  const navigate = useNavigate();
+  const hasCalled = useRef(false);
 
   const getInterest = async () => {
     try {
@@ -112,6 +117,55 @@ const MoreDetails = () => {
     getEvent();
   }, [id]);
 
+  const handleRedirectToServer = () => {
+    window.location.href = `http://localhost:5000/calendar/${id}`;
+  };
+
+  let searchForStatus = new URLSearchParams(window.location.search)
+  let status = searchForStatus.get('status')
+
+  useEffect(()=>{
+    searchForStatus = new URLSearchParams(window.location.search)
+    status = searchForStatus.get('status')
+  }, [])
+
+  
+  useEffect(() => {
+    if (!hasCalled.current && status === '200' && event.date && event.time && event.endtime) {
+      hasCalled.current = true;
+      (async () => {
+        const date = String(event.date).substring(0, 10);
+        const time = String(event.time).substring(0, 5);
+        const endtime = String(event.endtime).substring(0, 5);
+        const combinedDateTime = new Date(`${date}T${time}:00.000+05:30`);
+        const combinedEndTime = new Date(`${date}T${endtime}:00.000+05:30`);
+  
+        try {
+          const res = await Axios.post('http://localhost:5000/create-event', {
+            summary: event.title,
+            description: `Quidditch match between ${event.team1} and ${event.team2}`,
+            dateTime1: combinedDateTime.toISOString(),
+            dateTime2: combinedEndTime.toISOString(),
+          });
+          if (res.status === 200) {
+            toast.success('Event has been added to your calendar', { autoClose: 2500 });
+            setTimeout(() => {
+              navigate(`/more-details/${id}`);
+            }, 1000);
+          }
+        } catch (err) {
+          console.log(err);
+          toast.error('Event addition to your calendar has failed', { autoClose: 2500 });
+          setTimeout(() => {
+            navigate(`/more-details/${id}`);
+          }, 1000);
+        }
+      })();
+    }
+  }, [status, event]);
+  
+  
+  
 
   return (
     <Box
@@ -124,6 +178,7 @@ const MoreDetails = () => {
         width: '100%',
       }}
     >
+    <ToastContainer />
       <Card
         sx={{
           width: '100%',
@@ -215,7 +270,7 @@ const MoreDetails = () => {
           </Typography>
         </Box>
         <Box sx={{ display: 'grid', gridTemplateColumns:"auto auto", padding: '10px' }}>
-  <Button variant="contained" size="large" startIcon={<FontAwesomeIcon icon={faCalendarAlt} />} sx={{ marginRight: '10px', maxWidth:"400px" }}>
+  <Button variant="contained" size="large" startIcon={<FontAwesomeIcon icon={faCalendarAlt} />} sx={{ marginRight: '10px', maxWidth:"400px" }} onClick={handleRedirectToServer}>
     Add to Calendar
   </Button>
     <Link to={`/register/event/${event._id}`} style={{ textDecoration: "none" }}>
@@ -224,7 +279,6 @@ const MoreDetails = () => {
       </Button>
     </Link>
 </Box>
-
       </Card>
     </Box>
   );

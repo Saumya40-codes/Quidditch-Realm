@@ -33,7 +33,6 @@ app.use('/users',userRoutes)
 const CONNECTION_URL = process.env.CONNECTION_URI;
 const PORT = process.env.PORT || 5000;
 
-
 app.post("/auth/register", register);
 app.post("/auth/admin/register", adminRegister);
 
@@ -145,3 +144,79 @@ app.use('/events',eventRoutes)
 
 const teamRoutes = require('./routes/team.js');
 app.use('/teams',teamRoutes)
+
+// calendar part
+
+const {google} = require('googleapis');
+const axios = require('axios');
+const session = require('express-session');
+
+app.use(
+  session({
+    secret: process.env.JWT_SECRET,
+    resave: false,
+    saveUninitialized: true,
+  })
+);
+
+const calendar = google.calendar({
+  version: 'v3',
+  auth: process.env.API_KEY,
+});
+
+const oauth2Client = new google.auth.OAuth2(
+  process.env.CLIENT_ID,
+  process.env.CLIENT_SECRET,
+  process.env.REDIRECT_URI
+);
+
+const scopes = [
+  'https://www.googleapis.com/auth/calendar',
+];
+
+app.get('/calendar/:id', (req, res) => {
+  const {id} = req.params;
+  req.session.calendarId = id;
+  const url = oauth2Client.generateAuthUrl({
+    access_type: 'offline',
+    scope: scopes,
+  });
+
+  res.redirect(url);
+});
+
+app.get('/redirect', async (req, res) => {
+  const code = req.query.code;
+  const {tokens} = await oauth2Client.getToken(code);
+  oauth2Client.setCredentials(tokens);
+  const id = req.session.calendarId;
+  res.redirect(`http://localhost:3000/more-details/${id}?status=200`)
+});
+
+app.post('/create-event', async (req, res) => {
+  const {summary,description,dateTime1,dateTime2} = req.body;
+  console.log(req.body);
+  console.log(oauth2Client)
+  try{
+  await calendar.events.insert({
+    calendarId: 'primary',
+    auth: oauth2Client,
+    requestBody: {
+      summary: summary,
+      description: description,
+      start: {
+        dateTime: dateTime1,
+        timeZone: 'Asia/Kolkata',
+      },
+      end: {
+        dateTime: dateTime2,
+        timeZone: 'Asia/Kolkata',
+      },
+    },
+  })
+}
+catch(err){
+  console.log(err)
+}
+  res.status(200).json({message: 'Event created successfully'});
+});
