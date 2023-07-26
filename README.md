@@ -1,74 +1,72 @@
-# Getting Started with Create React App
+## Get started with project
+___
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+* In your editor command line
+```
+   cd Quidditch-Realm
+   (if not already)
+```
+* In another terminal
+```
+   cd Quidditch-Realm
+   (if not already)
+   cd server
+```
+*In both do:*
+```
+   npm install
+```
 
-## Available Scripts
+**Start server**
 
-In the project directory, you can run:
+ *On client side:*
+ ```
+ npm start
+ ```
 
-### `npm start`
+*On server side:*
+```
+ npm run dev
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+```
+  **Add your mongodb** *CONNECTION_URI* **and your** *JWT_SECRET* **in server/.env file****
+___
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Some process related to the features that are used in this website
+---
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+##### *all this is part of what we learned while implementing this*
 
-### `npm run build`
+>## Authentication process
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+*refer below figure*
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-
-## Authentication process
 ![auth_process](https://github.com/Saumya40-codes/Quidditch-Realm/assets/115284013/0c5dad65-349f-40eb-8889-78a15091b629)
 
+**technologies/packages used**
+* Node, Express
+  * jwt
+* MongoDB
+* In frontend
+  * Reactjs
+  * Redux
+
+___
+>## Google calendar integration
+#### necessary requirements
+* From Google Cloud APIS (keep this in .env file in server)
+  1. REFRESH_TOKEN
+  2. CLIENT_SECRET
+  3. API_KEY
+  4. *keep redirect uri domainname/redirect*
+
+* Steps:
+  * OAuth (more precisely OAuth 2.0) is used here for google services authorization
+  
+  * Generally what we do is redirecting user to what we call as OAuth consent screen within the scope(the google calendar here)
+    * With this user will be asked for the authorization
+      * once we got that we will get the tokens which include access and a refresh token. This token format are in terms of jwt!
+
+
+  * For adding events to google calendar as a part of this website functionality, user is redirected to server side page for authorization and once that's been done successfully, event is being added to google calendar
