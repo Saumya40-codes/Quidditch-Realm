@@ -5,6 +5,8 @@ import { Menu, MenuItem, Paper } from '@mui/material';
 import { Badge, useTheme } from '@mui/material';
 import Notifications from '@mui/icons-material/Notifications';
 import { UseSelector } from 'react-redux';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Notifs = ({ showNotif, handleBadgeClick, handleCloseMenu , enchorEl1}) => {
   const [notifs, setNotifs] = useState([]);
@@ -29,6 +31,24 @@ const Notifs = ({ showNotif, handleBadgeClick, handleCloseMenu , enchorEl1}) => 
     getNotifs();
     console.log(notifs);
   }, [userId]);
+
+  const handleDelete = async (e,formId) =>{
+    e.preventDefault();
+    e.stopPropagation(); // so found out that this helps for other function to stop propogating (the parent ones)
+    try{
+      const res = await Axios.put( `http://localhost:5000/users/del/notification/${userId}`,{
+        formId:formId,
+      })
+      .then((res)=>{
+        setNotifs(res.data.occuredNotifications);
+        setLen(res.data.occuredNotifications.length);
+      }
+      )
+    }
+    catch(error){
+      console.log(error);
+    }
+  }
 
   return (
     <div>
@@ -56,7 +76,12 @@ const Notifs = ({ showNotif, handleBadgeClick, handleCloseMenu , enchorEl1}) => 
             <span style={{ color:mode === "dark"?"#E8E8E8":"#333333", fontWeight:"bold"}}>{" " + String(notif?.message).substring(notif.message.length-27,notif.message.length-19)}
               {" " + String(notif?.message).substring(notif.message.length-18,notif.message.length-13)}</span>
               <span style={{fontWeight:"bold"}}>
-             <li>{String(notif?.message).substring(0,notif.message.length-30)} </li>
+              <div style={{display:"flex", justifyContent:"center"}}>
+             <li>{String(notif?.message).substring(0,notif.message.length-30)}</li>
+             <div>
+             <FontAwesomeIcon icon={faTrash} style={{color:"#060b26"}} onClick={(e)=>handleDelete(e,notif._id)} />
+             </div>
+             </div>
               </span>
               </ul> 
               <hr />

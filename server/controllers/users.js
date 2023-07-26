@@ -129,4 +129,17 @@ const deleteNotification = async (req, res) => {
   }
 };
 
-module.exports = { getUsers, updateUser, updateProfile, addNotification, deleteNotification, occuredNotifs };
+const deleteNotif = async(req,res) =>{
+  try{
+    const {id} = req.params;
+    const {formId} = req.body;
+    const updatedUser = await User.findByIdAndUpdate(id, { $pull: { occuredNotifications: { _id: formId } } }, { new: true });
+    res.status(200).json(updatedUser);
+  }
+  catch(err){
+    console.log(err);
+    res.status(500).json({message:'Something went wrong'})
+  }
+}
+
+module.exports = { getUsers, updateUser, updateProfile, addNotification, deleteNotification, occuredNotifs, deleteNotif };
