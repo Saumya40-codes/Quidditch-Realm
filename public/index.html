@@ -25,19 +25,50 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>React App</title>
+    <meta name="google-signin-client_id" content="323348097039-o026nspg9do54ui5asp0d6ludgkq07us.apps.googleusercontent.com">
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+    <!-- Your other React app components go here -->
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
+    <!-- Load Google Sign-In script -->
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
 
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
+    <script>
+      // Define the onSignIn function to handle the Google Sign-In
+      function onSignIn(googleUser) {
+        // Retrieve the user's Google profile information
+        var profile = googleUser.getBasicProfile();
+        console.log("ID: " + profile.getId()); // Do something with the user ID
+        console.log("Name: " + profile.getName()); // Do something with the user's name
+        console.log("Image URL: " + profile.getImageUrl()); // Do something with the user's profile image URL
+        console.log("Email: " + profile.getEmail()); // Do something with the user's email address
+
+        // You can now send the user's information to your backend for authentication or other purposes
+        // For example, you can make a fetch or axios request to your backend with the user's details.
+        // Replace 'http://your-backend-url.com' with your actual backend endpoint.
+        fetch("http://your-backend-url.com/auth/google", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            id: profile.getId(),
+            name: profile.getName(),
+            imageUrl: profile.getImageUrl(),
+            email: profile.getEmail(),
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            // Handle the response from your backend
+            console.log(data);
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      }
+    </script>
   </body>
 </html>

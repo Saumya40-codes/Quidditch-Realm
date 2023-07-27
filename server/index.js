@@ -2,10 +2,55 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const axios = require('axios');
+const mongoose = require('mongoose');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
+const nodemailer = require('nodemailer');
+const User = require('./models/User.js');
+require('dotenv').config();
 
 // Increase the payload limit
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
+app.use(cors());
+app.use(express.json());
+
+
+// Your other middleware and routes go here
+
+// Connect to MongoDB
+mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => {
+    app.listen(5000, () => {
+      console.log('Server running on http://localhost:5000');
+    });
+  })
+  .catch((error) => console.log(error.message));
+
+// Endpoint to handle Google authentication
+// Endpoint to handle Google authentication
+app.post('/auth/google', async (req, res) => {
+  const { token } = req.body;
+
+  try {
+    // Exchange the Google token for an access token
+    const response = await axios.post('https://www.googleapis.com/oauth2/v4/token', {
+      code: token,
+      client_id: process.env.CLIENT_ID, // Use the environment variable
+      client_secret: process.env.CLIENT_SECRET, // Use the environment variable
+      redirect_uri: 'http://localhost:5000/auth/google/callback',
+      grant_type: 'authorization_code'
+    });
+
+    // ...
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Something went wrong' });
+  }
+});
+
+
 
 const {register} = require('./controllers/auth.js');
 const { adminRegister } = require('./controllers/auth.js');
@@ -133,6 +178,9 @@ app.post("/reset-password/:id/:token", async (req, res) => {
     res.status(500).json({ message: "Something went wrong" });
   }
 });
+
+
+
 
 
 // events part
