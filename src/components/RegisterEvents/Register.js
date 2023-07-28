@@ -12,6 +12,8 @@ import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import PersonalDetails from './PersonalDetails';
 import TicketDetails from './TicketDetails';
+import { useSelector } from 'react-redux';
+import Payment from './Payment';
 
 const steps = ['Personal Details', 'Ticket Selection', 'Payment'];
 
@@ -19,7 +21,49 @@ const steps = ['Personal Details', 'Ticket Selection', 'Payment'];
 export default function HorizontalLinearStepper() {
   const [activeStep, setActiveStep] = useState(0);
   const [skipped, setSkipped] = useState(new Set());
-  const [formChange, setFormChanged] = useState({});
+  const userId = useSelector((state)=>state.user);
+  const [ticketQuantity, setTicketQuantity] = useState([]);
+  const [buyClicked, setBuyClicked] = useState([]);
+
+
+
+  const handleTicketQuantityChange = async (event, index, newValue, ticketPrice) => {
+    const newTicketQuantity = [...ticketQuantity];
+    newTicketQuantity[index] = newValue;
+    setTicketQuantity(newTicketQuantity);
+    setFormChanged((prevFormChange) => ({
+      ...prevFormChange,
+      ticket_quantity: Number(newValue),
+      total_price: Number(newTicketQuantity[index]) * Number(ticketPrice),
+    }));
+  };
+
+  const handleBuyClick = (ticketId) => () => {
+    setBuyClicked((prevBuyClicked) => ({
+      ...prevBuyClicked,
+      [ticketId]: !prevBuyClicked[ticketId],
+    }));
+  };
+
+  const [formChange, setFormChanged] = useState({
+    eventID:'', 
+    userID:userId.id, 
+    name:userId.username, 
+    email:userId.email, 
+    phone:'', 
+    ticket_type:'', 
+    ticket_quantity:0, 
+    payment:false, 
+    total_price:0,
+  });
+
+  const handleFormChange = (e,data,value) =>{
+    console.log(data,value);
+    setFormChanged({...formChange,[data]:value})
+    console.log(formChange)
+  }
+
+
 
   const {id} = useParams();
 
@@ -88,9 +132,11 @@ export default function HorizontalLinearStepper() {
         </React.Fragment>
       ) : (
         <React.Fragment>
-      {activeStep === 0 && <PersonalDetails /> }
-      {activeStep === 1 && <TicketDetails /> }
-      {activeStep === 2 && "Payment" }
+      {activeStep === 0 && <PersonalDetails formChange={formChange} handleFormChange={handleFormChange} /> }
+      {activeStep === 1 && <TicketDetails formChange={formChange} handleFormChange={handleFormChange} handleTicketQuantityChange={handleTicketQuantityChange} ticketQuantity={ticketQuantity} setTicketQuantity={setTicketQuantity} 
+      buyClicked={buyClicked} setBuyClicked={setBuyClicked} handleBuyClick={handleBuyClick} /> 
+      }
+      {activeStep === 2 && <Payment formChange={formChange} handleFormChange={handleFormChange} /> }
           <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
             <Button
               color="inherit"

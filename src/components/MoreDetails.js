@@ -3,7 +3,7 @@ import Axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { Card, CardContent, Typography, Button, Box } from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBan, faCalendarAlt, faMapMarkerAlt, faPerson, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+import { faBan, faCalendarAlt, faMapMarkerAlt, faPerson, faCheckCircle, faReceipt } from '@fortawesome/free-solid-svg-icons';
 import Timeline from './Timeline';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -39,10 +39,16 @@ const MoreDetails = () => {
         e.preventDefault();
         try {
           const updatedInterest = { [id]: !interest };
+          console.log(updatedInterest[id])
           const res = await Axios.put(`http://localhost:5000/users/update/${userId}`, {
             interests: updatedInterest,
           });
-          setInterest(!interest)
+
+          setInterest(!interest);
+
+          const res2 = await Axios.put(`http://localhost:5000/events/interest/${id}`,{
+            interest: interest? event.interest-1 : event.interest+1,
+          });
           
           const date = String(event.date).substring(0, 10);
           const time = String(event.time).substring(0, 5);
@@ -62,10 +68,6 @@ const MoreDetails = () => {
               receiver: userId,
             });
           }
-
-          const res2 = await Axios.put(`http://localhost:5000/events/interest/${id}`,{
-            interest: interest ? event.interest-1 : event.interest+1,
-          });
 
         } catch (error) {
             console.log(error);
@@ -269,12 +271,12 @@ const MoreDetails = () => {
             {event.rules}
           </Typography>
         </Box>
-        <Box sx={{ display: 'grid', gridTemplateColumns:"auto auto", padding: '10px' }}>
-  <Button variant="contained" size="large" startIcon={<FontAwesomeIcon icon={faCalendarAlt} />} sx={{ marginRight: '10px', maxWidth:"400px" }} onClick={handleRedirectToServer}>
+        <Box sx={{ display: 'flex', justifyContent:"space-evenly", padding: '10px' }}>
+  <Button variant="contained" size="large" startIcon={<FontAwesomeIcon icon={faCalendarAlt} />} sx={{ marginRight: '10px', padding:"10px 300px 10px 300px" }} onClick={handleRedirectToServer}>
     Add to Calendar
   </Button>
     <Link to={`/register/event/${event._id}`} style={{ textDecoration: "none" }}>
-      <Button variant="contained" size="large" style={{width:"1090px"}}>
+      <Button variant="contained" size="large" sx={{padding:"10px 300px 10px 300px"}} startIcon={<FontAwesomeIcon icon={faReceipt}  /> } >
         Register
       </Button>
     </Link>

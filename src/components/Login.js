@@ -72,7 +72,7 @@ export default function Login() {
   
     setLoading(false);
   };
-
+  
   return (
     <ThemeProvider theme={theme}>
       <div
@@ -158,7 +158,6 @@ export default function Login() {
               Alohomora!
             </Button>
           </form>
-
           <div className="w-100 text-center mt-3" style={{ marginBottom: '10px' }}>
             <MuiLink component={Link} to="/forgotpassword" style={{ color: 'white' }}>
               Forgetful Charm?

@@ -54,7 +54,7 @@ export default function ForgotPassword() {
           {error && <Alert variant="danger">{error}</Alert>}
           {message && <Alert variant="success">{message}</Alert>}
           {loading && <Alert variant="success">Please check your email for further instructions or try again after 5 minutes</Alert>}
-          <form onSubmit={forgotPassword}>
+          <form onSubmit={forgotPassword} style={{marginTop:"30px"}}>
             <FormControl sx={{ width: '100%', marginBottom: '45px' }}>
               <InputLabel htmlFor="email">Email</InputLabel>
               <Input type="email" id="email" inputRef={emailRef} required />
@@ -83,7 +83,7 @@ export default function ForgotPassword() {
           </div>
         </CardContent>
         <div className="w-100 text-center mt-2">
-        New Here?<Link to="/signup" style={{color:"white"}}>Enter the Magical World</Link>
+        New Here? <Link to="/signup" style={{color:"white"}}>Enter the Magical World</Link>
       </div>
       </Card>
     </ThemeProvider>

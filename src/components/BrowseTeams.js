@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Box, Card, CardContent, TextField, Typography } from '@mui/material';
 import Axios from 'axios';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faHourglassHalf } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 
 const BrowseTeams = () => {
@@ -51,8 +51,8 @@ const BrowseTeams = () => {
           </div>
           {showTeams.length === 0 && (
             <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-              <Typography variant="h5" component="h1" gutterBottom style={{ margin: "20px", fontFamily: "italic", fontSize: "18px", marginBottom: "5px" }}>
-                No teams found
+              <Typography variant="h5" component="h1" gutterBottom style={{ margin: "20px", fontFamily: "italic", fontSize: "18px", margin: "15px" }}>
+                No teams found <FontAwesomeIcon icon={faHourglassHalf} spin />
               </Typography>
             </div>
           )}

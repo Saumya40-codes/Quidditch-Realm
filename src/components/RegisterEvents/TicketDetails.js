@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Axios from 'axios';
 import { Card, CardContent, Typography, Button, Grid, Slider } from '@mui/material';
 import { useParams } from 'react-router-dom';
@@ -37,28 +37,16 @@ const styles = {
   }
 };
 
-const TicketDetails = () => {
-  const [loading, setLoading] = React.useState(true);
-  const [error, setError] = React.useState(null);
-  const [buyClicked, setBuyClicked] = React.useState([]);
-  const [price, setPrice] = React.useState(0);
+const TicketDetails = ({formChange, handleTicketQuantityChange, setTicketQuantity, buyClicked, setBuyClicked, handleBuyClick}) => {
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [price, setPrice] = useState(formChange.total_price);
   const { id } = useParams();
-  const [tickets, setTickets] = React.useState([]);
-  const [ticketQuantity, setTicketQuantity] = React.useState([]);
+  const [tickets, setTickets] = useState([]);
 
-  const handleTicketQuantityChange = (event, index, newValue, ticketPrice) => {
-    const newTicketQuantity = [...ticketQuantity];
-    newTicketQuantity[index] = newValue;
-    setTicketQuantity(newTicketQuantity);
-    setPrice(Number(newTicketQuantity[index]) * Number(ticketPrice));
-  };
-
-  const handleBuyClick = (ticketId) => () => {
-    setBuyClicked((prevBuyClicked) => ({
-      ...prevBuyClicked,
-      [ticketId]: !prevBuyClicked[ticketId],
-    }));
-  };
+  useEffect(()=>{
+    setPrice(formChange.total_price)
+  },[formChange.total_price,formChange.ticket_quantity,formChange, handleTicketQuantityChange, setTicketQuantity, buyClicked, setBuyClicked, handleBuyClick])
 
   React.useEffect(() => {
     const getEvents = async () => {
@@ -121,10 +109,10 @@ const TicketDetails = () => {
                       Select Quantity:
                     </Typography>
                     <div style={{ display: 'flex', alignItems: 'center' }}>
-                      <Typography variant="body2">{ticketQuantity[index]}</Typography>
+                      <Typography variant="body2">{formChange.ticket_quantity}</Typography>
                       <Slider
                         aria-labelledby="ticket-quantity-slider"
-                        value={ticketQuantity[index]}
+                        value={formChange.ticket_quantity}
                         onChange={(event, newValue) =>
                           handleTicketQuantityChange(event, index, newValue, ticket?.price)
                         }
@@ -141,7 +129,7 @@ const TicketDetails = () => {
           </Grid>
         ))}
       </Grid>
-      {Object.values(buyClicked).includes(true) && (
+      {price !== 0 && (
         <Typography variant="h5" component="h2" style={styles.totalPrice}>
           Total Price: {price}$
         </Typography>

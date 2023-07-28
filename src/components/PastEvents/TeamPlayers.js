@@ -68,13 +68,13 @@ const TeamPlayers = () => {
     <div>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems:"centre" }}>
             <div style={{ marginLeft:"300px"}}>
-                <h3 style={{color:team1color, marginBottom:"20px"}}>{event.team1}</h3>
+                <h3 style={{color:team1color, marginBottom:"20px"}}>{event?.team1}</h3>
                 {Object.keys(team1players)?.map((type)=>{
                     return(
                         <div key={type}>
-                        <h4>{type}</h4>
+                        <h4 style={{fontWeight:"bold"}}>{type}</h4>
                         <ul>
-                            {team2players[type]?.map((player,index)=>{
+                            {team1players[type]?.map((player,index)=>{
                                 return(
                                     <li key={index} style={{fontFamily:"italic"}}>{player}</li>
                                 )

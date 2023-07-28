@@ -43,7 +43,7 @@ const Dashboard = () => {
         </ul>
       </nav>
       <Slider />
-      <DashboardData />
+      <DashboardData sidebar={sidebar} />
   </div>
   )
 }

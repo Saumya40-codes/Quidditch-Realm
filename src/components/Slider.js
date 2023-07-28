@@ -14,6 +14,8 @@ import Axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import loading from '../assets/loading.gif';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHourglassHalf } from '@fortawesome/free-solid-svg-icons';
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
@@ -111,6 +113,7 @@ function Slider() {
         ) : (
           <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100%", flexDirection: "column" }}>
             <Typography variant="h5" sx={{ bottom: 10, left: 10, fontSize: "24px", fontWeight: "bold", color: "#555" }}>
+            <FontAwesomeIcon icon={faHourglassHalf} spin style={{marginRight:"15px"}} />  
               Loading...
               <img src={loading} alt="loading" style={{ width: "70px", height: "70px" }} />
             </Typography>

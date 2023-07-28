@@ -111,19 +111,20 @@ export default function HorizontalLinearStepper({ mode }) {
       ticket: ticket,
     })
       .then(async (res) => {
+        toast.success('Event Added Successfully', { autoClose: 3500 });
+        setFormChanged({});
+        setTicket([])
         const date = String(formchanged.date).substring(0, 10);
         const time = String(formchanged.endtime).substring(0, 5);
         const dateTime = `${date}T${time}:00.000+05:30`;
-        await Axios.put(`http://localhost:5000/users/addNotification/${userId}`, {
+        setTimeout(() => {
+          navigate('/admin');
+        }, 3000);
+        const resss = await Axios.put(`http://localhost:5000/users/addNotification/${userId}`, {
           message: `Match between ${formchanged.team1} and ${formchanged.team2} has been ended. Please add the post match details. If not already added. ${dateTime}`,
           date: dateTime,
           receiver: userId,
-        });
-        setFormChanged({});
-        toast.success('Event Added Successfully', { autoClose: 3000 });
-        setTimeout(() => {
-          navigate('/admin');
-        }, 2000);
+        })
       })
       .catch((err) => {
         toast.error('Event Addition Failed', { autoClose: 3000 });

@@ -54,7 +54,7 @@ export default function AdminForgotPassword() {
           {error && <Alert variant="danger">{error}</Alert>}
           {message && <Alert variant="success">{message}</Alert>}
           {loading && <Alert variant="success">Please check your email for further instructions or try again after 5 minutes</Alert>}
-          <form onSubmit={forgotPassword}>
+          <form onSubmit={forgotPassword} style={{marginTop:"30px"}}>
             <FormControl sx={{ width: '100%', marginBottom: '45px' }}>
               <InputLabel htmlFor="email">Email</InputLabel>
               <Input type="email" id="email" inputRef={emailRef} required />

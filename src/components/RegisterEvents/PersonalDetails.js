@@ -1,9 +1,18 @@
 import React from 'react'
 import { Typography, TextField,Card, CardContent } from '@mui/material';
 import { useSelector } from 'react-redux';
+import { useState, useEffect } from 'react';
 
-const PersonalDetails = () => {
+const PersonalDetails = ({formChange, handleFormChange}) => {
     const user = useSelector(state => state.user);
+    const [email,setEmail] = useState(formChange.email);
+    const [phone, setPhone] = useState(formChange.phone);
+
+    useEffect(()=>{
+      setEmail(formChange.email);
+      setPhone(formChange.phone);
+    },[formChange.email,formChange.phone])
+
   return (
     <div>
       <Card style={{marginTop:"40px"}}>
@@ -14,22 +23,25 @@ const PersonalDetails = () => {
                 label="Username"
                 variant="outlined"
                 value={user.username}
-                style={{marginBottom:"40px"}}
+                style={{marginBottom:"60px"}}
                 fullWidth
             />
             <TextField
                 id="outlined-basic"
                 label="Email"   
                 variant="outlined"
-                value={user.email}
-                style={{marginBottom:"40px"}}
+                value={email}
+                onChange={(e)=>handleFormChange(e,'email',e.target.value)}
+                style={{marginBottom:"60px"}}
                 fullWidth
             />
             <TextField
                 id="outlined-basic"
                 label="Phone Number"
+                value={phone}
                 variant="outlined"
-                style={{marginBottom:"40px"}}
+                onChange={(e)=>handleFormChange(e,'phone',e.target.value)}
+                style={{marginBottom:"60px"}}
                 fullWidth
             />
         </CardContent>

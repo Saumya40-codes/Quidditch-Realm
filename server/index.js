@@ -220,3 +220,34 @@ catch(err){
 }
   res.status(200).json({message: 'Event created successfully'});
 });
+
+// stripe payment gateway
+
+const stripe = require('stripe')(process.env.SECRET_KEY,{
+  apiVersion: "2022-08-01",
+})
+
+app.get("/config",(req,res)=>{
+  res.send({
+    publishableKey: process.env.PUBLISHABLE_KEY,
+  })
+})
+
+app.post("/create-payment-intent", async (req,res) =>{
+  const { total_price } = req.body;
+  try{
+  const paymentIntent = await stripe.paymentIntents.create({
+    currency: "inr",
+    amount: total_price,
+    automatic_payment_methods :{
+      enabled: true,
+    },
+  });
+
+  res.status(200).json({clientSecret:paymentIntent.client_secret});
+  }
+  catch(err){
+    console.log(err);
+    res.status(500).json({message:"error occured"})
+  }
+})

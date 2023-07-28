@@ -8,9 +8,9 @@ button {
   button:after {
     content: "";
     display: block;
-    height: 2px; /* Adjust the height of the line */
+    height: 2px; 
     width: 0;
-    background-color: #2bd576; /* Adjust the background color of the line */
+    background-color: #2bd576;
     position: absolute;
     bottom: 0;
     left: 0;
@@ -103,11 +103,6 @@ button {
 span {
     margin-left: 16px;
 }
-  
-  .nav-menu.active ~ .slider-container {
-    margin-left:290px;
-    transition: 350ms;
-  }
   
   .nav-menu.active ~ .title {
     margin-left:290px;

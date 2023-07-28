@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCalendarTimes } from '@fortawesome/free-solid-svg-icons'
 
-const DashboardData = () => {
+const DashboardData = ({sidebar}) => {
     const [events , setEvents] = useState([])
     const [favouriteTeam, setFavouriteTeam] = useState('')
     const id = useSelector(state => state.id)
@@ -64,7 +64,11 @@ const DashboardData = () => {
 }
         </Typography>
         </div>
-        <hr/>
+        {!sidebar? <hr />:(
+          <div style={{ height:"20px"}}>
+            
+          </div>
+        )}
             {events.filter((event) => event?.team1 === favouriteTeam || event?.team2 === favouriteTeam).map((event) => (
                 <Card sx={{ width: "90%", margin: "20px", marginTop:"50px", marginLeft:"85px", boxShadow:"6px 6px 9px 6px rgba(0,0,0,0.4)" }}>
                     <CardContent>
