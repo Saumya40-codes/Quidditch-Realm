@@ -198,8 +198,6 @@ app.get('/redirect', async (req, res) => {
 
 app.post('/create-event', async (req, res) => {
   const {summary,description,dateTime1,dateTime2} = req.body;
-  console.log(req.body);
-  console.log(oauth2Client)
   try{
   await calendar.events.insert({
     calendarId: 'primary',

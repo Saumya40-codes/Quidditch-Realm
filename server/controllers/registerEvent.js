@@ -14,5 +14,16 @@ const registertoEvent = async(req,res) =>{
     }
 }
 
+const getRegisteredIds = async(req,res)=>{
+    try{
+        const {id} = req.params;
+        const user = await Register.find({eventID: id});
+        res.status(200).json(user);
+    }
+    catch(err){
+        res.send(500).json({message:"Some error occured"});;
+    }
+}
 
-module.exports = {registertoEvent};
+
+module.exports = {registertoEvent, getRegisteredIds};

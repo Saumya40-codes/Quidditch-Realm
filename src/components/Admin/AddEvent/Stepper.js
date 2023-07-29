@@ -49,10 +49,11 @@ export default function HorizontalLinearStepper({ mode }) {
     setTicket(updatedTickets);
   };
 
+  const today = new Date();
+
   const [formchanged, setFormChanged] = useState({
-    comment: '',
-    date: new Date(),
-    deadline: new Date(),
+    date: today.toISOString().split('T')[0],
+    deadline: today.toISOString().split('T')[0], 
     description: '',
     endtime: '',
     format: '',
@@ -108,6 +109,7 @@ export default function HorizontalLinearStepper({ mode }) {
     const checkEmpty = Object.keys(formchanged).map((val)=>formchanged[val])
     const arr = [...checkEmpty];
     if(arr.includes('')){
+      console.log(arr);
       toast.error('Please make sure all fields are filled correcly', {autoClose:3500});
       return;
     }

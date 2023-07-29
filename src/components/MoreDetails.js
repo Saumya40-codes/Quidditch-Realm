@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
 import { useParams } from 'react-router-dom';
-import { Card, CardContent, Typography, Button, Box } from '@mui/material';
+import { Card, CardContent, Typography, Button, Box, Tooltip } from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBan, faCalendarAlt, faMapMarkerAlt, faPerson, faCheckCircle, faReceipt } from '@fortawesome/free-solid-svg-icons';
+import { faBan, faCalendarAlt, faMapMarkerAlt, faPerson, faCheckCircle, faReceipt, faRocket, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import Timeline from './Timeline';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -17,9 +17,11 @@ const MoreDetails = () => {
   const { id } = useParams();
   const [interest, setInterest] = useState(false);
   const userId = useSelector(state => state.id);
+  const userm = useSelector((state)=>state.user)
   const [notifs, setNotifs] = useState([]);
   const navigate = useNavigate();
   const hasCalled = useRef(false);
+  const [registered,hasRegistered] = useState(false);
 
   const getInterest = async () => {
     try {
@@ -34,6 +36,28 @@ const MoreDetails = () => {
     useEffect(() => {
         getInterest();
     }, []);
+
+    const checkRegister = async () => {
+      try {
+        if (id) {
+          const resp = await Axios.get(`http://localhost:5000/reg/register/users/${id}`);
+          const users = resp.data; 
+          console.log(users);
+    
+          const doesExist = users.some((user) => user.userID.toLowerCase() === userId.toLowerCase());
+          if (doesExist) {
+            hasRegistered(true);
+          }
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    
+
+    useEffect(()=>{
+      checkRegister();
+    },[id,userId])
 
     const handleInterestChange = async (e) => {
         e.preventDefault();
@@ -53,17 +77,18 @@ const MoreDetails = () => {
           const date = String(event.date).substring(0, 10);
           const time = String(event.time).substring(0, 5);
           const dateTime = `${date}T${time}:00.000+05:30`;
-          console.log(dateTime);
 
           if(interest){
             const res = await Axios.put(`http://localhost:5000/users/del/notif/${userId}`, {
-              message: `You had shown interest in match between ${event.team1} and ${event.team2}. It has started, join in!!`,
+              message: `You had shown interest in match between ${event.team1} and ${event.team2}. It has started, join in!! ${dateTime}`,
+              email: userm.email,
               date: dateTime,
               receiver: userId,
             });
           }else{
             const res = await Axios.put(`http://localhost:5000/users/addNotification/${userId}`, {
               message: `You had shown interest in match between ${event.team1} and ${event.team2}. It has started, join in!! ${dateTime}`,
+              email: userm.email,
               date: dateTime,
               receiver: userId,
             });
@@ -191,7 +216,7 @@ const MoreDetails = () => {
         <CardContent>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom:"40px"}}>
           <Typography variant="h4" component="h1" gutterBottom>
-            {event.title}
+          {event.title}
           </Typography>
           {!interest ? (
             <Button variant="contained" size="small" sx={{ flex: 1, maxWidth: "150px" }} onClick={handleInterestChange}>
@@ -280,8 +305,8 @@ const MoreDetails = () => {
     Add to Calendar
   </Button>
     <Link to={`/register/event/${event._id}`} style={{ textDecoration: "none" }}>
-      <Button variant="contained" size="large" sx={{padding:"10px 300px 10px 300px"}} startIcon={<FontAwesomeIcon icon={faReceipt}  /> } >
-        Register
+      <Button variant="contained" size="large" disabled={registered} sx={{padding:"10px 300px 10px 300px"}} startIcon={registered? <FontAwesomeIcon icon={faRocket} />: <FontAwesomeIcon icon={faReceipt} /> } >
+        {registered ? "Registered": "Register"}
       </Button>
     </Link>
 </Box>
@@ -290,4 +315,4 @@ const MoreDetails = () => {
   );
 };
 
-export default MoreDetails;
+export default MoreDetails; 

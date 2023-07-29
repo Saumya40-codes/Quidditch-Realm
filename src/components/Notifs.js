@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import Axios from 'axios';
-import { Menu, MenuItem, Paper } from '@mui/material';
+import { Menu, MenuItem, MenuList, Paper  } from '@mui/material';
 import { Badge, useTheme } from '@mui/material';
 import Notifications from '@mui/icons-material/Notifications';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -65,9 +65,11 @@ const Notifs = ({ showNotif, handleBadgeClick, handleCloseMenu , enchorEl1}) => 
               height: 'auto',
               background: mode === "dark" ? "rgba(51,51,51,0.5)" : "rgba(240, 240, 240, 0.65)",
               marginTop: "30px",
+              maxHeight:'484px',
             },
           }}
         >
+        <MenuList>
           {notifs?.map((notif) => (
             <MenuItem key={notif?._id} onClick={handleCloseMenu} sx={{whiteSpace:"normal"}}>
             <div style={{display:'flex', flexDirection:"column"}}>
@@ -87,6 +89,7 @@ const Notifs = ({ showNotif, handleBadgeClick, handleCloseMenu , enchorEl1}) => 
             </div>
             </MenuItem>
           ))}
+          </MenuList>
         </Menu>
       ):(
         <Menu
@@ -96,7 +99,7 @@ const Notifs = ({ showNotif, handleBadgeClick, handleCloseMenu , enchorEl1}) => 
           PaperProps={{
             style: {
               maxWidth: '500px',
-              height: 'auto',
+              height: '300px',
               background: mode === "dark" ? "rgba(51,51,51,0.5)" : "rgba(240, 240, 240, 0.65)",
               marginTop: "30px",
             },

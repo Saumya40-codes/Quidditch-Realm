@@ -1,5 +1,6 @@
 const User = require('../models/User.js');
 const schedule = require('node-schedule');
+const nodemailer  = require('nodemailer');
 
 const getUsers = async (req, res) => {
     try {
@@ -53,7 +54,29 @@ const updateProfile = async (req, res) => {
 
       const notif = getNotif.notifications.filter((notif) => notif._id.toString() === str_notifId);
 
-      const { message, date, receiver } = notif[0];
+      const { message,email, date, receiver } = notif[0];
+                const transporter = nodemailer.createTransport({
+              service: 'gmail',
+              auth: {
+                user: process.env.MAIL_USER,
+                pass: process.env.MAIL_PASS,
+              }
+            });
+    
+    var mailOptions = {
+      from: 'abc@gmail.com',
+      to: email,
+      subject: 'JOIN IN, MATCH STARTED !!!',
+      text: String(message).substring(0,String(message).length-30),
+    };
+    
+    transporter.sendMail(mailOptions, function(error, info){
+      if (error) {
+        console.log(error);
+      }
+    });
+
+      
   
       const addNotif = await User.findByIdAndUpdate(
         id,
@@ -72,12 +95,12 @@ const updateProfile = async (req, res) => {
   
   const addNotification = async (req, res) => {
     try {
-      const { message, date, receiver } = req.body;
+      const { message,email, date, receiver } = req.body;
       const { id } = req.params;
   
       const updatedUser = await User.findByIdAndUpdate(
         id,
-        { $push: { notifications: { message: message, date: date, receiver: receiver } } },
+        { $push: { notifications: { message: message,email:email, date: date, receiver: receiver } } },
         { new: true }
       );
   
