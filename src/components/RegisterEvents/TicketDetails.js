@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Axios from 'axios';
 import { Card, CardContent, Typography, Button, Grid, Slider } from '@mui/material';
 import { useParams } from 'react-router-dom';
+import LoadingQuotes from '../LoadingQuotes';
 
 const styles = {
   root: {
@@ -53,10 +54,14 @@ const TicketDetails = ({formChange, handleTicketQuantityChange, setTicketQuantit
       try {
         const res = await Axios.get(`http://localhost:5000/events/get/${id}`);
         setTickets(res.data.ticket);
-        setLoading(false);
+        setTimeout(()=>{
+          setLoading(false);
+        },2500);
       } catch (error) {
-        setError(error);
-        setLoading(false);
+        setTimeout(()=>{
+          setLoading(false);
+        },2500);
+        console.log(error);
       }
     };
     getEvents();
@@ -67,17 +72,23 @@ const TicketDetails = ({formChange, handleTicketQuantityChange, setTicketQuantit
     setBuyClicked([]);
   }, [tickets]);
 
-  if (loading) {
-    return <p>Loading...</p>;
-  }
-
   if (error) {
     return <p>Error: {error.message}</p>;
   }
 
   return (
     <div style={styles.root}>
-      <Grid container spacing={3}>
+    {loading ? (
+        <div
+          style={{
+            height:"50vh",
+            margin: '100px',
+            width: '100%',
+          }}
+          >
+        <LoadingQuotes />
+        </div>
+        ) : (<Grid container spacing={3}>
         {tickets.map((ticket, index) => (
           <Grid item key={ticket?._id} xs={12} sm={6} md={6} lg={6}>
             <Card style={styles.card}>
@@ -114,7 +125,7 @@ const TicketDetails = ({formChange, handleTicketQuantityChange, setTicketQuantit
                         aria-labelledby="ticket-quantity-slider"
                         value={formChange.ticket_quantity}
                         onChange={(event, newValue) =>
-                          handleTicketQuantityChange(event, index, newValue, ticket?.price)
+                          handleTicketQuantityChange(event, index, newValue, ticket?.price, ticket?.type)
                         }
                         min={1}
                         max={ticket.amount}
@@ -129,6 +140,7 @@ const TicketDetails = ({formChange, handleTicketQuantityChange, setTicketQuantit
           </Grid>
         ))}
       </Grid>
+      )}
       {price !== 0 && (
         <Typography variant="h5" component="h2" style={styles.totalPrice}>
           Total Price: {price}$

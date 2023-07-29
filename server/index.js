@@ -139,6 +139,9 @@ app.post("/reset-password/:id/:token", async (req, res) => {
 const eventRoutes = require('./routes/event.js');
 app.use('/events',eventRoutes)
 
+const registerEventRoutes = require('./routes/registerEvents.js')
+app.use('/reg',registerEventRoutes);
+
 
 // teams part
 

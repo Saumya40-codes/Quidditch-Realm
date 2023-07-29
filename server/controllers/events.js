@@ -6,7 +6,6 @@ const addEvent = async (req, res) => {
         const {date, deadline, description, endtime, format, rules, team1, team1logo, team2, team2logo, ticket, title, venue, venuesize, time} = req.body;
         const newEvent = new Event({date, deadline, description, endtime, format, rules, team1, team1logo, team2, team2logo, time, title, venue, venuesize,ticket});
         const savedEvent = await newEvent.save();
-        console.log(savedEvent);
         res.status(201).json(savedEvent);
     } catch (error) {
         console.log(error);
@@ -69,7 +68,6 @@ const updateEvents = async (req, res) => {
 
       res.status(200).json(updateEvent);
     } catch (error) {
-        console.log(error);
       res.status(500).json({ message: "Something went wrong" });
     }
 };  
@@ -113,7 +111,6 @@ const addComments = async (req, res) => {
         const updatedEvent = await Event.findByIdAndUpdate(id, { $push: { usercomments: { comment: comment, username: username, date: date, likes:likes } } }, { new: true });
         res.status(200).json(updatedEvent);
     } catch (error) {
-        console.log(error);
         res.status(500).json({ message: "Something went wrong" });
     }
 };
@@ -122,12 +119,10 @@ const editComment = async (req, res) => {
     try {
       const { id } = req.params;
       const {usercomments} = req.body;
-      console.log(usercomments);
       const updateEvent = await Event.findByIdAndUpdate(id, {$set: {usercomments: usercomments}}, { new: true });
       res.status(200).json(updateEvent);
     }
     catch (error) {
-        console.log(error);
         res.status(500).json({ message: "Something went wrong" });
     }
   };
@@ -139,10 +134,8 @@ const deleteComment = async (req, res) => {
         const { id } = req.params;
         const { commentId } = req.body;
         const updatedEvent = await Event.findByIdAndUpdate(id, { $pull: { usercomments: { _id: commentId } } }, { new: true });  
-        console.log(updatedEvent);
         res.status(200).json(updatedEvent);
     } catch (error) {
-        console.log(error);
         res.status(500).json({ message: "Something went wrong" });
     }
 };

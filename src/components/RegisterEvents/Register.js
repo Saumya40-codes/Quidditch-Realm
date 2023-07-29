@@ -22,12 +22,13 @@ export default function HorizontalLinearStepper() {
   const [activeStep, setActiveStep] = useState(0);
   const [skipped, setSkipped] = useState(new Set());
   const userId = useSelector((state)=>state.user);
+  const useridd = useSelector((state)=>state.id);
   const [ticketQuantity, setTicketQuantity] = useState([]);
   const [buyClicked, setBuyClicked] = useState([]);
 
+  const {id} = useParams();
 
-
-  const handleTicketQuantityChange = async (event, index, newValue, ticketPrice) => {
+  const handleTicketQuantityChange = async (event, index, newValue, ticketPrice, type) => {
     const newTicketQuantity = [...ticketQuantity];
     newTicketQuantity[index] = newValue;
     setTicketQuantity(newTicketQuantity);
@@ -35,6 +36,7 @@ export default function HorizontalLinearStepper() {
       ...prevFormChange,
       ticket_quantity: Number(newValue),
       total_price: Number(newTicketQuantity[index]) * Number(ticketPrice),
+      ticket_type: type,
     }));
   };
 
@@ -46,8 +48,8 @@ export default function HorizontalLinearStepper() {
   };
 
   const [formChange, setFormChanged] = useState({
-    eventID:'', 
-    userID:userId.id, 
+    eventID:id,
+    userID:useridd, 
     name:userId.username, 
     email:userId.email, 
     phone:'', 
@@ -62,10 +64,6 @@ export default function HorizontalLinearStepper() {
     setFormChanged({...formChange,[data]:value})
     console.log(formChange)
   }
-
-
-
-  const {id} = useParams();
 
   const navigate = useNavigate();
 
@@ -92,6 +90,32 @@ export default function HorizontalLinearStepper() {
     setActiveStep(0);
     setFormChanged({});
   };
+
+  const handleFormSubmit = async(e) =>{
+    e.preventDefault();
+    const checkEmpty = Object.keys(formChange).map((val)=>formChange[val])
+    const arr = [...checkEmpty];
+    if(arr.includes(''||0)){
+      toast.error('Please make sure all fields are filled correcly', {autoClose:3500});
+      return;
+    }
+    try{
+      const res = await Axios.post('http://localhost:5000/reg/register/events',{
+        ...formChange
+      })
+      .then((res)=>{
+        setFormChanged({});
+        toast.success('You have been successfully registered for the event!!', {autoClose:3500});
+        setTimeout(()=>{
+          navigate(`/register/event/${id}`)
+        },2500)
+      })
+    }
+    catch(err){
+      toast.error('Event registration failed', {autoClose:3500});
+      console.log(err);
+    }
+  }
 
   return (
     <Box sx={{ width: '100%' }}>
@@ -126,7 +150,7 @@ export default function HorizontalLinearStepper() {
         <Typography sx={{ mt: 2, mb: 1 }}>
           All steps completed - want to register for this event?
         </Typography>
-
+        <Button onClick={(e)=>handleFormSubmit(e)}> Register </Button>
         <Button onClick={handleReset}>Reset</Button>
         </div>
         </React.Fragment>
@@ -136,7 +160,7 @@ export default function HorizontalLinearStepper() {
       {activeStep === 1 && <TicketDetails formChange={formChange} handleFormChange={handleFormChange} handleTicketQuantityChange={handleTicketQuantityChange} ticketQuantity={ticketQuantity} setTicketQuantity={setTicketQuantity} 
       buyClicked={buyClicked} setBuyClicked={setBuyClicked} handleBuyClick={handleBuyClick} /> 
       }
-      {activeStep === 2 && <Payment formChange={formChange} handleFormChange={handleFormChange} /> }
+      {activeStep === 2  && <Payment formChange={formChange} handleFormChange={handleFormChange} /> }
           <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
             <Button
               color="inherit"
@@ -147,7 +171,7 @@ export default function HorizontalLinearStepper() {
               Back
             </Button>
             <Box sx={{ flex: '1 1 auto' }} />
-            <Button onClick={handleNext}
+            <Button onClick={handleNext} disabled={activeStep === 1 && formChange.total_price === 0}
             sx={{ position: 'fixed', bottom: '16px', right: '16px' }}
             >
               {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
