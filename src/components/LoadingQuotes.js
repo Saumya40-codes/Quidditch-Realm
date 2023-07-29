@@ -33,10 +33,10 @@ const LoadingQuotes = () => {
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
       {randQuote && (
         <div style={{ textAlign: 'center' }}>
-          <img src={loading} alt='funky wizard' style={{ width: '100px', height: '100px' }} />
-          <h3 >Did You Know?</h3>
-          <h5>spell <span style={{fontFamily:"italic", fontWeight:"bold"}}>{randQuote}</span></h5>
-          <h6>can {effect} !?!?</h6>
+          <img src={loading} alt='funky wizard' style={{ width: '100px', height: '100px', borderRadius: '50%' }} />
+          <h3 style={{ fontFamily: 'Georgia, serif', fontSize: '28px', marginTop: '10px', marginBottom: '5px' }}>Did You Know?</h3>
+          <h5 style={{ fontFamily: 'Arial, sans-serif', fontSize: '18px', fontWeight: 'bold', marginBottom: '5px' }}>Spell:<span style={{ fontFamily: 'cursive', fontWeight: 'normal' }}>{randQuote}</span></h5>
+          <h6 style={{ fontFamily: 'Verdana, sans-serif', fontSize: '16px', fontStyle: 'italic', color: '#666' }}>Has the ability which can {effect}?!?!</h6>
         </div>
       )}
     </div>

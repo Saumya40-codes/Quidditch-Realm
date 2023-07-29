@@ -1,7 +1,6 @@
 import Axios from 'axios';
 import { useEffect, useState } from 'react';
-import { Card, CardContent, Typography } from '@mui/material';
-import defaultvenue from '../assets/defaultvenue.jpeg';
+import { Card, CardContent, Typography, Box } from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import { faClock } from '@fortawesome/free-solid-svg-icons';
@@ -10,9 +9,12 @@ import {  useSelector } from 'react-redux/es/hooks/useSelector';
 import { Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import LoadingQuotes from './LoadingQuotes';
+
 
 const PastEvents = () => {
     const [events, setEvents] = useState([]);
+    const [loading,setLoading] = useState(true);
     const [deleteConfirmationOpen, setDeleteConfirmationOpen] = useState(false);
     const [eventToDelete, setEventToDelete] = useState(null);
     const isAdmin = Boolean(useSelector(state => state.isAdmin));
@@ -22,6 +24,9 @@ const PastEvents = () => {
       try {
         const res = await Axios.get('http://localhost:5000/events/past');
         setEvents(res.data);
+        setTimeout(()=>{
+          setLoading(false);
+        },2650);
       } catch (error) {
         console.log(error);
       }
@@ -80,7 +85,18 @@ const PastEvents = () => {
       <Typography variant="h3" component="h1" gutterBottom style={{margin:"20px", fontFamily:"'Dancing Script', cursive", fontSize:"38px", marginBottom:"45px", fontWeight:"bold"}}>
         Match Results
       </Typography>
-        {events.map((event) => (
+      {loading ? (
+        <div
+          style={{
+            height:"50vh",
+            margin: '100px',
+            width: '100%',
+          }}
+          >
+        <LoadingQuotes />
+        </div>
+        ) : (
+          events.map((event) => (
           <Card
             key={event._id}
             style={{
@@ -94,16 +110,6 @@ const PastEvents = () => {
             }}
             elevation={3}
           >
-            <img
-              src={defaultvenue}
-              alt="venue"
-              style={{
-                width: '100%',
-                height: '300px',
-                borderTopLeftRadius: '16px',
-                borderTopRightRadius: '16px',
-              }}
-            />
             <CardContent
               style={{
                 paddingTop: '12px',
@@ -112,32 +118,40 @@ const PastEvents = () => {
                 paddingRight: '20px',
               }}
             >
-              <h2
-                className="text-centre mb-2"
-                style={{
-                  fontFamily: 'Harry Potter',
-                  fontSize: '14px',
-                  marginBottom: '8px',
-                }}
-              >
-              {
-                event.team1score == event.team2score ? <span>{event.team1} ties with {event.team2}</span> :
-                event.team1score > event.team2score ? <span>{event.team1} seals the win against {event.team2}</span> : <span>{event.team2} seals the win against {event.team1}</span>
-              }
-              </h2>
-              <h3
-                className="text-center mb-2"
-                style={{
-                  fontFamily: 'Harry Potter',
-                  fontSize: '18px',
-                  fontWeight: 'bold',
-                  color: '#777',
-                  marginBottom: '12px',
-                }}
-              >
-                {`${event.team1}  ${event.team1score? event.team1score : ""} - ${event.team2score? event.team2score : ""}  ${event.team2}`}
-
-              </h3>
+              <Box sx={{ display: "grid", gridTemplateColumns: "auto auto auto", marginBottom: "40px" }}>
+          <div style={{ display:"flex", justifyContent:"flex-end", alignItems:"center"}}>
+  <Typography variant="h5" component="h2" gutterBottom style={{fontFamily:"italic", fontWeight:"bold"}}>
+    {event.team1}
+  </Typography>
+  </div>
+  <div style={{ display: 'flex', justifyContent: 'centre', alignItems: 'center' }}>
+  <span>
+    
+  </span>
+  </div>
+  <div style={{ display: 'flex', justifyContent: 'centre', alignItems: 'center' }}>
+  <Typography variant="h5" component="h2" gutterBottom style={{fontFamily:"italic", fontWeight:"bold"}}>
+    {event.team2}
+  </Typography>
+  </div>
+</Box>
+<div style={{ display: "grid", gridTemplateColumns: "auto auto auto", marginBottom: "40px" }}>
+  <div style={{ display:"flex", justifyContent:"flex-end", alignItems:"center"}}>
+  <Link to={`/team?name=${event.team1}`}  style={{textDecoration:"none"}}>
+    <img src={event.team1logo} alt="team1logo" style={{ width: '70px', height: '70px' }} />
+  </Link>  
+  </div>
+  <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+  <span style={{fontWeight:"bold", fontSize:"30px"}}>
+    {event.team1score} - {event.team2score}
+  </span>
+  </div>
+  <div style={{ display: 'flex', justifyContent: 'centre', alignItems: 'center' }}>
+  <Link to={`/team?name=${event.team2}`}  style={{textDecoration:"none"}}>
+    <img src={event.team2logo} alt="team2logo" style={{ width: '70px', height: '70px' }} />
+  </Link>
+  </div>
+</div>
               <p
                 className="text-center mb-4"
                 style={{
@@ -147,6 +161,20 @@ const PastEvents = () => {
                   marginBottom: '12px',
                 }}
               >
+                <h2
+                className="text-centre mb-2"
+                style={{
+                  fontFamily: 'Harry Potter',
+                  fontSize: '14px',
+                  marginTop:"5px",
+                  marginBottom: '8px',
+                }}
+              >
+              {
+                event.team1score == event.team2score ? <span>{event.team1} ties with {event.team2}</span> :
+                event.team1score > event.team2score ? <span>{event.team1} seals the win against {event.team2}</span> : <span>{event.team2} seals the win against {event.team1}</span>
+              }
+              </h2>
               {
                 event.comment ? (
                 String(event.comment).length > 175 ? String(event.comment).substring(0,175) + '...' : event.comment
@@ -266,7 +294,9 @@ const PastEvents = () => {
                   )
               }
           </Card>
-        ))}
+        ))
+        )
+        }
         <Dialog open={deleteConfirmationOpen} onClose={handleDeleteConfirmationClose}>
           <DialogTitle>Delete Confirmation</DialogTitle>
           <DialogContent>

@@ -105,7 +105,12 @@ export default function HorizontalLinearStepper({ mode }) {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    console.log(formchanged);
+    const checkEmpty = Object.keys(formchanged).map((val)=>formchanged[val])
+    const arr = [...checkEmpty];
+    if(arr.includes('')){
+      toast.error('Please make sure all fields are filled correcly', {autoClose:3500});
+      return;
+    }
     Axios.post('http://localhost:5000/events/add', {
       ...formchanged,
       ticket: ticket,

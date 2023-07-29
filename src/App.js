@@ -54,6 +54,7 @@ function App() {
             <Route path="/register/event/:id" element={<Register />} />
             <Route path="/post/match/:id" element={<PostMatch />} />
             <Route path="/team/:id" element={<Team />} />
+            <Route path="/team" element={<Team />} />
             <Route path='/profile' element={<Profile />} />
             <Route path='/browse/teams' element={<BrowseTeams />} />
             <Route path='/quote' element={<LoadingQuotes />} />

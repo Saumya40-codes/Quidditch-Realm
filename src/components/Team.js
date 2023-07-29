@@ -10,6 +10,8 @@ import { toast } from 'react-toastify';
 
 const Team = () => {
   const { id } = useParams();
+  const searchName = new URLSearchParams(window.location.search);
+  const name = searchName.get('name');
   const [team, setTeam] = useState({});
   const [deleteConfirmationOpen, setDeleteConfirmationOpen] = useState(false);
   const [eventToDelete, setEventToDelete] = useState(null);
@@ -18,8 +20,20 @@ const Team = () => {
 
   const getTeam = async () => {
     try {
+      if(!(id === undefined)){
+        console.log(id)
       const res = await Axios.get(`http://localhost:5000/teams/getTeamDetails/${id}`);
       setTeam(res.data);
+      }
+      else if(name){
+        console.log(name);
+        const res = await Axios.get(`http://localhost:5000/teams/name/${name}`)
+        console.log(res.data);
+        setTeam(res.data);
+      }
+      else{
+        alert("You dumb")
+      }
     } catch (error) {
       console.log(error);
     }
@@ -69,7 +83,7 @@ const Team = () => {
 
         {/* Team Name and Logo */}
         <Box sx={{ textAlign: 'center', marginBottom: '30px' }}>
-          <Typography variant="h3" component="h1" style={{ fontFamily: "'Dancing Script', cursive", fontWeight: 'bold', marginTop: '30px' }}>
+          <Typography variant="h3" component="h1" style={{ fontFamily: "'Dancing Script', cursive", fontWeight: 'bold', marginTop: '30px', marginBottom:"20px" }}>
             {team.teamname}
           </Typography>
           <img

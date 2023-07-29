@@ -65,5 +65,16 @@ const deleteTeam = async(req,res) =>{
   }
 }
 
+const getByName = async(req,res) =>{
+  try{
+    const {name} = req.params;
+    const team = await Teams.findOne(({teamname:name}))
+    res.status(200).json(team);
+  }
+  catch(err){
+    res.status(500).json({message:"something went wrong"})
+  }
+}
 
-module.exports = {addTeam, getTeams, getTeam, getTeamDetails, updateTeam, deleteTeam};
+
+module.exports = {addTeam, getTeams, getTeam, getTeamDetails, updateTeam, deleteTeam,getByName};

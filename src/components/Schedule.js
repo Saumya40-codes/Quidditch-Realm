@@ -27,7 +27,7 @@ const Schedule = () => {
       setEvents(res.data);
       setTimeout(()=>{
         setLoading(false);
-      },2500);
+      },2650);
     } catch (error) {
       console.log(error);
     }
@@ -142,7 +142,9 @@ const Schedule = () => {
 </Box>
 <div style={{ display: "grid", gridTemplateColumns: "auto auto auto", marginBottom: "40px" }}>
   <div style={{ display:"flex", justifyContent:"flex-end", alignItems:"center"}}>
+  <Link to={`/team?name=${event.team1}`}  style={{textDecoration:"none"}}>
     <img src={event.team1logo} alt="team1logo" style={{ width: '85px', height: '85px' }} />
+  </Link>
   </div>
   <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
   <span style={{fontWeight:"bold", fontSize:"35px",fontFamily:"'Dancing Script', cursive"}}>
@@ -150,7 +152,9 @@ const Schedule = () => {
   </span>
   </div>
   <div style={{ display: 'flex', justifyContent: 'centre', alignItems: 'center' }}>
+  <Link to={`/team?name=${event.team2}`}  style={{textDecoration:"none"}}>
     <img src={event.team2logo} alt="team2logo" style={{ width: '85px', height: '85px' }} />
+  </Link>  
   </div>
 </div>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom:"40px"}}>

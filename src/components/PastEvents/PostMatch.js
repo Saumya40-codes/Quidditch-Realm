@@ -10,6 +10,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useSelector } from 'react-redux';
 import Tabs from './Tabs';
+import { Link } from 'react-router-dom';
 
 const PostMatch = () => {
   const isAdmin = Boolean(useSelector(state => state.isAdmin));
@@ -115,7 +116,9 @@ const PostMatch = () => {
 </Box>
 <div style={{ display: "grid", gridTemplateColumns: "auto auto auto", marginBottom: "40px" }}>
   <div style={{ display:"flex", justifyContent:"flex-end", alignItems:"center"}}>
+  <Link to={`/team?name=${event.team1}`}  style={{textDecoration:"none"}}>
     <img src={event.team1logo} alt="team1logo" style={{ width: '70px', height: '70px' }} />
+  </Link>
   </div>
   <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
   <span style={{fontWeight:"bold", fontSize:"30px"}}>
@@ -123,7 +126,9 @@ const PostMatch = () => {
   </span>
   </div>
   <div style={{ display: 'flex', justifyContent: 'centre', alignItems: 'center' }}>
+  <Link to={`/team?name=${event.team2}`}  style={{textDecoration:"none"}}>
     <img src={event.team2logo} alt="team2logo" style={{ width: '70px', height: '70px' }} />
+  </Link>
   </div>
 </div>
     <Tabs />

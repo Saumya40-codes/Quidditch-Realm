@@ -218,7 +218,9 @@ const MoreDetails = () => {
           </Typography>
           <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: 10, justifyContent:"center" }}>
   <Box sx={{ display: 'flex', alignItems: 'center', marginRight: 10 }}>
+  <Link to={`/team?name=${event.team1}`}  style={{textDecoration:"none"}}>
     <img src={event.team1logo} alt="team1logo" style={{ width: '50px', height: '50px', marginRight: '10px' }} />
+  </Link>
     <Typography variant="body1" component="p" gutterBottom style={{fontWeight:"bold", fontSize:"35px" }}>
       {event.team1}
     </Typography>
@@ -230,7 +232,9 @@ const MoreDetails = () => {
     <Typography variant="body1" component="p" gutterBottom sx={{ marginRight: '10px', fontWeight:"bold", fontSize:"35px" }}>
       {event.team2}
     </Typography>
+    <Link to={`/team?name=${event.team2}`}  style={{textDecoration:"none"}}>
     <img src={event.team2logo} alt="team2logo" style={{ width: '50px', height: '50px' }} />
+    </Link>
   </Box>
 </Box>
 
