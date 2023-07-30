@@ -1,39 +1,67 @@
+import React from 'react'
 import Axios from 'axios'
 import { useState, useEffect } from 'react'
-import LoadingQuotes from '../LoadingQuotes';
-import { Card, CardContent, Typography, Box } from '@mui/material';
-import { faLocationDot, faMoneyBillTrendUp, faArrowTrendUp} from '@fortawesome/free-solid-svg-icons';
+import { useSelector } from 'react-redux';
+import { faLocationDot,faMoneyBillTrendUp, faArrowTrendUp, faTicket } from '@fortawesome/free-solid-svg-icons';
 import { faClock } from '@fortawesome/free-solid-svg-icons';
-import '../../App.css'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import LoadingQuotes from './LoadingQuotes';
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Card, CardContent, Typography, Box } from '@mui/material';
 
 
-const Sales = () => {
-    const [event, setEvent] = useState([]);
-    const [loading,setLoading] = useState(true);
 
-    const getEvent = async() =>{
-        try{
-            const res = await Axios.get('http://localhost:5000/events/all')
-            .then((res)=>{
-                setEvent(res.data);
-            setTimeout(()=>{
-                setLoading(false);
-              },2650);
-            })
+const RegisteredEvents = () => {
+    const [events,setEvents] = useState([]);
+    const userId = useSelector((state)=>state.id);
+    const [eventid, setEventId] = useState([])
+    const [loading, setLoading] = useState(true);
+
+
+
+    const getEvent = async (id) => {
+        try {
+          const res = await Axios.get(`http://localhost:5000/events/get/${id}`);
+          return res.data; // Return the event data from the response
+        } catch (err) {
+          console.log(err);
+          return null; // Return null if an error occurs to handle it later
         }
-        catch(err){
-            console.log(err);
+      };
+    
+      const getEventIds = async () => {
+        try {
+          const resp = await Axios.get(`http://localhost:5000/reg/register/events/${userId}`);
+          setEventId(resp.data);
+        } catch (err) {
+          console.log(err);
         }
-    }
+      };
+    
+      useEffect(() => {
+        getEventIds();
+      }, []);
+    
+      useEffect(() => {
+        const fetchEventData = async () => {
+          const eventDataPromises = eventid.map((id) => getEvent(id.eventID));
+    
+          const eventDetails = await Promise.all(eventDataPromises);
+    
+          const filteredEvents = eventDetails.filter((eventData) => eventData !== null);
+    
+          setEvents(filteredEvents);
+          setTimeout(()=>{
+            setLoading(false);
+          },2500)
+        };
+    
+        fetchEventData();
+      }, [eventid]);
 
-    useEffect(()=>{
-        getEvent();
-    },[event]);
 
 
-    const dateTime = (date, time) => {
+      const dateTime = (date, time) => {
         const eventDate = new Date(date);
         const day = eventDate.getDate();
         const month = eventDate.toLocaleString('default', { month: 'long' });
@@ -55,10 +83,10 @@ const Sales = () => {
             return 'th';
         }
       }
-
+    
   return (
     <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
-      <Typography variant="h3" component="h1" gutterBottom style={{margin:"20px", fontFamily:"'Dancing Script', cursive", fontSize:"38px", marginBottom:"45px", fontWeight:"bold"}}>
+          <Typography variant="h3" component="h1" gutterBottom style={{margin:"20px", fontFamily:"'Dancing Script', cursive", fontSize:"38px", marginBottom:"45px", fontWeight:"bold"}}>
         Match Sales
       </Typography>
       {loading ? (
@@ -72,9 +100,9 @@ const Sales = () => {
         <LoadingQuotes />
         </div>
         ) : (
-      event.map((events) => (
+      events.map((event) => (
         <Card
-          key={events._id}
+          key={event._id}
           sx={{
             margin: '20px',
             width: '100%',
@@ -100,7 +128,7 @@ const Sales = () => {
            <Box sx={{ display: "grid", gridTemplateColumns: "auto auto auto", marginBottom: "40px" }}>
           <div style={{ display:"flex", justifyContent:"flex-end", alignItems:"center"}}>
   <Typography variant="h5" component="h2" gutterBottom style={{fontFamily:"italic", fontWeight:"bold"}}>
-    {events.team1}
+    {event.team1}
   </Typography>
   </div>
   <div style={{ display: 'flex', justifyContent: 'centre', alignItems: 'center' }}>
@@ -110,14 +138,14 @@ const Sales = () => {
   </div>
   <div style={{ display: 'flex', justifyContent: 'centre', alignItems: 'center' }}>
   <Typography variant="h5" component="h2" gutterBottom style={{fontFamily:"italic", fontWeight:"bold"}}>
-    {events.team2}
+    {event.team2}
   </Typography>
   </div>
 </Box>
 <div style={{ display: "grid", gridTemplateColumns: "auto auto auto", marginBottom: "40px" }}>
   <div style={{ display:"flex", justifyContent:"flex-end", alignItems:"center"}}>
-  <Link to={`/team?name=${events.team1}`}  style={{textDecoration:"none"}}>
-    <img src={events.team1logo} alt="team1logo" style={{ width: '85px', height: '85px' }} />
+  <Link to={`/team?name=${event.team1}`}  style={{textDecoration:"none"}}>
+    <img src={event.team1logo} alt="team1logo" style={{ width: '85px', height: '85px' }} />
   </Link>
   </div>
   <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
@@ -126,15 +154,15 @@ const Sales = () => {
   </span>
   </div>
   <div style={{ display: 'flex', justifyContent: 'centre', alignItems: 'center' }}>
-  <Link to={`/team?name=${events.team2}`}  style={{textDecoration:"none"}}>
-    <img src={events.team2logo} alt="team2logo" style={{ width: '85px', height: '85px' }} />
+  <Link to={`/team?name=${event.team2}`}  style={{textDecoration:"none"}}>
+    <img src={event.team2logo} alt="team2logo" style={{ width: '85px', height: '85px' }} />
   </Link>  
   </div>
 </div>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom:"40px"}}>
           <div>
             <Typography variant="h4" component="h1" gutterBottom style={{fontFamily:"'Dancing Script', cursive", fontSize:"28px", marginBottom:"5px"}}>
-              {events.title}
+              {event.title}
             </Typography>
           </div>
           </div>
@@ -159,7 +187,7 @@ const Sales = () => {
                     marginBottom: '0',
                   }}
                 >
-                  {events.venue}
+                  {event.venue}
                 </p>
               </div>
               <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -175,25 +203,46 @@ const Sales = () => {
                     marginBottom: '0',
                   }}
                 >
-                  {dateTime(events.date, events.time)}
+                  {dateTime(event.date, event.time)}
                 </p>
               </div>
             </div>
             <hr />
-            <div style={{display:"flex", justifyContent:"space-between", alignItems:"center", marginTop:"30px"}}>
-            <div>
-            <FontAwesomeIcon icon={faArrowTrendUp} style={{width:"55px", height:"55px"}} /> <span style={{fontSize:"55px"}} > {events.ticketSold && events.ticketSold} </span> Tickets sold
+            <div style={{display:"flex", justifyContent:"center", alignItems:"center",fontWeight:"medium", fontFamily:"italic", fontSize:"45px"}}>
+            Your Ticket Details
             </div>
             <div>
-            <FontAwesomeIcon icon={faMoneyBillTrendUp} style={{width:"55px", height:"55px"}} beat /> <span style={{fontSize:"55px"}} > {events.totalSale && events.totalSale}₹ </span> of Sales
-            </div>
+            {eventid.filter((check)=>check.eventID === event._id)
+                .map((ticket)=>{
+                return(
+                    <div>
+                    <div style={{margin:"25px"}}>
+                    <span style={{fontSize:"35px"}}>
+                    <FontAwesomeIcon icon={faTicket} /> Ticket type: {ticket.ticket_type}
+                    </span>
+                    </div>
+                    <div  style={{display:"flex", justifyContent:"space-between", alignItems:"center"}}>
+                    <div style={{margin:"25px"}}>
+                    <span style={{fontSize:"35px"}}>
+                    <FontAwesomeIcon icon={faArrowTrendUp} style={{width:"35px", height:"35px"}} />  Quantity: {ticket.ticket_quantity}
+                    </span>
+                    </div>
+                    <div style={{margin:"25px"}}>
+                    <span style={{fontSize:"35px"}}>
+                    <FontAwesomeIcon icon={faMoneyBillTrendUp} style={{width:"35px", height:"35px"}} beat /> Price: {ticket.total_price}₹ 
+                    </span>
+                    </div>
+                    </div>
+                    </div>
+                )
+            })}
             </div>
           </CardContent>
 </Card>
       ))
         )}
-</div>
-  );
-};
+    </div>
+  )
+}
 
-export default Sales
+export default RegisteredEvents

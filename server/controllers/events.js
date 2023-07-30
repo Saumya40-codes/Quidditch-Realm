@@ -155,7 +155,6 @@ const ticketChanges = async(req, res) =>{
         const {id} = req.params;
         const {ticket, ticketSold, totalSale} = req.body;
         const updateEvent = await Event.findByIdAndUpdate(id, {ticket:ticket, ticketSold:ticketSold, totalSale: totalSale});
-        console.log(updateEvent)
         res.status(200).json(updateEvent);
     }
     catch(err){

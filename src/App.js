@@ -26,6 +26,7 @@ import Profile from './components/Profile';
 import BrowseTeams from './components/BrowseTeams';
 import LoadingQuotes from './components/LoadingQuotes';
 import Sales from './components/Admin/Sales';
+import RegisteredEvents from './components/RegisteredEvents';
 
 import { CssBaseline } from '@mui/material';
 import { themeSettings } from './theme';
@@ -53,6 +54,7 @@ function App() {
             <Route path="/past/events" element={<PastEvents />} />
             <Route path="/past/event/:id" element={<PastEventDetails />} />
             <Route path="/register/event/:id" element={<Register />} />
+            <Route path="/registered/events" element={<RegisteredEvents />} />
             <Route path="/post/match/:id" element={<PostMatch />} />
             <Route path="/team/:id" element={<Team />} />
             <Route path="/team" element={<Team />} />
