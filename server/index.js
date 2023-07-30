@@ -83,7 +83,7 @@ var mailOptions = {
 
 transporter.sendMail(mailOptions, function(error, info){
   if (error) {
-    console.log("error a rha he");
+    console.log(error)
   } else {
     res.status(200).json({message: "Email sent successfully"});
   }
@@ -105,7 +105,7 @@ app.get("/reset-password/:id/:token", async (req, res) => {
     res.render("index",{email: verify.email, status:"nonverified"});
   }
   catch (error) {
-    console.log("bhai error a rha he");
+    console.log(error);
     res.status(500).json({ message: "Something went wrong" });
   }
 });
@@ -129,7 +129,6 @@ app.post("/reset-password/:id/:token", async (req, res) => {
     res.render("index",{email: verify.email, status:"verified"});
   }
   catch (error) {
-    console.log("bhai error a rha he");
     res.status(500).json({ message: "Something went wrong" });
   }
 });
