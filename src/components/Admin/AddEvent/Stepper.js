@@ -37,12 +37,6 @@ export default function HorizontalLinearStepper({ mode }) {
     ]);
   };
 
-  const handleUpdateTicket = (index, field, value) => {
-    const updatedTickets = [...ticket];
-    updatedTickets[index] = { ...updatedTickets[index], [field]: value };
-    setTicket(updatedTickets);
-  };
-
   const handleDeleteTicket = (index) => {
     const updatedTickets = [...ticket];
     updatedTickets.splice(index, 1);
@@ -73,9 +67,6 @@ export default function HorizontalLinearStepper({ mode }) {
   const { id } = useParams();
 
   const navigate = useNavigate();
-
-  //edit func
-  const [eventDetails, setEventDetails] = useState({});
 
   const getDetails = async () => {
     Axios.get(`http://localhost:5000/events/get/${id}`)

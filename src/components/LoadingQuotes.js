@@ -27,7 +27,7 @@ const LoadingQuotes = () => {
         setEffect(randomIncantation.attributes.effect);
       }
     }
-  }, [quotes]);
+  }, [quotes,randQuote]);
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>

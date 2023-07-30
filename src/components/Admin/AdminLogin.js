@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import { Card, Button, FormControl, Alert, InputLabel, Input, Link as MuiLink } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { ToastContainer, toast } from 'react-toastify';
-import { Form, Link } from 'react-router-dom';
+import {  Link } from 'react-router-dom';
 import Axios from 'axios';
 import darkLogin from '../../assets/darkLogin.jpg';
 import 'react-toastify/dist/ReactToastify.css';
@@ -29,7 +29,6 @@ export default function Login() {
   const passwordRef = useRef();
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const [toggle, setToggle] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();

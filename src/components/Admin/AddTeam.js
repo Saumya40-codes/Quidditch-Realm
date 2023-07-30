@@ -32,7 +32,7 @@ const AddTeam = ({mode}) => {
 
   useEffect(() => {
     getTeam();
-  }, []);
+  }, [team]);
 
   const navigate = useNavigate();
 

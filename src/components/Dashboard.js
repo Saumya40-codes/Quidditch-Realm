@@ -1,14 +1,10 @@
 import { Link } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons"
+import {faXmark } from "@fortawesome/free-solid-svg-icons"
 import { useState } from "react"
 import {SidebarData} from "./SidebarData"
 import './Navbar.css'
 import Slider from './Slider'
-import { Button } from "@mui/material"
-import { setLogout } from "../state"
-import { useDispatch } from "react-redux"
-import { useNavigate } from "react-router-dom"
 import TopBar from "./TopBar"
 import DashboardData from "./DashboardData"
 
@@ -16,9 +12,6 @@ const Dashboard = () => {
   const [sidebar, setSidebar] = useState(false)
 
   const showSidebar = () => setSidebar(!sidebar);
-
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   return (
   <div className="nav-container">

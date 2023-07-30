@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Card, CardContent, TextField, FormGroup, FormControl, Input, InputLabel } from '@mui/material';
+import { Card, CardContent, TextField, FormGroup, FormControl, Input } from '@mui/material';
 import { useEffect } from 'react';
 
 const TeamDetails = ({ handleFormChange, formchanged }) => {
@@ -55,12 +55,14 @@ const TeamDetails = ({ handleFormChange, formchanged }) => {
               {team1logo && (
                 <img
                   src={team1logo}
+                  alt='team1logo'
                   style={{ height: '120px', width: '120px', marginLeft: '250px', marginTop: '40px' }}
                 />
               )}
               {team2logo && (
                 <img
                   src={team2logo}
+                  alt='team2logo'
                   style={{ height: '140px', width: '140px', marginRight: '250px', marginTop: '40px' }}
                 />
               )}

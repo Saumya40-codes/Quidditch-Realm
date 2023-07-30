@@ -70,3 +70,16 @@ ___
 
 
   * For adding events to google calendar as a part of this website functionality, user is redirected to server side page for authorization and once that's been done successfully, event is being added to google calendar
+___
+>## Stripe Payment Gateway
+#### necessary requirements: (from stripe developers site)
+  * PUBLISHABLE_KEY
+  * SECRET_KEY
+  
+**Steps:**
+  * initially from server side /config endpoint, publishable key is sent to client side for authorization with stripe.
+  * when user initialise the payment, an API call is sent to server side /create-payment-intent endpoint, this creates the payment, payment amount is sent in body of this req.
+  we retrive client secret from this.
+  * loadStripe(publishableKey) helps to expose publishable key on client side safely.
+  * We have used *Element* from @stripe/react-stripe-js package to get necessart components.
+  * There are many internal steps in between but to keep this short, in the end the inbuilt *stripe.confirmPayment* is called and we check for any possible error during this.

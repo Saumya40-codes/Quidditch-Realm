@@ -27,8 +27,7 @@ export default function Login() {
   const passwordRef = useRef();
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const [toggle, setToggle] = useState(false);
-
+  
   const dispatch = useDispatch();
   const navigate = useNavigate();
 

@@ -3,11 +3,10 @@ import { Button, Box } from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagic, faUser } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
-import Header from './Header';
 import landing from '../assets/landing.jpg';
 import { Tooltip } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import hogwarts_logo from '../assets/hogwarts_logo.png';
+import '../App.css'
 
 const ParchmentBackground = styled('div')({
   backgroundImage: `url(${landing})`,
@@ -29,7 +28,34 @@ const ParchmentBackground = styled('div')({
 const LandingPage = () => {
   return (
     <ParchmentBackground>
-      <Header text="Quidditch Realm" />
+      <div
+        className="app-header"
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          marginTop: "40px", 
+          fontFamily: "Dancing Script, cursive",
+          fontWeight: "bold",
+          fontSize: "40px",
+          textAlign: "center",
+          color: "white", 
+        }}
+      >
+        <h1>
+          <span
+            style={{
+                fontFamily: "'Dancing Script', cursive",
+            fontSize: '2.5rem',
+            fontWeight: 'bold',
+            color: 'white',
+            fontSize:"70px"
+            }}
+          >
+            Quidditch Realm
+          </span>
+        </h1>
+      </div>
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '50vh', gap: '100px', marginTop: '100px' }}>
         <Box sx={{ position: "relative" }}>
           <Link to="/login" style={{ textDecoration: "none" }}>
@@ -95,7 +121,34 @@ const LandingPage = () => {
         </Box>
       </div>
       <div>
-        <Header text="Embark on the journey" />
+      <div
+        className="app-header"
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          marginTop: "40px", 
+          fontFamily: "Dancing Script, cursive",
+          fontWeight: "bold",
+          fontSize: "40px",
+          textAlign: "center",
+          color: "white", 
+        }}
+      >
+        <h1>
+          <span
+            style={{
+                fontFamily: "'Dancing Script', cursive",
+            fontSize: '2.5rem',
+            fontWeight: 'bold',
+            color: 'white',
+            fontSize:"70px"
+            }}
+          >
+            Embark on the journey
+          </span>
+        </h1>
+      </div>
       </div>
     </ParchmentBackground>
   );

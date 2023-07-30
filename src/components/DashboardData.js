@@ -42,7 +42,7 @@ const DashboardData = ({sidebar}) => {
 
     useEffect(() => {
         getFavouriteTeam()
-    }, [])
+    }, [favouriteTeam])
 
   return (
     <div>

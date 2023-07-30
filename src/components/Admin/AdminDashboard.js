@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXmark, faBroom, faBook, faMagic, faIndianRupeeSign } from "@fortawesome/free-solid-svg-icons";
+import { faXmark, faBroom, faBook, faIndianRupeeSign } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { Card, CardContent, Button, Typography, Grid } from "@mui/material";
+import { Card, CardContent, Typography, Grid } from "@mui/material";
 import { IconButton } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import TopBar from "../TopBar";

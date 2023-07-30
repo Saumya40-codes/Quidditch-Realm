@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
 import { useParams } from 'react-router-dom';
-import { Card, CardContent, Typography, Button, Box, Tooltip } from '@mui/material';
+import { Card, CardContent, Typography, Button, Box } from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBan, faCalendarAlt, faMapMarkerAlt, faPerson, faCheckCircle, faReceipt, faRocket, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+import { faBan, faCalendarAlt, faMapMarkerAlt, faPerson, faCheckCircle, faReceipt, faRocket } from '@fortawesome/free-solid-svg-icons';
 import Timeline from './Timeline';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import { Navigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import { useRef } from 'react';
 
@@ -18,7 +17,6 @@ const MoreDetails = () => {
   const [interest, setInterest] = useState(false);
   const userId = useSelector(state => state.id);
   const userm = useSelector((state)=>state.user)
-  const [notifs, setNotifs] = useState([]);
   const navigate = useNavigate();
   const hasCalled = useRef(false);
   const [registered,hasRegistered] = useState(false);
@@ -35,7 +33,7 @@ const MoreDetails = () => {
 
     useEffect(() => {
         getInterest();
-    }, []);
+    }, [interest]);
 
     const checkRegister = async () => {
       try {
@@ -57,7 +55,7 @@ const MoreDetails = () => {
 
     useEffect(()=>{
       checkRegister();
-    },[id,userId])
+    },[id,userId,registered])
 
     const handleInterestChange = async (e) => {
         e.preventDefault();

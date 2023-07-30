@@ -28,6 +28,7 @@ app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: false }));
 var nodemailer = require('nodemailer');
 
+
 app.use('/users',userRoutes)
 
 const CONNECTION_URL = process.env.CONNECTION_URI;
@@ -82,7 +83,7 @@ var mailOptions = {
 
 transporter.sendMail(mailOptions, function(error, info){
   if (error) {
-    console.log(error);
+    console.log("error a rha he");
   } else {
     res.status(200).json({message: "Email sent successfully"});
   }
@@ -104,7 +105,7 @@ app.get("/reset-password/:id/:token", async (req, res) => {
     res.render("index",{email: verify.email, status:"nonverified"});
   }
   catch (error) {
-    console.log(error.message);
+    console.log("bhai error a rha he");
     res.status(500).json({ message: "Something went wrong" });
   }
 });
@@ -128,7 +129,7 @@ app.post("/reset-password/:id/:token", async (req, res) => {
     res.render("index",{email: verify.email, status:"verified"});
   }
   catch (error) {
-    console.log(error.message);
+    console.log("bhai error a rha he");
     res.status(500).json({ message: "Something went wrong" });
   }
 });
