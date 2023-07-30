@@ -88,7 +88,7 @@ const AdminDashboard = () => {
                     Sales
                   </Typography>
                   <IconButton>
-                     <Link to="/">   {/*// Link to the page where all the users are displayed (to be created) */}
+                     <Link to="/admin/sales"> 
                       <VisibilityIcon />
                     </Link>
                   </IconButton>
