@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXmark, faBroom, faBook, faMagic, faWand, faHatWizard } from "@fortawesome/free-solid-svg-icons";
+import { faXmark, faBroom, faBook, faMagic, faIndianRupeeSign } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent, Button, Typography, Grid } from "@mui/material";
@@ -83,9 +83,9 @@ const AdminDashboard = () => {
               </Grid>
               <Grid item xs={12} sm={6} md={4}>
                 <Card style={{ height: "100%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.4)" }}>
-                  <FontAwesomeIcon icon={faMagic} style={{  width: "100px", height: "100px" }} />
+                  <FontAwesomeIcon icon={faIndianRupeeSign} style={{  width: "100px", height: "100px" }} />
                   <Typography variant="h5" style={{ fontFamily: "Harry Potter",  marginTop: "10px" }}>
-                    Wizards and Witches
+                    Sales
                   </Typography>
                   <IconButton>
                      <Link to="/">   {/*// Link to the page where all the users are displayed (to be created) */}

@@ -27,10 +27,20 @@ const getEvents = async (req, res) => {
     }
 }
 
+const getAllEvents = async (req,res) =>{
+    try{
+        const all = await Event.find().sort({ date: -1});
+        res.status(200).json(all);
+    }
+    catch(err){
+        res.status(500).json({message:"Something went wrong"});
+    }
+}
+
 const getPastEvents = async (req, res) => {
     try {
         const currentdate = new Date();
-        const events = await Event.find({ date: { $lt: currentdate } }).sort({ date: 1 });
+        const events = await Event.find({ date: { $lt: currentdate } }).sort({ date: -1 });
         res.status(200).json(events);
     } catch (error) {
         res.status(500).json({ message: "Something went wrong" });
@@ -139,5 +149,18 @@ const deleteComment = async (req, res) => {
         res.status(500).json({ message: "Something went wrong" });
     }
 };
+
+const ticketChanges = async(req, res) =>{
+    try{
+        const {id} = req.params;
+        const {ticket, ticketSold, totalSale} = req.body;
+        const updateEvent = await Event.findByIdAndUpdate(id, {ticket:ticket, ticketSold:ticketSold, totalSale: totalSale});
+        console.log(updateEvent)
+        res.status(200).json(updateEvent);
+    }
+    catch(err){
+        res.status(500).json({message: "Something went wrong"});
+    }
+}
   
-module.exports = {addEvent, getEvents, deleteEvent, getEvent, updateEvents, getPastEvents, updateScores, updateInterested, addComments, deleteComment, editComment};
+module.exports = {addEvent, getEvents, deleteEvent, getEvent, getAllEvents, updateEvents, getPastEvents, updateScores, updateInterested, addComments, deleteComment, editComment, ticketChanges};

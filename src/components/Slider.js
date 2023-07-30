@@ -10,6 +10,8 @@ import SwipeableViews from 'react-swipeable-views';
 import { autoPlay } from 'react-swipeable-views-utils';
 import slider1 from '../assets/slider1.jpeg';
 import slider2 from '../assets/slider2.jpg';
+import slider3 from '../assets/slider3.jpg';
+import slider4 from '../assets/slider4.jpg'
 import Axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -35,16 +37,17 @@ function Slider() {
     getPastEvents();
   }, []);
 
-  const images = [slider1, slider2]
+  const images = ['https://vignette.wikia.nocookie.net/harrypotter/images/5/52/Coupe_du_Monde_de_Quidditch_de_1994.jpg/revision/latest/scale-to-width-down/2000?cb=20160502120620&path-prefix=fr',slider1, slider2, slider3, slider4, ]
 
-  const events = pastEvents.map((event, index) => ({
+  const events = pastEvents.slice(0, 5).map((event, index) => ({
     id: event._id,
-    imgPath: images[index % images.length],
+    imgPath: index < images.length ? images[index % images.length] : null,
     team1score: event.team1score,
     team2score: event.team2score,
     team1: event.team1,
     team2: event.team2,
   }));
+  
 
   const maxSteps = events.length;
 
@@ -71,7 +74,7 @@ function Slider() {
             enableMouseEvents
           >
             {events.map((step, index) => (
-              <div key={step.team1}>
+              <div key={index}>
                 {Math.abs(activeStep - index) <= 2 ? (
                   <Box
                     sx={{

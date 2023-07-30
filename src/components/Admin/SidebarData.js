@@ -1,6 +1,6 @@
 import React from 'react'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faHouse, faUserPlus,faCalendar, faCalendarPlus, faCalendarDays } from "@fortawesome/free-solid-svg-icons"
+import { faHouse, faUserPlus,faCalendar, faCalendarPlus, faCalendarDays, faIndianRupeeSign } from "@fortawesome/free-solid-svg-icons"
 
 export const SidebarData = [
     {
@@ -31,6 +31,12 @@ export const SidebarData = [
         title: 'Add Teams',
         path: '/admin/add/team',
         icon:<FontAwesomeIcon icon={faUserPlus} />,
+        cName: 'nav-text'
+    },
+    {
+        title: 'Ticket Sales',
+        path: '/admin/sales',
+        icon:<FontAwesomeIcon icon={faIndianRupeeSign} />,
         cName: 'nav-text'
     },
 ]

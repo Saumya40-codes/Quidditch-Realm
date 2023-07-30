@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Axios from 'axios';
-import { Card, CardContent, Typography, Button, Grid, Slider } from '@mui/material';
+import { Card, CardContent, Typography, Button, Grid, Slider, TextField } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import LoadingQuotes from '../LoadingQuotes';
 
@@ -115,9 +115,13 @@ const TicketDetails = ({formChange, handleTicketQuantityChange, setTicketQuantit
                   ))}
                 </Typography>
                 {buyClicked[index] && (
-                  <div>
+                  <div style={{marginTop:"20px"}}>
                     <Typography id="ticket-quantity-slider" gutterBottom>
-                      Select Quantity:
+                      Select Quantity: <TextField  id="standard-basic" label="add manually" type='number' variant="standard"
+                          style={{ marginLeft:"15px", marginBottom:"10px", marginTop:"-20px"}}
+                          value={formChange.ticket_quantity} onChange={(event) =>
+                          handleTicketQuantityChange(event, index, event.target.value, ticket?.price, ticket?.type)
+                        } />
                     </Typography>
                     <div style={{ display: 'flex', alignItems: 'center' }}>
                       <Typography variant="body2">{formChange.ticket_quantity}</Typography>
@@ -141,9 +145,9 @@ const TicketDetails = ({formChange, handleTicketQuantityChange, setTicketQuantit
         ))}
       </Grid>
       )}
-      {price !== 0 && (
+      {price !== 0 && price !== undefined && (
         <Typography variant="h5" component="h2" style={styles.totalPrice}>
-          Total Price: {price}$
+          Total Price: {`${price}₹`} 
         </Typography>
       )}
     </div>

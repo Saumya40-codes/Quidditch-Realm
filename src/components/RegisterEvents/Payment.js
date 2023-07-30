@@ -84,7 +84,7 @@ const Payment = ({formChange, handleFormChange}) => {
             )}</p>
         </div>
         <div style={{ margin:"10px"}}>
-            <p>Total Price: {formChange.total_price? formChange.total_price : 
+            <p>Total Price: {formChange.total_price? `${formChange.total_price} ₹` : 
                 (
             <div style={{display:"inline-block"}}>
             <FontAwesomeIcon icon={faCircleExclamation} style={{color: "#ff0000", marginLeft:"5px", marginRight:"-5px"}} /> <span style={{color:"red"}}>Required! Information not given yet!!</span>

@@ -42,6 +42,8 @@ const eventSchema = mongoose.Schema({
           amount: { type: Number, required: true }
         }
       ],  
+    ticketSold: { type:Number, required:false, default:0},  
+    totalSale : { type:Number, required:false, default:0},
     team2logo: { type: String, required: true },
     time: { type: String, required: true },
     title: { type: String, required: true },

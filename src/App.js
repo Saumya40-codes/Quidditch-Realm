@@ -25,6 +25,7 @@ import Team from './components/Team';
 import Profile from './components/Profile';
 import BrowseTeams from './components/BrowseTeams';
 import LoadingQuotes from './components/LoadingQuotes';
+import Sales from './components/Admin/Sales';
 
 import { CssBaseline } from '@mui/material';
 import { themeSettings } from './theme';
@@ -69,6 +70,7 @@ function App() {
             <Route path="/admin/add/team" element={<AddTeam mode="add" />} />
             <Route path="/admin/add/team/:id" element={<AddTeam mode="edit" />} />
             <Route path="/admin/registered/teams" element={<RegisteredTeams />} />
+            <Route path="/admin/sales" element={<Sales />} />
           </Routes>
         </ThemeProvider>
       </Router>
