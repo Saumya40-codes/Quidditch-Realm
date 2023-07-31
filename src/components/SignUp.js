@@ -4,8 +4,6 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import Axios from 'axios';
 import { ThemeProvider, createTheme  } from '@mui/material/styles';
-import { useDispatch } from 'react-redux';
-import { setLogin } from '../state';
 import darkLogin from '../assets/darkLogin.jpg';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -28,9 +26,6 @@ const SignUp = () => {
   const usernameRef = useRef();
 
   const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
-
-  const dispatch = useDispatch();
 
   const signUp = async (e) => {
     e.preventDefault();
@@ -63,11 +58,11 @@ const SignUp = () => {
         toast.success('One step away, please login with your credentials', { autoClose: 2000 });
       }, 2000);
     } catch(error) {
-      if(error.message == "Wrong Password" ){
+      if(error.message === "Wrong Password" ){
         toast.error('Spell misfired!', { id: loadingToastId, autoClose: 2000 })
         setError("Username or password might already exist");
       }
-      else if(error.message == "Username must be atleast 3 characters long"){
+      else if(error.message === "Username must be atleast 3 characters long"){
         toast.error('Spell misfired!', { id: loadingToastId, autoClose: 2000 })
         setError("Username or password might already exist");
       }

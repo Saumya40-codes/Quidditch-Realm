@@ -5,7 +5,7 @@ import {
   MenuItem,
   Menu,
 } from "@mui/material";
-import { DarkMode, LightMode, Notifications } from "@mui/icons-material";
+import { DarkMode, LightMode } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 import { setMode, setLogout } from "../state";
 import { useNavigate } from "react-router-dom";

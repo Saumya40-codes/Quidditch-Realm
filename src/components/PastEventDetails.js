@@ -4,7 +4,6 @@ import { useParams } from 'react-router-dom';
 import { Card, CardContent, Typography, Button, Box, TextField, ButtonGroup } from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapMarkerAlt} from '@fortawesome/free-solid-svg-icons';
-import Timeline from './Timeline';
 import { Dialog, DialogActions, DialogContent, DialogTitle, MenuItem } from '@mui/material';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';

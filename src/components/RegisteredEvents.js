@@ -40,7 +40,7 @@ const RegisteredEvents = () => {
     
       useEffect(() => {
         getEventIds();
-      }, []);
+      }, [eventid]);
     
       useEffect(() => {
         const fetchEventData = async () => {

@@ -3,26 +3,29 @@ import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MobileStepper from '@mui/material/MobileStepper';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
-import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
-import SwipeableViews from 'react-swipeable-views';
-import { autoPlay } from 'react-swipeable-views-utils';
+import SwiperCore from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react'; 
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/autoplay';
+
+import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from 'swiper/modules';
+
 import slider1 from '../assets/slider1.jpeg';
 import slider2 from '../assets/slider2.jpg';
 import slider3 from '../assets/slider3.jpg';
-import slider4 from '../assets/slider4.jpg'
+import slider4 from '../assets/slider4.jpg';
 import Axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import loading from '../assets/loading.gif';
 
-const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
-
 function Slider() {
   const theme = useTheme();
   const [activeStep, setActiveStep] = React.useState(0);
   const [pastEvents, setPastEvents] = useState([]);
+  SwiperCore.use([Autoplay])
 
   const getPastEvents = async () => {
     try {
@@ -37,7 +40,7 @@ function Slider() {
     getPastEvents();
   }, []);
 
-  const images = ['https://vignette.wikia.nocookie.net/harrypotter/images/5/52/Coupe_du_Monde_de_Quidditch_de_1994.jpg/revision/latest/scale-to-width-down/2000?cb=20160502120620&path-prefix=fr',slider1, slider2, slider3, slider4, ]
+  const images = ['https://vignette.wikia.nocookie.net/harrypotter/images/5/52/Coupe_du_Monde_de_Quidditch_de_1994.jpg/revision/latest/scale-to-width-down/2000?cb=20160502120620&path-prefix=fr', slider1, slider2, slider3, slider4, ]
 
   const events = pastEvents.slice(0, 5).map((event, index) => ({
     id: event._id,
@@ -47,34 +50,30 @@ function Slider() {
     team1: event.team1,
     team2: event.team2,
   }));
-  
 
   const maxSteps = events.length;
 
-  const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-  };
-
-  const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
-
-  const handleStepChange = (step) => {
-    setActiveStep(step);
-  };
-  
   return (
-    <div className="slider-container" style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent:"center" }}>
-      <Box sx={{marginTop: "30px", width: "60%"}}>
+    <div className="slider-container" style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+      <Box sx={{ marginTop: "30px", width: "60%" }}>
         {events.length > 0 ? (
-          <AutoPlaySwipeableViews
-            axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-            index={activeStep}
-            onChangeIndex={handleStepChange}
-            enableMouseEvents
+          <Swiper
+            autoplay={{
+            delay: 2550,
+            disableOnInteraction: false,
+            }
+           }
+            onSlideChange={(swiper) => setActiveStep(swiper.realIndex)}
+            modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
+            spaceBetween={50} 
+            slidesPerView={1}
+            effect='fade'
+            navigation
+            pagination={{ clickable: true }}
+            scrollbar={{ draggable: true }}
           >
             {events.map((step, index) => (
-              <div key={index}>
+              <SwiperSlide key={index}>
                 {Math.abs(activeStep - index) <= 2 ? (
                   <Box
                     sx={{
@@ -108,9 +107,9 @@ function Slider() {
                     </Box>
                   </Box>
                 ) : null}
-              </div>
+              </SwiperSlide>
             ))}
-          </AutoPlaySwipeableViews>
+          </Swiper>
         ) : (
           <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100%", flexDirection: "column" }}>
             <Typography variant="h5" sx={{ bottom: 10, left: 10, fontSize: "24px", fontWeight: "bold", color: "#555" }}>
@@ -127,22 +126,6 @@ function Slider() {
             alignSelf: "center",
             width: "100%",
           }}
-          nextButton={
-            <div style={{ display: "flex", justifyContent: "flex-end", alignItems: "center", width: "50%" }}>
-              <Button size="small" onClick={handleNext} disabled={activeStep === maxSteps - 1}>
-                Next
-                {theme.direction === "rtl" ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
-              </Button>
-            </div>
-          }
-          backButton={
-            <div style={{ display: "flex", justifyContent: "flex-start", alignItems: "center", width: "50%" }}>
-              <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
-                {theme.direction === "rtl" ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
-                Back
-              </Button>
-            </div>
-          }
         />
       </Box>
     </div>

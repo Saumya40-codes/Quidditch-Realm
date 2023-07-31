@@ -118,7 +118,7 @@ const TicketDetails = ({formChange, handleTicketQuantityChange, setTicketQuantit
                   <div style={{marginTop:"20px"}}>
                     <Typography id="ticket-quantity-slider" gutterBottom>
                       Select Quantity: <TextField  id="standard-basic" label="add manually" type='number' variant="standard"
-                          style={{ marginLeft:"15px", marginBottom:"10px", marginTop:"-20px"}}
+                          style={{ marginLeft:"15px", marginBottom:"10px", marginTop:"10px"}}
                           value={formChange.ticket_quantity} onChange={(event) =>
                           handleTicketQuantityChange(event, index, event.target.value, ticket?.price, ticket?.type)
                         } />

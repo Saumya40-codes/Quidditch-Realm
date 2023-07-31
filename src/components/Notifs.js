@@ -54,7 +54,7 @@ const Notifs = ({ showNotif, handleBadgeClick, handleCloseMenu , enchorEl1}) => 
         <Badge badgeContent={len !== 0? len : '0'} color="primary" sx={{ fontSize: "40px", color:dark, cursor:"pointer" }} onClick={(event) => handleBadgeClick(event)} >
           <Notifications sx={{ fontSize: "40px", color:dark }} />
         </Badge>
-      {len != 0 ? (
+      {len !== 0 ? (
         <Menu 
           anchorEl={enchorEl1}
           open={Boolean(enchorEl1)}
