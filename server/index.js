@@ -14,7 +14,6 @@ const User = require('./models/User.js');
 app.use(cors());
 app.use(express.json());  
 
-
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
@@ -152,7 +151,7 @@ app.use('/teams',teamRoutes)
 
 const {google} = require('googleapis');
 const axios = require('axios');
-const session = require('express-session');
+const session = require('cookie-session');
 
 app.use(
   session({
