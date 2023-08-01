@@ -192,7 +192,7 @@ app.get('/redirect', async (req, res) => {
   const {tokens} = await oauth2Client.getToken(code);
   oauth2Client.setCredentials(tokens);
   const id = req.session.calendarId;
-  res.redirect(`http://localhost:3000/more-details/${id}?status=200`)
+  res.redirect(`https://quidditch-realm-rgxcs2bg2-saumya40-codes.vercel.app/more-details/${id}?status=200`)
 });
 
 app.post('/create-event', async (req, res) => {
