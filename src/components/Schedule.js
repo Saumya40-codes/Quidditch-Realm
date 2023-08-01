@@ -23,11 +23,9 @@ const Schedule = () => {
 
   const getEvents = async () => {
     try {
-      const res = await Axios.get('http://localhost:5000/events/get');
-      setEvents(res.data);
-      setTimeout(()=>{
+      const res = await Axios.get('http://localhost:5000/events/get')
+        setEvents(res.data);
         setLoading(false);
-      },2650);
     } catch (error) {
       console.log(error);
     }

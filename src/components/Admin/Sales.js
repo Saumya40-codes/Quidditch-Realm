@@ -16,12 +16,8 @@ const Sales = () => {
     const getEvent = async() =>{
         try{
             const res = await Axios.get('http://localhost:5000/events/all')
-            .then((res)=>{
                 setEvent(res.data);
-            setTimeout(()=>{
                 setLoading(false);
-              },2650);
-            })
         }
         catch(err){
             console.log(err);

@@ -51,9 +51,7 @@ const RegisteredEvents = () => {
           const filteredEvents = eventDetails.filter((eventData) => eventData !== null);
     
           setEvents(filteredEvents);
-          setTimeout(()=>{
             setLoading(false);
-          },2500)
         };
     
         fetchEventData();

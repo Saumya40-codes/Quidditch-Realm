@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import {ThemeProvider, createTheme} from '@mui/material';
 import 'react-toastify/dist/ReactToastify.css';
 import  Axios  from 'axios';
-import DarkLoginBackground from '../../assets/darkLogin.jpg';
 
 export default function AdminForgotPassword() {
   const emailRef = useRef();
@@ -38,7 +37,7 @@ export default function AdminForgotPassword() {
   };
 
   return (
-    <div style={{display:"flex",justifyContent:"center",flexDirection:"column", alignItems:"center",height:"100vh",backgroundImage: `url(${DarkLoginBackground})`, backgroundRepeat:"no-repeat",backgroundSize:"cover"}}>
+    <div style={{display:"flex",justifyContent:"center",flexDirection:"column", alignItems:"center",height:"100vh",backgroundImage: 'url(https://external-preview.redd.it/dtfaFfEYDZo2JkYrqebtAUYzaXudmQhqjg5Uk8Wns10.jpg?width=960&crop=smart&auto=webp&s=6f5be2508c7c70fe3cea74c9f7f816b16b405745)', backgroundRepeat:"no-repeat",backgroundSize:"cover"}}>
     <ThemeProvider theme={theme}>
     <h2
           className="text-center mb-4"

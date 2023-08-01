@@ -24,9 +24,7 @@ const PastEvents = () => {
       try {
         const res = await Axios.get('http://localhost:5000/events/past');
         setEvents(res.data);
-        setTimeout(()=>{
           setLoading(false);
-        },2650);
       } catch (error) {
         console.log(error);
       }

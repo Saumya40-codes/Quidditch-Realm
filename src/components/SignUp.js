@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import Axios from 'axios';
 import { ThemeProvider, createTheme  } from '@mui/material/styles';
-import darkLogin from '../assets/darkLogin.jpg';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Lord_Voldemort from '../assets/Lord_Voldemort.jpg';
@@ -70,7 +69,7 @@ const SignUp = () => {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: '100vh', backgroundImage: `url(${darkLogin})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: '100vh', backgroundImage: 'url(https://external-preview.redd.it/dtfaFfEYDZo2JkYrqebtAUYzaXudmQhqjg5Uk8Wns10.jpg?width=960&crop=smart&auto=webp&s=6f5be2508c7c70fe3cea74c9f7f816b16b405745)', backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }}>
     <ThemeProvider theme={theme}>
       <ToastContainer />
       <h2

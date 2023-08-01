@@ -11,11 +11,6 @@ import 'swiper/css/pagination';
 import 'swiper/css/autoplay';
 
 import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from 'swiper/modules';
-
-import slider1 from '../assets/slider1.jpeg';
-import slider2 from '../assets/slider2.jpg';
-import slider3 from '../assets/slider3.jpg';
-import slider4 from '../assets/slider4.jpg';
 import Axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -40,7 +35,13 @@ function Slider() {
     getPastEvents();
   }, []);
 
-  const images = ['https://vignette.wikia.nocookie.net/harrypotter/images/5/52/Coupe_du_Monde_de_Quidditch_de_1994.jpg/revision/latest/scale-to-width-down/2000?cb=20160502120620&path-prefix=fr', slider1, slider2, slider3, slider4, ]
+  const images = [
+  'https://vignette.wikia.nocookie.net/harrypotter/images/5/52/Coupe_du_Monde_de_Quidditch_de_1994.jpg/revision/latest/scale-to-width-down/2000?cb=20160502120620&path-prefix=fr', 
+  'https://vignette.wikia.nocookie.net/harrypotter/images/d/da/Quidditch_pitch_hogwarts.jpg/revision/latest?cb=20140715145938&path-prefix=zh', 
+  'https://imagesvc.timeincapp.com/v3/fan/image?url=https://wizardsandwhatnot.com/files/image-exchange/2017/07/ie_21763.jpeg&',
+  'https://assets.mugglenet.com/wp-content/uploads/2019/09/Hogwarts-Mystery-Quidditch-Update-Stadium1.jpg',
+  'https://www.bing.com/images/blob?bcid=S8A8725ebucFAw.V3VsAmnSjaiTs.....2A', 
+]
 
   const events = pastEvents.slice(0, 5).map((event, index) => ({
     id: event._id,
