@@ -22,12 +22,12 @@ const Team = () => {
     try {
       if(!(id === undefined)){
         console.log(id)
-      const res = await Axios.get(`http://localhost:5000/teams/getTeamDetails/${id}`);
+      const res = await Axios.get(`https://quidditch-realm-rgxcs2bg2-saumya40-codes.vercel.app/teams/getTeamDetails/${id}`);
       setTeam(res.data);
       }
       else if(name){
         console.log(name);
-        const res = await Axios.get(`http://localhost:5000/teams/name/${name}`)
+        const res = await Axios.get(`https://quidditch-realm-rgxcs2bg2-saumya40-codes.vercel.app/teams/name/${name}`)
         console.log(res.data);
         setTeam(res.data);
       }
@@ -55,7 +55,7 @@ const Team = () => {
 
   const handleTeamDel = async (req, res) => {
     try {
-      const res = Axios.delete(`http://localhost:5000/teams/del/team/${team._id}`).then((res) => {
+      const res = Axios.delete(`https://quidditch-realm-rgxcs2bg2-saumya40-codes.vercel.app/teams/del/team/${team._id}`).then((res) => {
         toast.error('Team Deleted', { autoClose: 2000 });
         setTimeout(() => {
           navigate('/admin');

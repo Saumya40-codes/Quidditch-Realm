@@ -22,7 +22,7 @@ const PastEvents = () => {
   
     const getEvents = async () => {
       try {
-        const res = await Axios.get('http://localhost:5000/events/past');
+        const res = await Axios.get('https://quidditch-realm-rgxcs2bg2-saumya40-codes.vercel.app/events/past');
         setEvents(res.data);
           setLoading(false);
       } catch (error) {
@@ -70,7 +70,7 @@ const PastEvents = () => {
   
     const handleDeleteEvent = async () => {
       try {
-        await Axios.delete(`http://localhost:5000/events/delete/${eventToDelete._id}`);
+        await Axios.delete(`https://quidditch-realm-rgxcs2bg2-saumya40-codes.vercel.app/events/delete/${eventToDelete._id}`);
         getEvents();
         handleDeleteConfirmationClose();
       } catch (error) {
@@ -169,7 +169,7 @@ const PastEvents = () => {
                 }}
               >
               {
-                event.team1score == event.team2score ? <span>{event.team1} ties with {event.team2}</span> :
+                event.team1score === event.team2score ? <span>{event.team1} ties with {event.team2}</span> :
                 event.team1score > event.team2score ? <span>{event.team1} seals the win against {event.team2}</span> : <span>{event.team2} seals the win against {event.team1}</span>
               }
               </h2>

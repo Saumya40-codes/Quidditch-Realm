@@ -18,7 +18,7 @@ const Notifs = ({ showNotif, handleBadgeClick, handleCloseMenu , enchorEl1}) => 
 
   const getNotifs = async () => {
     try {
-      const res = await Axios.get(`http://localhost:5000/users/${userId}`)
+      const res = await Axios.get(`https://quidditch-realm-rgxcs2bg2-saumya40-codes.vercel.app/users/${userId}`)
       setNotifs(res.data.occuredNotifications);
       const newLen = res.data.occuredNotifications.length || 0;
       setLen(newLen);
@@ -35,7 +35,7 @@ const Notifs = ({ showNotif, handleBadgeClick, handleCloseMenu , enchorEl1}) => 
     e.preventDefault();
     e.stopPropagation(); // so found out that this helps for other function to stop propogating (the parent ones)
     try{
-      const res = await Axios.put( `http://localhost:5000/users/del/notification/${userId}`,{
+      const res = await Axios.put( `https://quidditch-realm-rgxcs2bg2-saumya40-codes.vercel.app/users/del/notification/${userId}`,{
         formId:formId,
       })
       .then((res)=>{

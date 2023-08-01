@@ -52,7 +52,7 @@ const TicketDetails = ({formChange, handleTicketQuantityChange, setTicketQuantit
   React.useEffect(() => {
     const getEvents = async () => {
       try {
-        const res = await Axios.get(`http://localhost:5000/events/get/${id}`);
+        const res = await Axios.get(`https://quidditch-realm-rgxcs2bg2-saumya40-codes.vercel.app/events/get/${id}`);
         setTickets(res.data.ticket);
         setTimeout(()=>{
           setLoading(false);
@@ -105,7 +105,7 @@ const TicketDetails = ({formChange, handleTicketQuantityChange, setTicketQuantit
                   </Button>
                 </Typography>
                 <Typography color="textSecondary" gutterBottom>
-                  Price: {ticket?.price}$
+                  Price: {ticket?.price}₹
                 </Typography>
                 <Typography variant="body2" component="ul">
                   {ticket?.accom.split(',').map((accom, index) => (

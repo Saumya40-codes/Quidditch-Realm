@@ -46,7 +46,7 @@ const SignUp = () => {
       { autoClose: 1900 }
     );
     try {
-    const response = await Axios.post('http://localhost:5000/auth/admin/register', {
+    const response = await Axios.post('https://quidditch-realm-rgxcs2bg2-saumya40-codes.vercel.app/auth/admin/register', {
       username: usernameRef.current.value,
       email: emailRef.current.value,
       password: passwordRef.current.value,

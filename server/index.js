@@ -63,7 +63,7 @@ mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: tr
           token = jwt.sign({ email: oldUser.email, id: oldUser._id }, secret, { expiresIn: "5m" });
         }
         
-        const link = `http://localhost:5000/reset-password/${oldUser._id}/${token}`;
+        const link = `https://quidditch-realm-rgxcs2bg2-saumya40-codes.vercel.app/reset-password/${oldUser._id}/${token}`;
         
         const transporter = nodemailer.createTransport({
           service: 'gmail',

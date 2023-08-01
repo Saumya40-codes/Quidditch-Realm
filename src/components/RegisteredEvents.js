@@ -21,7 +21,7 @@ const RegisteredEvents = () => {
 
     const getEvent = async (id) => {
         try {
-          const res = await Axios.get(`http://localhost:5000/events/get/${id}`);
+          const res = await Axios.get(`https://quidditch-realm-rgxcs2bg2-saumya40-codes.vercel.app/events/get/${id}`);
           return res.data; // Return the event data from the response
         } catch (err) {
           console.log(err);
@@ -31,7 +31,7 @@ const RegisteredEvents = () => {
     
       const getEventIds = async () => {
         try {
-          const resp = await Axios.get(`http://localhost:5000/reg/register/events/${userId}`);
+          const resp = await Axios.get(`https://quidditch-realm-rgxcs2bg2-saumya40-codes.vercel.app/reg/register/events/${userId}`);
           setEventId(resp.data);
         } catch (err) {
           console.log(err);

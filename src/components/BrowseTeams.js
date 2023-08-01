@@ -11,7 +11,7 @@ const BrowseTeams = () => {
 
   const getTeams = async () => {
     try {
-      const response = await Axios.get('http://localhost:5000/teams/getTeams');
+      const response = await Axios.get('https://quidditch-realm-rgxcs2bg2-saumya40-codes.vercel.app/teams/getTeams');
       setAllTeams(response.data);
       setShowTeams(response.data); 
     } catch (error) {

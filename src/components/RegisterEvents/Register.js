@@ -33,7 +33,7 @@ export default function HorizontalLinearStepper() {
 
   const getEvents = async () => {
     try {
-      const res = await Axios.get(`http://localhost:5000/events/get/${id}`)
+      const res = await Axios.get(`https://quidditch-realm-rgxcs2bg2-saumya40-codes.vercel.app/events/get/${id}`)
       .then((res)=>{
         setEvents(res.data);
         setTickets(res.data.ticket);
@@ -129,7 +129,7 @@ export default function HorizontalLinearStepper() {
       return;
     }
     try{
-      const res = await Axios.post('http://localhost:5000/reg/register/events',{
+      const res = await Axios.post('https://quidditch-realm-rgxcs2bg2-saumya40-codes.vercel.app/reg/register/events',{
         ...formChange
       })
       .then(async (res)=>{
@@ -139,7 +139,7 @@ export default function HorizontalLinearStepper() {
 
         toast.success('You have been successfully registered for the event!!', {autoClose:3500});
 
-        const resp = await Axios.put(`http://localhost:5000/events/tickets/change/${id}`,{
+        const resp = await Axios.put(`https://quidditch-realm-rgxcs2bg2-saumya40-codes.vercel.app/events/tickets/change/${id}`,{
           ticket : tickets,
           ticketSold :  event.ticketSold + formChange.ticket_quantity,
           totalSale : event.totalSale + formChange.total_price,

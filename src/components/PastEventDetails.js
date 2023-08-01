@@ -33,7 +33,7 @@ const [team2Scorer, setTeam2Scorer] = useState('');
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-        const res = await Axios.put(`http://localhost:5000/events/updateScore/${id}`, {
+        const res = await Axios.put(`https://quidditch-realm-rgxcs2bg2-saumya40-codes.vercel.app/events/updateScore/${id}`, {
             comment: event.comment,
             team1score: event.team1score,
             team1scorer: event.team1scorer,
@@ -87,41 +87,9 @@ const [team2Scorer, setTeam2Scorer] = useState('');
     setEvent(updatedEvent);
     }
 
-  const dateTime = (date, time) => {
-    const eventDate = new Date(date);
-    const day = eventDate.getDate();
-    const month = eventDate.toLocaleString('default', { month: 'long' });
-    const year = eventDate.getFullYear();
-    const formattedDate = `${day}${getOrdinalSuffix(day)} ${month} ${year} ${time}`;
-    return formattedDate;
-  };
-
-  const date = (date) => {
-    const eventDate = new Date(date);
-    const day = eventDate.getDate();
-    const month = eventDate.toLocaleString('default', { month: 'long' });
-    const year = eventDate.getFullYear();
-    const formattedDate = `${day}${getOrdinalSuffix(day)} ${month} ${year}`;
-    return formattedDate;
-  };
-
-  function getOrdinalSuffix(day) {
-    if (day > 3 && day < 21) return 'th';
-    switch (day % 10) {
-      case 1:
-        return 'st';
-      case 2:
-        return 'nd';
-      case 3:
-        return 'rd';
-      default:
-        return 'th';
-    }
-  }
-
   const getEvent = async () => {
     try {
-      const res = await Axios.get(`http://localhost:5000/events/get/${id}`);
+      const res = await Axios.get(`https://quidditch-realm-rgxcs2bg2-saumya40-codes.vercel.app/events/get/${id}`);
       setEvent(res.data);
     } catch (error) {
       console.log(error);
@@ -154,19 +122,9 @@ const [team2Scorer, setTeam2Scorer] = useState('');
     }
   };
 
-  const handleTeam1ScorerAddition = (e) => {
-    const scorer = e.target.value;
-    setTeam1Players([...team1players, scorer]);
-  };
-
-  const handleTeam2ScorerAddition = (e) => {
-    const scorer = e.target.value;
-    setTeam2Players([...team2players, scorer]);
-  };
-
   const getTeam1Players = async () => {
     try {
-      const res = await Axios.get(`http://localhost:5000/teams/getTeam/${event.team1}`);
+      const res = await Axios.get(`https://quidditch-realm-rgxcs2bg2-saumya40-codes.vercel.app/teams/getTeam/${event.team1}`);
       const { teammembers } = res.data;
       const team1PlayerList = Object.values(teammembers).reduce((prev, current) => prev.concat(current), []);
       setTeam1Players(team1PlayerList || []);
@@ -177,7 +135,7 @@ const [team2Scorer, setTeam2Scorer] = useState('');
 
   const getTeam2Players = async () => {
     try {
-      const res = await Axios.get(`http://localhost:5000/teams/getTeam/${event.team2}`);
+      const res = await Axios.get(`https://quidditch-realm-rgxcs2bg2-saumya40-codes.vercel.app/teams/getTeam/${event.team2}`);
       const { teammembers } = res.data;
       const team2PlayerList = Object.values(teammembers).reduce((prev, current) => prev.concat(current), []);
       setTeam2Players(team2PlayerList || []);

@@ -1,12 +1,12 @@
 import React from 'react';
-import { Button, Box } from '@mui/material';
+import { Button, Box, Typography } from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagic, faUser } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import landing from '../assets/landing.jpg';
 import { Tooltip } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import '../App.css'
+import '../App.css';
 
 const ParchmentBackground = styled('div')({
   backgroundImage: `url(${landing})`,
@@ -25,39 +25,22 @@ const ParchmentBackground = styled('div')({
   alignItems: 'center',
 });
 
+const HeaderText = styled('span')({
+  fontFamily: "'Dancing Script', cursive",
+  fontSize: '2.5rem',
+  fontWeight: 'bold',
+  color: 'white',
+  fontSize: "70px",
+});
+
 const LandingPage = () => {
   return (
     <ParchmentBackground>
-      <div
-        className="app-header"
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          marginTop: "40px", 
-          fontFamily: "Dancing Script, cursive",
-          fontWeight: "bold",
-          fontSize: "40px",
-          textAlign: "center",
-          color: "white", 
-        }}
-      >
-        <h1>
-          <span
-            style={{
-                fontFamily: "'Dancing Script', cursive",
-            fontSize: '2.5rem',
-            fontWeight: 'bold',
-            color: 'white',
-            fontSize:"70px"
-            }}
-          >
-            Quidditch Realm
-          </span>
-        </h1>
-      </div>
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '50vh', gap: '100px', marginTop: '100px' }}>
-        <Box sx={{ position: "relative" }}>
+      <Typography variant="h2" component="h1" gutterBottom>
+        <HeaderText>Quidditch Realm</HeaderText>
+      </Typography>
+      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '50vh', gap: '100px', mt: '100px' }}>
+        <Box sx={{ position: "relative", left: -12 }}>
           <Link to="/login" style={{ textDecoration: "none" }}>
             <Button variant="contained" sx={{
               width: "200px",
@@ -73,27 +56,28 @@ const LandingPage = () => {
               },
             }}>
               <FontAwesomeIcon icon={faMagic} style={{ marginRight: "8px" }} />
-                <Tooltip title="Users" arrow>
-              Wizards
-            </Tooltip>
+              <Tooltip title="Users" arrow>
+                Wizards
+              </Tooltip>
             </Button>
           </Link>
           <span style={{
             position: "absolute",
             top: "50%",
-            left: "calc(100% + 10px)",
+            left: "calc(100% + 15px)",
             transform: "translateY(-50%)",
             width: "1px",
             height: "40px",
             background: "white"
           }} />
         </Box>
-        <Box sx={{ position: "relative" }}>
+        <Box sx={{ position: "relative", left: -20 }}>
           <Link to="/admin/login" style={{ textDecoration: "none" }}>
             <Button variant="contained" sx={{
               width: "200px",
               height: "50px",
               borderRadius: "30px",
+              marginLeft:"15px",
               background: "linear-gradient(45deg, #FFA500, #0000FF, #8A2BE2)",
               color: "white",
               fontWeight: "bold",
@@ -105,8 +89,8 @@ const LandingPage = () => {
             }}>
               <FontAwesomeIcon icon={faUser} style={{ marginRight: "8px" }} />
               <Tooltip title="Admins" arrow>
-              Professors
-            </Tooltip>
+                Professors
+              </Tooltip>
             </Button>
           </Link>
           <span style={{
@@ -119,36 +103,11 @@ const LandingPage = () => {
             background: "white"
           }} />
         </Box>
-      </div>
+      </Box>
       <div>
-      <div
-        className="app-header"
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          marginTop: "40px", 
-          fontFamily: "Dancing Script, cursive",
-          fontWeight: "bold",
-          fontSize: "40px",
-          textAlign: "center",
-          color: "white", 
-        }}
-      >
-        <h1>
-          <span
-            style={{
-                fontFamily: "'Dancing Script', cursive",
-            fontSize: '2.5rem',
-            fontWeight: 'bold',
-            color: 'white',
-            fontSize:"70px"
-            }}
-          >
-            Embark on the journey
-          </span>
-        </h1>
-      </div>
+        <Typography variant="h2" component="h1" gutterBottom style={{ mt: "40px", fontFamily: "Dancing Script, cursive", fontWeight: "bold", fontSize: "40px", textAlign: "center", color: "white" }}>
+          <HeaderText>Embark on the journey</HeaderText>
+        </Typography>
       </div>
     </ParchmentBackground>
   );

@@ -24,7 +24,7 @@ function Slider() {
 
   const getPastEvents = async () => {
     try {
-      const res = await Axios.get('http://localhost:5000/events/past');
+      const res = await Axios.get('https://quidditch-realm-rgxcs2bg2-saumya40-codes.vercel.app/events/past');
       setPastEvents(res.data);
     } catch (error) {
       console.log(error);

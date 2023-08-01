@@ -23,7 +23,7 @@ const Schedule = () => {
 
   const getEvents = async () => {
     try {
-      const res = await Axios.get('http://localhost:5000/events/get')
+      const res = await Axios.get('https://quidditch-realm-rgxcs2bg2-saumya40-codes.vercel.app/events/get')
         setEvents(res.data);
         setLoading(false);
     } catch (error) {
@@ -71,7 +71,7 @@ const Schedule = () => {
 
   const handleDeleteEvent = async () => {
     try {
-      await Axios.delete(`http://localhost:5000/events/delete/${eventToDelete._id}`);
+      await Axios.delete(`https://quidditch-realm-rgxcs2bg2-saumya40-codes.vercel.app/events/delete/${eventToDelete._id}`);
       getEvents();
       handleDeleteConfirmationClose();
     } catch (error) {
@@ -174,7 +174,7 @@ const Schedule = () => {
                 marginBottom: '12px',
               }}
             >
-              {String(event.description).length > 100 ? event.description + '...' : event.description}
+              {String(event.description).length > 300 ? String(event.description).substring(0,300) + '...' : event.description}
             </p>
             <div
               style={{
@@ -236,7 +236,7 @@ const Schedule = () => {
                 cursor: 'pointer',
               }}
             >
-            <Link to={`/more-details/${event._id}`} style={{ textDecoration: 'none', color: '#555' }}>
+            <Link to={`/more-details/${event._id}`} style={{ textDecoration: 'none', color: 'blue', fontWeight:"bold" }}>
               More Details...
             </Link>
             </p>

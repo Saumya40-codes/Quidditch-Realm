@@ -18,7 +18,7 @@ const Comments = () => {
 
   const getAdminComments = async () => {
     try {
-      const res = await Axios.get(`http://localhost:5000/events/get/${id}`);
+      const res = await Axios.get(`https://quidditch-realm-rgxcs2bg2-saumya40-codes.vercel.app/events/get/${id}`);
       setComments(res.data.comment);
     } catch (error) {
       console.log(error);
@@ -36,7 +36,7 @@ const Comments = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await Axios.put(`http://localhost:5000/events/addComment/${id}`, {
+      const res = await Axios.put(`https://quidditch-realm-rgxcs2bg2-saumya40-codes.vercel.app/events/addComment/${id}`, {
         comment: comment,
         username: user.username,
         date: new Date(),
@@ -51,7 +51,7 @@ const Comments = () => {
 
   const getExistingComments = async () => {
     try {
-      const res = await Axios.get(`http://localhost:5000/events/get/${id}`);
+      const res = await Axios.get(`https://quidditch-realm-rgxcs2bg2-saumya40-codes.vercel.app/events/get/${id}`);
       setExistingComments(res.data.usercomments);
     } catch (error) {
       console.log(error);
@@ -65,7 +65,7 @@ const Comments = () => {
   const handleDeleteComment = async (e, comment_id) => {
     e.preventDefault();
     try {
-      const res = await Axios.put(`http://localhost:5000/events/deleteComment/${id}`, {
+      const res = await Axios.put(`https://quidditch-realm-rgxcs2bg2-saumya40-codes.vercel.app/events/deleteComment/${id}`, {
         commentId: comment_id,
       });
       setExistingComments(res.data.usercomments);
@@ -94,7 +94,7 @@ const Comments = () => {
   const handleEdit = async (e) => {
     e.preventDefault();
     try {
-        const res = await Axios.put(`http://localhost:5000/events/editComment/${id}`, {
+        const res = await Axios.put(`https://quidditch-realm-rgxcs2bg2-saumya40-codes.vercel.app/events/editComment/${id}`, {
             usercomments: existingComments,
         });
         setExistingComments(res.data.usercomments);
@@ -127,7 +127,7 @@ const handleLike = async (comment_id) => {
   
         setExistingComments(updatedComments);
   
-        const res = await Axios.put(`http://localhost:5000/events/editComment/${id}`, {
+        const res = await Axios.put(`https://quidditch-realm-rgxcs2bg2-saumya40-codes.vercel.app/events/editComment/${id}`, {
           usercomments: updatedComments,
         });
         setExistingComments(res.data.usercomments);

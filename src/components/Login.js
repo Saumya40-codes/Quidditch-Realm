@@ -43,7 +43,7 @@ export default function Login() {
         </div>,
         { autoClose: 1900 }
       );
-      const response = await Axios.post('http://localhost:5000/auth/login', {
+      const response = await Axios.post('https://quidditch-realm-rgxcs2bg2-saumya40-codes.vercel.app/auth/login', {
         email: emailRef.current.value,
         password: passwordRef.current.value,
       });

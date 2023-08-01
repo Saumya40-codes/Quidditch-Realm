@@ -15,7 +15,7 @@ const Sales = () => {
 
     const getEvent = async() =>{
         try{
-            const res = await Axios.get('http://localhost:5000/events/all')
+            const res = await Axios.get('https://quidditch-realm-rgxcs2bg2-saumya40-codes.vercel.app/events/all')
                 setEvent(res.data);
                 setLoading(false);
         }

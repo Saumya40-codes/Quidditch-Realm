@@ -12,7 +12,7 @@ const Payment = ({formChange, handleFormChange}) => {
     const [clientSecret, setClientSecret] = useState("");
 
     useEffect(()=>{
-        const res = Axios.get("http://localhost:5000/config")
+        const res = Axios.get("https://quidditch-realm-rgxcs2bg2-saumya40-codes.vercel.app/config")
         .then(async (res)=>{
             const {publishableKey} = await res.data;
             setStripePromise(loadStripe(publishableKey))
@@ -21,7 +21,7 @@ const Payment = ({formChange, handleFormChange}) => {
 
     useEffect(()=>{
         try{
-        const res = Axios.post("http://localhost:5000/create-payment-intent",{
+        const res = Axios.post("https://quidditch-realm-rgxcs2bg2-saumya40-codes.vercel.app/create-payment-intent",{
             total_price: Number(formChange.total_price)*100,
         })
         .then(async (res)=>{
