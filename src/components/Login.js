@@ -16,7 +16,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#7D1702', 
+      main: '#7D1702',
     },
   },
 });
@@ -26,7 +26,7 @@ export default function Login() {
   const passwordRef = useRef();
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -34,12 +34,12 @@ export default function Login() {
     e.preventDefault();
     setLoading(true);
     setError('');
-  
+
     try {
       let loadingToastId = toast.info(
         <div>
           Unraveling Enchantments...
-          <img src={tenor} alt="Unraveling Enchantments" style={{width:"30px", height:"20px"}} />
+          <img src={tenor} alt="Unraveling Enchantments" style={{ width: '30px', height: '20px' }} />
         </div>,
         { autoClose: 1900 }
       );
@@ -47,30 +47,37 @@ export default function Login() {
         email: emailRef.current.value,
         password: passwordRef.current.value,
       });
-      
+
       if (error.message) {
-        console.log(response.data.error);     
+        console.log(response.data.error);
       } else {
-        dispatch(setLogin({user: response.data.user, isAdmin: false, token: response.data.token, id: response.data.userId }));
+        dispatch(
+          setLogin({
+            user: response.data.user,
+            isAdmin: false,
+            token: response.data.token,
+            id: response.data.userId,
+          })
+        );
         toast.success(
           <div>
-          Unlocking the Chamber...
-          <FontAwesomeIcon icon={faBroomBall} flip />
-          </div>, 
-          { id: loadingToastId, autoClose: 2000 
-          });
+            Unlocking the Chamber...
+            <FontAwesomeIcon icon={faBroomBall} flip />
+          </div>,
+          { id: loadingToastId, autoClose: 2000 }
+        );
         setTimeout(() => {
           navigate('/dashboard');
         }, 2000);
       }
     } catch (error) {
-      toast.error('Spell misfired!', {autoClose: 2000 })
+      toast.error('Spell misfired!', { autoClose: 2000 });
       setError("Username or password didn't match");
     }
-  
+
     setLoading(false);
   };
-  
+
   return (
     <ThemeProvider theme={theme}>
       <div
@@ -80,7 +87,8 @@ export default function Login() {
           justifyContent: 'center',
           alignItems: 'center',
           height: '100vh',
-          backgroundImage: 'url(https://external-preview.redd.it/dtfaFfEYDZo2JkYrqebtAUYzaXudmQhqjg5Uk8Wns10.jpg?width=960&crop=smart&auto=webp&s=6f5be2508c7c70fe3cea74c9f7f816b16b405745)',
+          backgroundImage:
+            'url(https://external-preview.redd.it/dtfaFfEYDZo2JkYrqebtAUYzaXudmQhqjg5Uk8Wns10.jpg?width=960&crop=smart&auto=webp&s=6f5be2508c7c70fe3cea74c9f7f816b16b405745)',
           backgroundRepeat: 'no-repeat',
           backgroundSize: 'cover',
         }}
@@ -111,16 +119,18 @@ export default function Login() {
           {error && (
             <div
               style={{
-                display: 'grid',
-                gridTemplateColumns: 'auto auto',
-                maxWidth: '480px',
-                columnGap: '96px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                marginBottom: '20px',
                 background: 'white',
                 height: '56px',
+                borderRadius: '8px',
                 boxShadow: '6px 6px 6px 6px rgba(0, 0, 0, 0.4)',
+                padding: '0 15px',
               }}
             >
-              <Alert severity="error" style={{ marginBottom: '20px', height: '56px', background: 'white' }}>
+              <Alert severity="error" style={{ margin: '0', height: '56px', background: 'white' }}>
                 {error}
               </Alert>
               <img style={{ height: '55px' }} src={LordVoldemort} alt="Lord Voldemort" />
@@ -146,10 +156,13 @@ export default function Login() {
                 marginBottom: '40px',
                 height: '45px',
                 borderRadius: '18px',
-                background: '#7D1702', 
+                background: '#7D1702',
                 color: 'white',
                 '&:hover': {
                   background: '#6D1402',
+                },
+                '&:active': {
+                  background: '#306C94', // Blueish shade on click
                 },
               }}
             >
@@ -157,13 +170,16 @@ export default function Login() {
             </Button>
           </form>
           <div className="w-100 text-center mt-3" style={{ marginBottom: '10px' }}>
-            <MuiLink component={Link} to="/forgotpassword" style={{ color: 'white' }}>
+            <MuiLink component={Link} to="/forgotpassword" style={{ color: 'white', textDecoration: 'none' }}>
               Forgetful Charm?
             </MuiLink>
           </div>
 
           <div className="w-100 text-center mt-2">
-            Muggle? <MuiLink component={Link} to="/signup" style={{ color: 'white' }}>Enroll as a Wizard</MuiLink>
+            Muggle?{' '}
+            <MuiLink component={Link} to="/signup" style={{ color: 'white', textDecoration: 'none' }}>
+              Enroll as a Wizard
+            </MuiLink>
           </div>
         </Card>
       </div>

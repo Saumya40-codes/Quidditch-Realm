@@ -15,7 +15,7 @@ import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-const steps = ['Event Details', 'Team Details', 'Additionals'];
+const steps = ['Event Details', 'Team Details', 'Ticket Details'];
 
 export default function HorizontalLinearStepper({ mode }) {
   const [activeStep, setActiveStep] = useState(0);
@@ -61,8 +61,6 @@ export default function HorizontalLinearStepper({ mode }) {
     venue: '',
     venuesize: '',
   });
-
-  const [eventId, setEventId] = useState('');
 
   const { id } = useParams();
 

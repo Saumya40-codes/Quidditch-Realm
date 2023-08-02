@@ -8,9 +8,9 @@ import Slider from './Slider'
 import TopBar from "./TopBar"
 import DashboardData from "./DashboardData"
 
+
 const Dashboard = () => {
   const [sidebar, setSidebar] = useState(false)
-
   const showSidebar = () => setSidebar(!sidebar);
 
   return (

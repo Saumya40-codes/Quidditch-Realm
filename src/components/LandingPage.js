@@ -33,6 +33,7 @@ const HeaderText = styled('span')({
   fontSize: "70px",
 });
 
+
 const LandingPage = () => {
   return (
     <ParchmentBackground>

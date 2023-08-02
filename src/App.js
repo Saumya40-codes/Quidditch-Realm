@@ -33,7 +33,7 @@ import { themeSettings } from './theme';
 
 function App() {
   const isAuth = useSelector(state => Boolean(state.token));
-  const isAdmin = useSelector(state => Boolean(state.isAdmin));
+  const isAdmin = Boolean(useSelector(state => state.isAdmin));
   const mode = useSelector(state => state.mode);
 
   const theme = createTheme(themeSettings(mode));
@@ -44,7 +44,7 @@ function App() {
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <Routes>
-            {isAuth ? (isAdmin ? <Route path="/" element={<Navigate to="/admin" />} /> : <Route path="/dashboard" element={<Dashboard />} />) : <Route path="/" element={<LandingPage />} />}
+          {isAuth ? (isAdmin ? <Route path="/" element={<Navigate to="/admin" />} /> : <Route path="/" element={<Dashboard />} />) : <Route path="/" element={<LandingPage />} />}
             <Route path="/dashboard" element={isAuth ? <Dashboard /> : <Navigate to="/login" />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />

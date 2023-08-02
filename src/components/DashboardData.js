@@ -85,25 +85,25 @@ const DashboardData = ({sidebar}) => {
             Format: {event.format}
           </Typography>
           <Box sx={{ display: "grid", gridTemplateColumns: "auto auto auto", marginBottom: "40px" }}>
-  <Typography variant="body1" component="p" gutterBottom style={{ marginLeft: '250px' }}>
+  <Typography variant="h3" component="h2" gutterBottom style={{ marginLeft: '250px', fontFamily: "'Dancing Script', cursive", fontWeight:"bold"}}>
     {event.team1}
   </Typography>
   <div style={{ display: 'flex', justifyContent: 'centre', alignItems: 'center' }}>
 
   </div>
-  <Typography variant="body1" component="p" gutterBottom>
+  <Typography variant="h3" component="h2" gutterBottom style={{fontFamily: "'Dancing Script', cursive", fontWeight:"bold"}}>
     {event.team2}
   </Typography>
 </Box>
 <div style={{ display: "grid", gridTemplateColumns: "auto auto auto", marginBottom: "40px" }}>
   <div style={{ marginLeft: '250px' }}>
-    <img src={event.team1logo} alt="team1logo" style={{ width: '50px', height: '50px' }} />
+    <img src={event.team1logo} alt="team1logo" style={{ width: '100px', height: '100px' }} />
   </div>
   <div style={{ display: 'flex', justifyContent: 'centre', alignItems: 'center' }}>
     vs
   </div>
   <div>
-    <img src={event.team2logo} alt="team2logo" style={{ width: '50px', height: '50px' }} />
+    <img src={event.team2logo} alt="team2logo" style={{ width: '100px', height: '100px' }} />
   </div>
 </div>
 <Typography variant="body1" component="p" gutterBottom style={{ marginTop: '10px', textAlign:"right" }}>
