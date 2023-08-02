@@ -1,6 +1,5 @@
 ## Get started with project
 ___
-
 * In your editor command line
 ```
    cd Quidditch-Realm
