@@ -12,6 +12,7 @@ import Slider from "../Slider";
 import SidebarData from "./SidebarData";
 import "../Navbar.css";
 import { setLogout } from "../../state";
+import Random from "../RandomSpells/Random";
 
 const AdminDashboard = () => {
   const [sidebar, setSidebar] = useState(false);
@@ -28,6 +29,7 @@ const AdminDashboard = () => {
   return (
     <div className="harry-potter-dashboard">
       <TopBar showSidebar={showSidebar} />
+      <Random />
       <nav className={sidebar ? "nav-menu active" : "nav-menu"}>
         <ul className="nav-menu-items" onClick={showSidebar}>
           <li className="navbar-toggle">
