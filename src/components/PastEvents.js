@@ -9,7 +9,7 @@ import {  useSelector } from 'react-redux/es/hooks/useSelector';
 import { Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import LoadingQuotes from './LoadingQuotes';
+import LoadingQuotes from './RandomSpells/LoadingQuotes';
 
 
 const PastEvents = () => {

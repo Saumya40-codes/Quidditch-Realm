@@ -15,7 +15,7 @@ const AboutRegister = ({ handleFormChange, formchanged, add, update, del, ticket
     <div>
       <Card style={{ marginTop: '40px' }}>
         <CardContent>
-          <h2 className="text-center mb-4">Additional</h2>
+          <h2 className="text-center mb-4">Ticket Details</h2>
           <TextField
             id="date"
             type="date"

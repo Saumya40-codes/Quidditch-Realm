@@ -1,6 +1,6 @@
 import Axios from 'axios'
 import { useState, useEffect } from 'react'
-import LoadingQuotes from '../LoadingQuotes';
+import LoadingQuotes from '../RandomSpells/LoadingQuotes';
 import { Card, CardContent, Typography, Box } from '@mui/material';
 import { faLocationDot, faMoneyBillTrendUp, faArrowTrendUp} from '@fortawesome/free-solid-svg-icons';
 import { faClock } from '@fortawesome/free-solid-svg-icons';

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Axios from 'axios';
 import { Card, CardContent, Typography, Button, Grid, Slider, TextField } from '@mui/material';
 import { useParams } from 'react-router-dom';
-import LoadingQuotes from '../LoadingQuotes';
+import LoadingQuotes from '../RandomSpells/LoadingQuotes';
 
 const styles = {
   root: {

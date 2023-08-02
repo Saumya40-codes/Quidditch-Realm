@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux';
 import { faLocationDot,faMoneyBillTrendUp, faArrowTrendUp, faTicket } from '@fortawesome/free-solid-svg-icons';
 import { faClock } from '@fortawesome/free-solid-svg-icons';
-import LoadingQuotes from './LoadingQuotes';
+import LoadingQuotes from './RandomSpells/LoadingQuotes';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Card, CardContent, Typography, Box } from '@mui/material';
@@ -85,7 +85,7 @@ const RegisteredEvents = () => {
   return (
     <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
           <Typography variant="h3" component="h1" gutterBottom style={{margin:"20px", fontFamily:"'Dancing Script', cursive", fontSize:"38px", marginBottom:"45px", fontWeight:"bold"}}>
-        Match Sales
+        Registered Events
       </Typography>
       {loading ? (
         <div

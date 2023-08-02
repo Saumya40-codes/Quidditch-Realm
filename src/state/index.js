@@ -4,6 +4,7 @@ const initialState = {
     mode: "light",
     user: null,
     token: null,
+    isAdmin: false,
 };
 
 export const appSlice = createSlice({

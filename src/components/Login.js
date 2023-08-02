@@ -162,7 +162,7 @@ export default function Login() {
                   background: '#6D1402',
                 },
                 '&:active': {
-                  background: '#306C94', // Blueish shade on click
+                  background: '#306C94',
                 },
               }}
             >

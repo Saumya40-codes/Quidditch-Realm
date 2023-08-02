@@ -11,7 +11,7 @@ import { Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { faThumbsUp } from '@fortawesome/free-solid-svg-icons';
-import LoadingQuotes from './LoadingQuotes';
+import LoadingQuotes from './RandomSpells/LoadingQuotes';
 
 const Schedule = () => {
   const [events, setEvents] = useState([]);

@@ -24,7 +24,7 @@ import RegisteredTeams from './components/Admin/RegisteredTeams';
 import Team from './components/Team';
 import Profile from './components/Profile';
 import BrowseTeams from './components/BrowseTeams';
-import LoadingQuotes from './components/LoadingQuotes';
+import LoadingQuotes from './components/RandomSpells/LoadingQuotes';
 import Sales from './components/Admin/Sales';
 import RegisteredEvents from './components/RegisteredEvents';
 

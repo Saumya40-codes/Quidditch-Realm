@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
-import loading from '../assets/loading.gif';
+import loading from '../../assets/loading.gif';
 
 const LoadingQuotes = () => {
   const [quotes, setQuotes] = useState([]);
@@ -18,7 +18,7 @@ const LoadingQuotes = () => {
 
   useEffect(() => {
     if (quotes.length > 0 && randQuote === '') {
-      const availableIncantations = quotes.filter((quote) => quote.incantation !== null);
+      const availableIncantations = quotes.filter((quote) => quote.incantation !== null || quote.incantation !== 'None');
 
       if (availableIncantations.length > 0) {
         const randomIndex = Math.floor(Math.random() * availableIncantations.length);

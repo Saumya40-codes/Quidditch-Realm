@@ -7,6 +7,7 @@ import './Navbar.css'
 import Slider from './Slider'
 import TopBar from "./TopBar"
 import DashboardData from "./DashboardData"
+import Random from "./RandomSpells/Random"
 
 
 const Dashboard = () => {
@@ -36,6 +37,7 @@ const Dashboard = () => {
         </ul>
       </nav>
       <Slider />
+      <Random />
       <DashboardData sidebar={sidebar} />
   </div>
   )
