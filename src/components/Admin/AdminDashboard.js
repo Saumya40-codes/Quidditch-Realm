@@ -29,7 +29,6 @@ const AdminDashboard = () => {
   return (
     <div className="harry-potter-dashboard">
       <TopBar showSidebar={showSidebar} />
-      <Random />
       <nav className={sidebar ? "nav-menu active" : "nav-menu"}>
         <ul className="nav-menu-items" onClick={showSidebar}>
           <li className="navbar-toggle">
@@ -49,6 +48,7 @@ const AdminDashboard = () => {
       </nav>
       <div>
         <Slider />
+        <Random />
       </div>
       <div style={{ marginTop: "100px" }}>
         <Card style={{ width: "100%", boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.4)" }}>

@@ -37,6 +37,7 @@ const Dashboard = () => {
         </ul>
       </nav>
       <Slider />
+
       <Random />
       <DashboardData sidebar={sidebar} />
   </div>
