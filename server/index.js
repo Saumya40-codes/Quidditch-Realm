@@ -7,6 +7,9 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
+const path = require('path');
+app.set('views', path.join(__dirname, 'views'));
+
 const {register} = require('./controllers/auth.js');
 const { adminRegister } = require('./controllers/auth.js');
 
