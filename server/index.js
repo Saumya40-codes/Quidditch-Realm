@@ -40,7 +40,7 @@ mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: tr
     .then(() => app.listen(PORT, () => console.log(`Server running on port: ${PORT}`)))
     .catch((error) => console.log(error.message));
 
-    app.post("/forgot-password", async (req, res) => {
+app.post("/forgot-password", async (req, res) => {
       const { email } = req.body;
     
       try {
@@ -193,8 +193,10 @@ app.get('/redirect', async (req, res) => {
   const code = req.query.code;
   const {tokens} = await oauth2Client.getToken(code);
   oauth2Client.setCredentials(tokens);
+  const serverUrl = 'https://quidditch-realm-five.vercel.app';
   const id = req.session.calendarId;
-  res.redirect(`quidditch-realm-five.vercel.app/more-details/${id}?status=200`)
+  const redirectUrl = `${serverUrl}/more-details/${id}?status=200`;
+  res.redirect(redirectUrl);
 });
 
 app.post('/create-event', async (req, res) => {
