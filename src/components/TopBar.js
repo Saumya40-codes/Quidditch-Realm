@@ -99,7 +99,7 @@ const TopBar = ({showSidebar}) => {
 
    const getProfilePic = async () => {
     try {
-      const res = await Axios.get(`https://quidditch-realm-rgxcs2bg2-saumya40-codes.vercel.app/users/${id}`);
+      const res = await Axios.get(`https://quidditch-realm.vercel.app/users/${id}`);
       setProfilePic(res.data.profilePic);
     } catch (error) {
       console.log(error);

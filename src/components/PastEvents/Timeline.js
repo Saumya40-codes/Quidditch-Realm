@@ -18,7 +18,7 @@ export default function MatchTimeline() {
 
   const getEvent = async () => {
     try {
-      const res = await Axios.get(`https://quidditch-realm-rgxcs2bg2-saumya40-codes.vercel.app/events/get/${id}`);
+      const res = await Axios.get(`https://quidditch-realm.vercel.app/events/get/${id}`);
       setEvent(res.data);
 
       if (res.data.team1scorer && res.data.team2scorer) {

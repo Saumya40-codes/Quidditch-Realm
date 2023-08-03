@@ -67,7 +67,7 @@ export default function HorizontalLinearStepper({ mode }) {
   const navigate = useNavigate();
 
   const getDetails = async () => {
-    Axios.get(`https://quidditch-realm-rgxcs2bg2-saumya40-codes.vercel.app/events/get/${id}`)
+    Axios.get(`https://quidditch-realm.vercel.app/events/get/${id}`)
       .then((res) => {
         setFormChanged(res.data);
         setTicket(res.data.ticket)
@@ -102,7 +102,7 @@ export default function HorizontalLinearStepper({ mode }) {
       toast.error('Please make sure all fields are filled correcly', {autoClose:3500});
       return;
     }
-    Axios.post('https://quidditch-realm-rgxcs2bg2-saumya40-codes.vercel.app/events/add', {
+    Axios.post('https://quidditch-realm.vercel.app/events/add', {
       ...formchanged,
       ticket: ticket,
     })
@@ -116,7 +116,7 @@ export default function HorizontalLinearStepper({ mode }) {
         setTimeout(() => {
           navigate('/admin');
         }, 3000);
-        const resss = await Axios.put(`https://quidditch-realm-rgxcs2bg2-saumya40-codes.vercel.app/users/addNotification/${userId}`, {
+        const resss = await Axios.put(`https://quidditch-realm.vercel.app/users/addNotification/${userId}`, {
           message: `Match between ${formchanged.team1} and ${formchanged.team2} has been ended. Please add the post match details. If not already added. ${dateTime}`,
           date: dateTime,
           receiver: userId,
@@ -133,7 +133,7 @@ export default function HorizontalLinearStepper({ mode }) {
       ticket: ticket,
     };
     console.log(updatedData);
-    Axios.put(`https://quidditch-realm-rgxcs2bg2-saumya40-codes.vercel.app/events/update/${id}`, updatedData)
+    Axios.put(`https://quidditch-realm.vercel.app/events/update/${id}`, updatedData)
       .then((res) => {
         setFormChanged({});
         toast.success('Event Edited Successfully', { autoClose: 3000 });

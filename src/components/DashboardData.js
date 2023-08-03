@@ -14,7 +14,7 @@ const DashboardData = ({sidebar}) => {
 
     const getEvents = async () => {
         try{
-        const response = await Axios.get('https://quidditch-realm-rgxcs2bg2-saumya40-codes.vercel.app/events/get')
+        const response = await Axios.get('https://quidditch-realm.vercel.app/events/get')
         .then((response) => {
             setEvents(response.data)
         })
@@ -30,7 +30,7 @@ const DashboardData = ({sidebar}) => {
 
     const getFavouriteTeam = async () => {
         try{
-        const response = await Axios.get(`https://quidditch-realm-rgxcs2bg2-saumya40-codes.vercel.app/users/${id}`)
+        const response = await Axios.get(`https://quidditch-realm.vercel.app/users/${id}`)
         .then((response) => {
             setFavouriteTeam(response.data.favouriteTeam)
         })

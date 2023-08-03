@@ -23,7 +23,7 @@ const Schedule = () => {
 
   const getEvents = async () => {
     try {
-      const res = await Axios.get('https://quidditch-realm-rgxcs2bg2-saumya40-codes.vercel.app/events/get')
+      const res = await Axios.get('https://quidditch-realm.vercel.app/events/get')
         setEvents(res.data);
         setLoading(false);
     } catch (error) {
@@ -71,7 +71,7 @@ const Schedule = () => {
 
   const handleDeleteEvent = async () => {
     try {
-      await Axios.delete(`https://quidditch-realm-rgxcs2bg2-saumya40-codes.vercel.app/events/delete/${eventToDelete._id}`);
+      await Axios.delete(`https://quidditch-realm.vercel.app/events/delete/${eventToDelete._id}`);
       getEvents();
       handleDeleteConfirmationClose();
     } catch (error) {

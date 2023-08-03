@@ -22,7 +22,7 @@ const Profile = () => {
 
   const getUser = async () => {
     try {
-      const res = await Axios.get(`https://quidditch-realm-rgxcs2bg2-saumya40-codes.vercel.app/users/${userId}`);
+      const res = await Axios.get(`https://quidditch-realm.vercel.app/users/${userId}`);
       setUser(res.data);
       setUsername(res.data.username);
       setEmail(res.data.email);
@@ -48,7 +48,7 @@ const Profile = () => {
 
   const getTeams = async () => {
     try {
-      const res = await Axios.get('https://quidditch-realm-rgxcs2bg2-saumya40-codes.vercel.app/teams/getTeams');
+      const res = await Axios.get('https://quidditch-realm.vercel.app/teams/getTeams');
       setTeams(res.data);
     } catch (error) {
       console.log(error);
@@ -74,7 +74,7 @@ const Profile = () => {
 
   const handleSubmit = async() =>{
     try{
-      const res = await Axios.put(`https://quidditch-realm-rgxcs2bg2-saumya40-codes.vercel.app/users/updateProfile/${userId}`, {
+      const res = await Axios.put(`https://quidditch-realm.vercel.app/users/updateProfile/${userId}`, {
         username: username,
         email: email,
         profilePic: profilePic,

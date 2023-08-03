@@ -22,7 +22,7 @@ export default function AdminForgotPassword() {
   const forgotPassword = async (e) => {
     e.preventDefault();
     setLoading(true);
-    Axios.post('https://quidditch-realm-rgxcs2bg2-saumya40-codes.vercel.app/forgot-password', {
+    Axios.post('https://quidditch-realm.vercel.app/forgot-password', {
       email: emailRef.current.value,
     })
       .then((response) => {

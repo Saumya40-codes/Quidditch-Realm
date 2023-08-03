@@ -24,7 +24,7 @@ const MoreDetails = () => {
   const getInterest = async () => {
     try {
         console.log(userId);
-        const res = await Axios.get(`https://quidditch-realm-rgxcs2bg2-saumya40-codes.vercel.app/users/${userId}`);
+        const res = await Axios.get(`https://quidditch-realm.vercel.app/users/${userId}`);
         setInterest(res.data.interests[id]);
     } catch (error) {
         console.log(error);
@@ -38,7 +38,7 @@ const MoreDetails = () => {
     const checkRegister = async () => {
       try {
         if (id) {
-          const resp = await Axios.get(`https://quidditch-realm-rgxcs2bg2-saumya40-codes.vercel.app/reg/register/users/${id}`);
+          const resp = await Axios.get(`https://quidditch-realm.vercel.app/reg/register/users/${id}`);
           const users = resp.data; 
           console.log(users);
     
@@ -62,13 +62,13 @@ const MoreDetails = () => {
         try {
           const updatedInterest = { [id]: !interest };
           console.log(updatedInterest[id])
-          const res = await Axios.put(`https://quidditch-realm-rgxcs2bg2-saumya40-codes.vercel.app/users/update/${userId}`, {
+          const res = await Axios.put(`https://quidditch-realm.vercel.app/users/update/${userId}`, {
             interests: updatedInterest,
           });
 
           setInterest(!interest);
 
-          const res2 = await Axios.put(`https://quidditch-realm-rgxcs2bg2-saumya40-codes.vercel.app/events/interest/${id}`,{
+          const res2 = await Axios.put(`https://quidditch-realm.vercel.app/events/interest/${id}`,{
             interest: interest? event.interest-1 : event.interest+1,
           });
           
@@ -77,14 +77,14 @@ const MoreDetails = () => {
           const dateTime = `${date}T${time}:00.000+05:30`;
 
           if(interest){
-            const res = await Axios.put(`https://quidditch-realm-rgxcs2bg2-saumya40-codes.vercel.app/users/del/notif/${userId}`, {
+            const res = await Axios.put(`https://quidditch-realm.vercel.app/users/del/notif/${userId}`, {
               message: `You had shown interest in match between ${event.team1} and ${event.team2}. It has started, join in!! ${dateTime}`,
               email: userm.email,
               date: dateTime,
               receiver: userId,
             });
           }else{
-            const res = await Axios.put(`https://quidditch-realm-rgxcs2bg2-saumya40-codes.vercel.app/users/addNotification/${userId}`, {
+            const res = await Axios.put(`https://quidditch-realm.vercel.app/users/addNotification/${userId}`, {
               message: `You had shown interest in match between ${event.team1} and ${event.team2}. It has started, join in!! ${dateTime}`,
               email: userm.email,
               date: dateTime,
@@ -131,7 +131,7 @@ const MoreDetails = () => {
 
   const getEvent = async () => {
     try {
-      const res = await Axios.get(`https://quidditch-realm-rgxcs2bg2-saumya40-codes.vercel.app/events/get/${id}`);
+      const res = await Axios.get(`https://quidditch-realm.vercel.app/events/get/${id}`);
       setEvent(res.data);
     } catch (error) {
       console.log(error);
@@ -143,7 +143,7 @@ const MoreDetails = () => {
   }, [id]);
 
   const handleRedirectToServer = () => {
-    window.location.href = `https://quidditch-realm-rgxcs2bg2-saumya40-codes.vercel.app/calendar/${id}`;
+    window.location.href = `https://quidditch-realm.vercel.app/calendar/${id}`;
   };
 
   let searchForStatus = new URLSearchParams(window.location.search)
@@ -166,7 +166,7 @@ const MoreDetails = () => {
         const combinedEndTime = new Date(`${date}T${endtime}:00.000+05:30`);
   
         try {
-          const res = await Axios.post('https://quidditch-realm-rgxcs2bg2-saumya40-codes.vercel.app/create-event', {
+          const res = await Axios.post('https://quidditch-realm.vercel.app/create-event', {
             summary: event.title,
             description: `Quidditch match between ${event.team1} and ${event.team2}`,
             dateTime1: combinedDateTime.toISOString(),

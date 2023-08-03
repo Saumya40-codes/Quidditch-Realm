@@ -13,7 +13,7 @@ const TeamPlayers = () => {
 
     const getEvent = async () => {
         try {
-            const res = await Axios.get(`https://quidditch-realm-rgxcs2bg2-saumya40-codes.vercel.app/events/get/${id}`);
+            const res = await Axios.get(`https://quidditch-realm.vercel.app/events/get/${id}`);
             setEvent(res.data);
         } catch (error) {
             console.log(error);
@@ -22,7 +22,7 @@ const TeamPlayers = () => {
 
     const getTeam1Players = async () => {
         try {
-          const res = await Axios.get(`https://quidditch-realm-rgxcs2bg2-saumya40-codes.vercel.app/teams/getTeam/${event.team1}`);
+          const res = await Axios.get(`https://quidditch-realm.vercel.app/teams/getTeam/${event.team1}`);
           const { teammembers } = res.data;
           setTeam1Players(teammembers || [])
         } catch (error) {
@@ -32,7 +32,7 @@ const TeamPlayers = () => {
     
       const getTeam2Players = async () => {
         try {
-          const res = await Axios.get(`https://quidditch-realm-rgxcs2bg2-saumya40-codes.vercel.app/teams/getTeam/${event.team2}`);
+          const res = await Axios.get(`https://quidditch-realm.vercel.app/teams/getTeam/${event.team2}`);
           const { teammembers } = res.data;
           setTeam2Players(teammembers || [])
         } catch (error) {

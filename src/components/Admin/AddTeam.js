@@ -16,7 +16,7 @@ const AddTeam = ({mode}) => {
 
   const getTeam = async () => {
     try {
-      const res = await Axios.get(`https://quidditch-realm-rgxcs2bg2-saumya40-codes.vercel.app/teams/getTeamDetails/${id}`)
+      const res = await Axios.get(`https://quidditch-realm.vercel.app/teams/getTeamDetails/${id}`)
       .then((res) => {
         setTeam(res.data);
         setTeamName(res.data.teamname);
@@ -66,7 +66,7 @@ const AddTeam = ({mode}) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     try {
-      Axios.post('https://quidditch-realm-rgxcs2bg2-saumya40-codes.vercel.app/teams/addTeam', {
+      Axios.post('https://quidditch-realm.vercel.app/teams/addTeam', {
         teamdescription: description,
         teamname: teamName,
         teamlogo: logo,
@@ -88,7 +88,7 @@ const AddTeam = ({mode}) => {
   const handleEdit = (event) => {
     event.preventDefault();
     try {
-      Axios.put(`https://quidditch-realm-rgxcs2bg2-saumya40-codes.vercel.app/teams/updateTeam/${id}`, {
+      Axios.put(`https://quidditch-realm.vercel.app/teams/updateTeam/${id}`, {
         teamdescription: description,
         teamname: teamName,
         teamlogo: logo,

@@ -52,7 +52,7 @@ const TicketDetails = ({formChange, handleTicketQuantityChange, setTicketQuantit
   React.useEffect(() => {
     const getEvents = async () => {
       try {
-        const res = await Axios.get(`https://quidditch-realm-rgxcs2bg2-saumya40-codes.vercel.app/events/get/${id}`);
+        const res = await Axios.get(`https://quidditch-realm.vercel.app/events/get/${id}`);
         setTickets(res.data.ticket);
         setTimeout(()=>{
           setLoading(false);

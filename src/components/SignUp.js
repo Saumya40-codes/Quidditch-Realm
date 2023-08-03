@@ -46,7 +46,7 @@ const SignUp = () => {
       { autoClose: 1900 }
     );
     try {
-    const response = await Axios.post('https://quidditch-realm-rgxcs2bg2-saumya40-codes.vercel.app/auth/register', {
+    const response = await Axios.post('https://quidditch-realm.vercel.app/auth/register', {
       username: usernameRef.current.value,
       email: emailRef.current.value,
       password: passwordRef.current.value,

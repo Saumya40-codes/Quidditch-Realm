@@ -9,7 +9,7 @@ const RegisteredTeams = () => {
 
     const getTeams = async () => {
         try {
-            const res = await Axios.get('https://quidditch-realm-rgxcs2bg2-saumya40-codes.vercel.app/teams/getTeams');
+            const res = await Axios.get('https://quidditch-realm.vercel.app/teams/getTeams');
             setTeams(res.data);
         } catch (error) {
             console.log(error);
