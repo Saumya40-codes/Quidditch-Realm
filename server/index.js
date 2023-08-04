@@ -14,8 +14,10 @@ const {register} = require('./controllers/auth.js');
 const { adminRegister } = require('./controllers/auth.js');
 
 const User = require('./models/User.js');
-app.use(cors());
-app.use(express.json());  
+
+app.use(cors({
+  origin: 'https://quidditch-realm-five.vercel.app'
+}));  
 
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
