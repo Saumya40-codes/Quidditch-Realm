@@ -1,18 +1,17 @@
 const express = require('express');
 const app = express();
-const cors = require('cors');
 const bodyParser = require('body-parser');
 
 // Increase the payload limit
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
+const cors = require('cors');
+app.use(cors({
+  origin: 'https://quidditch-realm-five.vercel.app',
+}));
 
 const path = require('path');
 app.set('views', path.join(__dirname, 'views'));
-
-app.use(cors({
-  origin: '*',
-}));
 
 const {register} = require('./controllers/auth.js');
 const { adminRegister } = require('./controllers/auth.js');
