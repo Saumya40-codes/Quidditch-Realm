@@ -88,7 +88,7 @@ const LandingPage = () => {
               transition: "box-shadow 0.3s ease",
               "&:hover": {
                 background:"transparent",
-                boxShadow: "5px 5px 9px 6px rgba(233, 0, 0, 0.6)",
+                boxShadow: "5px 5px 9px 6px rgba(233, 0, 0, 0.55)",
               },
             }}>
               <FontAwesomeIcon icon={faUser} style={{ marginRight: "8px" }} />
