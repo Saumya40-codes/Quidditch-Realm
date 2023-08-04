@@ -7,6 +7,7 @@ const env = require('dotenv')
 // Increase the payload limit
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
+require('dotenv').config();
 app.use(cors());
 
 const path = require('path');
