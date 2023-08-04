@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
+app.use(cors());
 const bodyParser = require('body-parser');
 
 // Increase the payload limit
@@ -14,7 +15,6 @@ const {register} = require('./controllers/auth.js');
 const { adminRegister } = require('./controllers/auth.js');
 
 const User = require('./models/User.js');
-app.use(cors());
 app.use(express.json());  
 
 const mongoose = require('mongoose');
