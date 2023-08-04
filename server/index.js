@@ -7,7 +7,7 @@ app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 const cors = require('cors');
 app.use(cors({
-  origin: 'https://quidditch-realm-five.vercel.app',
+  origin: '*',
 }));
 
 const path = require('path');
