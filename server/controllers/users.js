@@ -83,10 +83,10 @@ const updateProfile = async (req, res) => {
         { $push: { occuredNotifications: { message: message, date: date, receiver: receiver } } },
         { new: true }
       );
-      const delNotif = await User.findByIdAndUpdate(id, { $pull: { notifications: { _id: notifId } } }, { new: true });
 
-      return { addNotif, delNotif };
+      return { addNotif};
     } catch (error) {
+      console.log(error)
       console.log("Error in occuredNotifs:", error);
       throw new Error("Something went wrong");
     }
@@ -97,14 +97,19 @@ const updateProfile = async (req, res) => {
     try {
       const { message,email, date, receiver } = req.body;
       const { id } = req.params;
+      console.log(req.params)
+      console.log(req.body)
   
       const updatedUser = await User.findByIdAndUpdate(
         id,
         { $push: { notifications: { message: message,email:email, date: date, receiver: receiver } } },
         { new: true }
       );
+
+      console.log(updatedUser);
   
       if (!updatedUser) {
+        console.log("user part")
         return res.status(404).json({ message: "User not found" });
       }
   

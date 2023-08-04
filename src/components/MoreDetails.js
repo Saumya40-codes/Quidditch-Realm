@@ -76,6 +76,8 @@ const MoreDetails = () => {
           const time = String(event.time).substring(0, 5);
           const dateTime = `${date}T${time}:00.000+05:30`;
 
+          console.log(`You had shown interest in match between ${event.team1} and ${event.team2}. It has started, join in!! ${dateTime}`,userm.email,dateTime,userId);
+
           if(interest){
             const res = await Axios.put(`https://quidditch-realm.vercel.app/users/del/notif/${userId}`, {
               message: `You had shown interest in match between ${event.team1} and ${event.team2}. It has started, join in!! ${dateTime}`,

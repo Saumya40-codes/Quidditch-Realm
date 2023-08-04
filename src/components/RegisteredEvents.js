@@ -94,7 +94,7 @@ const RegisteredEvents = () => {
         >
           <LoadingQuotes />
         </div>
-      ) : events.length === 0 ? ( // Check if there are no registered events
+      ) : events.length === 0 && !loading ? ( 
         <Typography variant="h4" gutterBottom style={{ marginTop: "200px", fontFamily: "'Dancing Script', cursive" }}>
         <FontAwesomeIcon icon={faCircleExclamation} style={{marginRight:"5px"}} /> No Registered Events
         </Typography>

@@ -202,7 +202,8 @@ export default function HorizontalLinearStepper({ mode }) {
             </Button>
           </Box>
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
-            <Typography sx={{ mt: 2, mb: 1 }}>All steps completed - want to add this event?</Typography>
+          {mode === 'add' && <Typography sx={{ mt: 2, mb: 1 }}>All steps completed - want to add this event?</Typography>}
+          {mode === 'edit' && <Typography sx={{ mt: 2, mb: 1 }}>All steps completed - want to edit this event?</Typography>}
 
             {mode === 'add' && <Button onClick={handleFormSubmit}>Submit</Button>}
             {mode === 'edit' && <Button onClick={handleEdit}>Edit</Button>}
