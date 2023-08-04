@@ -1,7 +1,6 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
-app.use(cors());
 const bodyParser = require('body-parser');
 
 // Increase the payload limit
@@ -10,6 +9,10 @@ app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
 const path = require('path');
 app.set('views', path.join(__dirname, 'views'));
+
+app.use(cors({
+  origin: '*',
+}));
 
 const {register} = require('./controllers/auth.js');
 const { adminRegister } = require('./controllers/auth.js');
