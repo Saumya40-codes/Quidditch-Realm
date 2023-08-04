@@ -97,19 +97,14 @@ const updateProfile = async (req, res) => {
     try {
       const { message,email, date, receiver } = req.body;
       const { id } = req.params;
-      console.log(req.params)
-      console.log(req.body)
   
       const updatedUser = await User.findByIdAndUpdate(
         id,
         { $push: { notifications: { message: message,email:email, date: date, receiver: receiver } } },
         { new: true }
       );
-
-      console.log(updatedUser);
   
       if (!updatedUser) {
-        console.log("user part")
         return res.status(404).json({ message: "User not found" });
       }
   
@@ -122,7 +117,6 @@ const updateProfile = async (req, res) => {
             const { addNotif } = await occuredNotifs(req, id, notifId);
             res.status(200).json(addNotif);
           } catch (error) {
-            console.log(error);
             res.status(500).json({ message: "Something went wrong" });
           }
         });
@@ -130,7 +124,6 @@ const updateProfile = async (req, res) => {
         console.log("Scheduled date is in the past. Job cannot be scheduled.");
       }
     } catch (error) {
-      console.log(error);
       res.status(500).json({ message: "Something went wrong" });
     }
   };

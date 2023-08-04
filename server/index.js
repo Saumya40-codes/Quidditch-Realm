@@ -24,7 +24,6 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
 const authRoutes = require('./routes/auth');
-const userRoutes = require('./routes/users.js');
 app.use('/auth', authRoutes);
 
 // ejs
@@ -32,8 +31,6 @@ app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: false }));
 var nodemailer = require('nodemailer');
 
-
-app.use('/users',userRoutes)
 
 const CONNECTION_URL = process.env.CONNECTION_URI;
 const PORT = process.env.PORT || 5000;
@@ -44,6 +41,9 @@ app.post("/auth/admin/register", adminRegister);
 mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => app.listen(PORT, () => console.log(`Server running on port: ${PORT}`)))
     .catch((error) => console.log(error.message));
+
+
+
 
 app.post("/forgot-password", async (req, res) => {
       const { email } = req.body;
@@ -136,6 +136,11 @@ app.post("/reset-password/:id/:token", async (req, res) => {
     res.status(500).json({ message: "Something went wrong" });
   }
 });
+
+// users part
+
+const userRoutes = require('./routes/users.js');
+app.use('/users',userRoutes)
 
 
 // events part
