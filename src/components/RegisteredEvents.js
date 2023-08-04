@@ -2,12 +2,7 @@ import React from 'react';
 import Axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import {
-  faLocationDot,
-  faMoneyBillTrendUp,
-  faArrowTrendUp,
-  faTicket,
-} from '@fortawesome/free-solid-svg-icons';
+import { faLocationDot, faMoneyBillTrendUp, faArrowTrendUp, faTicket, faCircleExclamation } from '@fortawesome/free-solid-svg-icons';
 import { faClock } from '@fortawesome/free-solid-svg-icons';
 import LoadingQuotes from './RandomSpells/LoadingQuotes';
 import { Link } from 'react-router-dom';
@@ -41,7 +36,7 @@ const RegisteredEvents = () => {
 
   useEffect(() => {
     getEventIds();
-  }, []);
+  }, [eventid]);
 
   useEffect(() => {
     const fetchEventData = async () => {
@@ -82,39 +77,26 @@ const RegisteredEvents = () => {
   }
 
   return (
-    <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
-      <Typography
-        variant="h3"
-        component="h1"
-        gutterBottom
-        style={{
-          margin: '20px',
-          fontFamily: "'Dancing Script', cursive",
-          fontSize: '38px',
-          marginBottom: '45px',
-          fontWeight: 'bold',
-        }}
-      >
+    <div>
+    <div style={{display: 'flex', justifyContent: 'center', alignItems:"center"}}>
+      <Typography variant="h3" component="h1" gutterBottom style={{ margin: "20px", fontFamily: "'Dancing Script', cursive", fontSize: "38px", marginBottom: "45px", fontWeight: "bold" }}>
         Registered Events
       </Typography>
+    </div>
+    <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
       {loading ? (
         <div
           style={{
-            height: '50vh',
+            height: "50vh",
             margin: '100px',
             width: '100%',
           }}
         >
           <LoadingQuotes />
         </div>
-      ) : events.length === 0 ? (
-        <Typography
-          variant="h4"
-          gutterBottom
-          style={{ marginTop: '200px', fontFamily: "'Dancing Script', cursive" }}
-        >
-          <FontAwesomeIcon icon={faCircleExclamation} style={{ marginRight: '5px' }} /> No
-          Registered Events
+      ) : events.length === 0 ? ( // Check if there are no registered events
+        <Typography variant="h4" gutterBottom style={{ marginTop: "200px", fontFamily: "'Dancing Script', cursive" }}>
+        <FontAwesomeIcon icon={faCircleExclamation} style={{marginRight:"5px"}} /> No Registered Events
         </Typography>
       ) : (
         events.map((event) => (
@@ -258,6 +240,7 @@ const RegisteredEvents = () => {
 </Card>
       ))
         )}
+        </div>
     </div>
   )
 }
