@@ -93,19 +93,20 @@ const updateProfile = async (req, res) => {
   };
   
   
-  const addNotification = async (req, res) => {
+  const addNotification = async (req) => {
     try {
-      const { message,email, date, receiver } = req.body;
+      const { message, email, date, receiver } = req.body;
       const { id } = req.params;
   
       const updatedUser = await User.findByIdAndUpdate(
         id,
-        { $push: { notifications: { message: message,email:email, date: date, receiver: receiver } } },
+        { $push: { notifications: { message: message, email: email, date: date, receiver: receiver } } },
         { new: true }
       );
   
       if (!updatedUser) {
-        return res.status(404).json({ message: "User not found" });
+        console.log("User not found");
+        return;
       }
   
       const notifId = updatedUser.notifications[updatedUser.notifications.length - 1]._id;
@@ -114,19 +115,19 @@ const updateProfile = async (req, res) => {
       if (scheduledDate > new Date()) {
         const job = schedule.scheduleJob(scheduledDate, async function () {
           try {
-            const { addNotif } = await occuredNotifs(req, id, notifId);
-            res.status(200).json(addNotif);
+            await occuredNotifs(req, id, notifId);
           } catch (error) {
-            res.status(500).json({ message: "Something went wrong" });
+            console.log("Something went wrong:", error);
           }
         });
       } else {
         console.log("Scheduled date is in the past. Job cannot be scheduled.");
       }
     } catch (error) {
-      res.status(500).json({ message: "Something went wrong" });
+      console.log("Something went wrong:", error);
     }
   };
+  
   
   
 const deleteNotification = async (req, res) => {

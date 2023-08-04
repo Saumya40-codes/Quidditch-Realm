@@ -1,14 +1,13 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
+const cors = require('cors');
+const env = require('dotenv')
 
 // Increase the payload limit
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
-const cors = require('cors');
-app.use(cors({
-  origin: '*',
-}));
+app.use(cors());
 
 const path = require('path');
 app.set('views', path.join(__dirname, 'views'));
@@ -41,9 +40,6 @@ app.post("/auth/admin/register", adminRegister);
 mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => app.listen(PORT, () => console.log(`Server running on port: ${PORT}`)))
     .catch((error) => console.log(error.message));
-
-
-
 
 app.post("/forgot-password", async (req, res) => {
       const { email } = req.body;
@@ -112,7 +108,7 @@ app.get("/reset-password/:id/:token", async (req, res) => {
     console.log(error);
     res.status(500).json({ message: "Something went wrong" });
   }
-});
+})
 
 app.post("/reset-password/:id/:token", async (req, res) => {
   const { id, token } = req.params;
@@ -168,6 +164,7 @@ app.use(
     secret: process.env.JWT_SECRET,
     resave: false,
     saveUninitialized: true,
+    signed:false
   })
 );
 
