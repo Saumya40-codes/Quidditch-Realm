@@ -1,14 +1,13 @@
 const express = require('express');
 const app = express();
-const bodyParser = require('body-parser');
 const cors = require('cors');
+const bodyParser = require('body-parser');
 const env = require('dotenv')
 
 // Increase the payload limit
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 require('dotenv').config();
-app.use(cors());
 
 const path = require('path');
 app.set('views', path.join(__dirname, 'views'));
@@ -17,6 +16,7 @@ const {register} = require('./controllers/auth.js');
 const { adminRegister } = require('./controllers/auth.js');
 
 const User = require('./models/User.js');
+app.use(cors());
 app.use(express.json());  
 
 const mongoose = require('mongoose');
@@ -24,6 +24,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
 const authRoutes = require('./routes/auth');
+const userRoutes = require('./routes/users.js');
 app.use('/auth', authRoutes);
 
 // ejs
@@ -31,6 +32,8 @@ app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: false }));
 var nodemailer = require('nodemailer');
 
+
+app.use('/users',userRoutes)
 
 const CONNECTION_URL = process.env.CONNECTION_URI;
 const PORT = process.env.PORT || 5000;
@@ -109,7 +112,7 @@ app.get("/reset-password/:id/:token", async (req, res) => {
     console.log(error);
     res.status(500).json({ message: "Something went wrong" });
   }
-})
+});
 
 app.post("/reset-password/:id/:token", async (req, res) => {
   const { id, token } = req.params;
@@ -133,11 +136,6 @@ app.post("/reset-password/:id/:token", async (req, res) => {
     res.status(500).json({ message: "Something went wrong" });
   }
 });
-
-// users part
-
-const userRoutes = require('./routes/users.js');
-app.use('/users',userRoutes)
 
 
 // events part
@@ -165,7 +163,6 @@ app.use(
     secret: process.env.JWT_SECRET,
     resave: false,
     saveUninitialized: true,
-    signed:false
   })
 );
 

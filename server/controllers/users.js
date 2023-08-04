@@ -83,30 +83,29 @@ const updateProfile = async (req, res) => {
         { $push: { occuredNotifications: { message: message, date: date, receiver: receiver } } },
         { new: true }
       );
+      const delNotif = await User.findByIdAndUpdate(id, { $pull: { notifications: { _id: notifId } } }, { new: true });
 
-      return { addNotif};
+      return { addNotif, delNotif };
     } catch (error) {
-      console.log(error)
       console.log("Error in occuredNotifs:", error);
       throw new Error("Something went wrong");
     }
   };
   
   
-  const addNotification = async (req) => {
+  const addNotification = async (req, res) => {
     try {
-      const { message, email, date, receiver } = req.body;
+      const { message,email, date, receiver } = req.body;
       const { id } = req.params;
   
       const updatedUser = await User.findByIdAndUpdate(
         id,
-        { $push: { notifications: { message: message, email: email, date: date, receiver: receiver } } },
+        { $push: { notifications: { message: message,email:email, date: date, receiver: receiver } } },
         { new: true }
       );
   
       if (!updatedUser) {
-        console.log("User not found");
-        return;
+        return res.status(404).json({ message: "User not found" });
       }
   
       const notifId = updatedUser.notifications[updatedUser.notifications.length - 1]._id;
@@ -115,19 +114,19 @@ const updateProfile = async (req, res) => {
       if (scheduledDate > new Date()) {
         const job = schedule.scheduleJob(scheduledDate, async function () {
           try {
-            await occuredNotifs(req, id, notifId);
+            occuredNotifs(req, id, notifId);
           } catch (error) {
-            console.log("Something went wrong:", error);
+            console.log(error);
           }
         });
       } else {
         console.log("Scheduled date is in the past. Job cannot be scheduled.");
       }
     } catch (error) {
-      console.log("Something went wrong:", error);
+      console.log(error);
+      res.status(500).json({ message: "Something went wrong" });
     }
   };
-  
   
   
 const deleteNotification = async (req, res) => {
