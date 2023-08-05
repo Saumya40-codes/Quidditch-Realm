@@ -2,6 +2,18 @@
 
 *Quidditch-realm is a full stack **harry potter** theme based site.*
 
+---
+
+>**FOR PAYMENT GATEWAY**
+
+*real* payments haven't been enabled yet for security purposes.
+Please use following detail to initiate test payments(fake ones) with *stripe*
+* Card Number: *4242 4242 4242 4242*
+* Expiration : *04/24*
+* C.V.C: *424*
+
+---
+
 **Features:**
 * Admin and user-based authentication
 * Remain updated with latest match results
@@ -81,7 +93,7 @@ ___
 
 *refer below figure*
 
-![auth_process](https://github.com/Saumya40-codes/Quidditch-Realm/assets/115284013/0c5dad65-349f-40eb-8889-78a15091b629)
+![auth_process](https://github.com/Saumya40-codes/Quidditch-Realm/assets/115284013/6760d94a-b8a1-461d-b8c0-0948f5ca9dde)
 
 **technologies/packages used**
 * Node, Express
