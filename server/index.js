@@ -154,7 +154,6 @@ app.use('/teams',teamRoutes)
 // calendar part
 
 const {google} = require('googleapis');
-const axios = require('axios');
 const session = require('cookie-session');
 
 app.use(
@@ -196,11 +195,7 @@ app.get('/calendar/:id', (req, res) => {
 app.get('/redirect', async (req, res) => {
   const code = req.query.code;
   const {tokens} = await oauth2Client.getToken(code);
-  oauth2Client.setCredentials(
-    {
-      access_token: tokens
-    }
-  );
+  oauth2Client.setCredentials(tokens);
   const serverUrl = 'https://quidditch-realm-five.vercel.app';
   const id = req.session.calendarId;
   const redirectUrl = `${serverUrl}/more-details/${id}?status=200`;
