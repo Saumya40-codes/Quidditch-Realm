@@ -1,14 +1,54 @@
+# QUIDDITCH-REALM
+
+*Quidditch-realm is a full stack **harry potter** theme based site.*
+
+**Features:**
+* Admin and user-based authentication
+* Remain updated with latest match results
+* Light/Dark theme
+  * User side:
+    * user can see the upcoming quidditch events
+    * User can register for a particular event
+    * event registration with stripe payment gateway
+    * mark the event remainder on their calendar with google calendar integration
+    * Mails and server side notifications when event starts with interest is marked for that event
+    * User can also see the past matches score with proper scorer name with the respective timestamps
+    * Comment section in every post match details for interactive user experience
+    * Browse through the available teams and get more info about respective teams
+    * User can see their registered events with there ticket information
+    * user profiles and notifications
+    * chose there favourite team and can get there upcoming match details directly on dashboard
+  * Admin Side:
+    * Includes everything which is in user side
+    * CRUD events
+    * Add/update match scores
+    * CRUD teams/team details
+    * Can see the registered teams
+    * Admin gets updated with email and notification when any particular match ends to update the score
+    * Ticket sales data
+  * You'll find some interesting spell info as well
+
+**Tech Stack used:**
+  * Reactjs
+  * Nodejs
+  * Expressjs
+  * MongoDB
+  * Redux
+* UI: Material UI 
+  
+
+*checkout [here](https://quidditch-realm-five.vercel.app)*
+
+---
 ## Get started with project
 ___
 * In your editor command line
 ```
    cd Quidditch-Realm
-   (if not already)
 ```
 * In another terminal
 ```
    cd Quidditch-Realm
-   (if not already)
    cd server
 ```
 *In both do:*
@@ -28,7 +68,7 @@ ___
  npm run dev
 
 ```
-  **Add your mongodb** *CONNECTION_URI* **and your** *JWT_SECRET* **in server/.env file****
+  **Add your mongodb** *CONNECTION_URI* **and your** *JWT_SECRET* **in server/.env file**
 ___
 
 ## Some process related to the features that are used in this website
@@ -82,3 +122,8 @@ ___
   * loadStripe(publishableKey) helps to expose publishable key on client side safely.
   * We have used *Element* from @stripe/react-stripe-js package to get necessart components.
   * There are many internal steps in between but to keep this short, in the end the inbuilt *stripe.confirmPayment* is called and we check for any possible error during this.
+  
+---
+>## Contributions
+
+**QUIDDITCH-REALM** *is open for contributing/enlisting issues/bug on our site*
