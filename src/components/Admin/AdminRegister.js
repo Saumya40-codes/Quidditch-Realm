@@ -85,7 +85,7 @@ const SignUp = () => {
         >
           Begin your Quidditch quest!
         </h2>
-      <Card style={{ maxWidth: "470px", background: "transparent", boxShadow: "9px 6px 6px 12px rgba(0,0,0,0.5)", borderRadius: "20px" }}>
+      <Card style={{ maxWidth: "490px", background: "transparent", boxShadow: "9px 6px 6px 12px rgba(0,0,0,0.5)", borderRadius: "20px", paddingTop:"40px", marginBottom:"40px" }}>
         <CardContent>
         {error && 
         <div style={{display:"grid",gridTemplateColumns:"auto auto", maxWidth:"400px", background:"white", height:"56px", marginBottom:"20px", boxShadow:"6px 6px 6px 6px rgba(0,0,0,0.4)" }}>
@@ -128,7 +128,7 @@ const SignUp = () => {
             </Button>
           </form>
         </CardContent>
-        <div className="w-100 text-center mt-2">
+        <div className="w-100 text-center mt-2" style={{marginBottom:"40px"}}>
           Are you returning wizard? <MuiLink component={Link} to="/admin/login" style={{color:"white"}}>Open the Portkey!</MuiLink>
         </div>
       </Card>

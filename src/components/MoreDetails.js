@@ -76,15 +76,19 @@ const MoreDetails = () => {
           const time = String(event.time).substring(0, 5);
           const dateTime = `${date}T${time}:00.000+05:30`;
 
+          setTimeout(()=>{
+            return;
+          },2500)
+
           if(interest){
-            const res = Axios.put(`https://quidditch-realm.vercel.app/users/del/notif/${userId}`, {
+            const res = await Axios.put(`https://quidditch-realm.vercel.app/users/del/notif/${userId}`, {
               message: `You had shown interest in match between ${event.team1} and ${event.team2}. It has started, join in!! ${dateTime}`,
               email: userm.email,
               date: dateTime,
               receiver: userId,
             });
           }else{
-            const res =  Axios.put(`https://quidditch-realm.vercel.app/users/addNotification/${userId}`, {
+            const res = await  Axios.put(`https://quidditch-realm.vercel.app/users/addNotification/${userId}`, {
               message: `You had shown interest in match between ${event.team1} and ${event.team2}. It has started, join in!! ${dateTime}`,
               email: userm.email,
               date: dateTime,

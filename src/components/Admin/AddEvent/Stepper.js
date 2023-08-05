@@ -22,6 +22,7 @@ export default function HorizontalLinearStepper({ mode }) {
   const [skipped, setSkipped] = useState(new Set());
   const [ticket, setTicket] = useState([]);
   const userId = useSelector((state) => state.id);
+  const userm = useSelector((state)=>state.user)
 
 
   const handleTicketChange = (index, field, value) => {
@@ -118,6 +119,7 @@ export default function HorizontalLinearStepper({ mode }) {
         }, 3000);
         const resss = await Axios.put(`https://quidditch-realm.vercel.app/users/addNotification/${userId}`, {
           message: `Match between ${formchanged.team1} and ${formchanged.team2} has been ended. Please add the post match details. If not already added. ${dateTime}`,
+          email: userm.email,
           date: dateTime,
           receiver: userId,
         })

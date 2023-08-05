@@ -114,10 +114,13 @@ const updateProfile = async (req, res) => {
       if (scheduledDate > new Date()) {
         const job = schedule.scheduleJob(scheduledDate, async function () {
           try {
-            occuredNotifs(req, id, notifId);
+            const { addNotif } = await occuredNotifs(req, id, notifId);
+            res.status(200).json(addNotif);
           } catch (error) {
             console.log(error);
+            res.status(500).json({ message: "Something went wrong" });
           }
+          console.log(job)
         });
       } else {
         console.log("Scheduled date is in the past. Job cannot be scheduled.");
