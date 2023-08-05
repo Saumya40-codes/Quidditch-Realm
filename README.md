@@ -51,6 +51,17 @@ Please use following detail to initiate test payments(fake ones) with *stripe*
 
 *checkout [here](https://quidditch-realm-five.vercel.app)*
 
+**QUIDDITCH REALM** *(bit overview)*
+
+*Admin Dashboard*
+![image](https://github.com/Saumya40-codes/Quidditch-Realm/assets/115284013/e87d03d8-ec3f-4b2f-b9ab-f616e3adfb95)
+
+*Post Match Details*
+![image](https://github.com/Saumya40-codes/Quidditch-Realm/assets/115284013/2531493b-7d30-4ac4-92d1-49af1004c219)
+
+*Event registration part*
+![image](https://github.com/Saumya40-codes/Quidditch-Realm/assets/115284013/5812d46f-7214-40fc-a844-136087aa05d5)
+
 ---
 ## Get started with project
 ___
