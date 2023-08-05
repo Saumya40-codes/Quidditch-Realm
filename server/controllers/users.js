@@ -95,14 +95,63 @@ const updateProfile = async (req, res) => {
   };
   
   
+  const sendEmailNotification = async (email, message) => {
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: process.env.MAIL_USER,
+        pass: process.env.MAIL_PASS,
+      }
+    });
+  
+    const mailOptions = {
+      from: 'abc@gmail.com',
+      to: email,
+      subject: 'JOIN IN, MATCH STARTED !!!',
+      text: String(message).substring(0, String(message).length - 30),
+    };
+  
+    try {
+      await transporter.sendMail(mailOptions);
+      console.log('Email sent successfully to:', email);
+    } catch (error) {
+      console.log('Error sending email:', error);
+    }
+  };
+  
+  // Function to schedule the notification job
+  const scheduleNotificationJob = async (scheduledDate, callback) => {
+    try {
+      const currentTime = new Date();
+      if (scheduledDate <= currentTime) {
+        console.log("Scheduled date is in the past. Job cannot be scheduled.");
+        return;
+      }
+  
+      const timeUntilScheduledDate = scheduledDate - currentTime;
+  
+      // Schedule the job with a timeout based on the time until the scheduled date
+      setTimeout(async () => {
+        try {
+          await callback();
+        } catch (error) {
+          console.log('Error occurred during job execution:', error);
+        }
+      }, timeUntilScheduledDate);
+    } catch (error) {
+      console.log('Error scheduling notification job:', error);
+    }
+  };
+  
+  // Function to handle adding a notification and scheduling the job
   const addNotification = async (req, res) => {
     try {
-      const { message,email, date, receiver } = req.body;
+      const { message, email, date, receiver } = req.body;
       const { id } = req.params;
   
       const updatedUser = await User.findByIdAndUpdate(
         id,
-        { $push: { notifications: { message: message,email:email, date: date, receiver: receiver } } },
+        { $push: { notifications: { message: message, email: email, date: date, receiver: receiver } } },
         { new: true }
       );
   
@@ -111,23 +160,23 @@ const updateProfile = async (req, res) => {
       }
   
       const notifId = updatedUser.notifications[updatedUser.notifications.length - 1]._id;
-      console.log(notifId)
+      console.log(notifId);
       const scheduledDate = new Date(date);
-      console.log(scheduledDate)
+      console.log(scheduledDate);
+  
       if (scheduledDate > new Date()) {
-        const job = schedule.scheduleJob(scheduledDate, async function () {
+        scheduleNotificationJob(scheduledDate, async function () {
           try {
-            console.log("reached");
-            const { addNotif } = await occuredNotifs(req, id, notifId);
-            // Store the result in a variable instead of using res
-            const result = addNotif;
-            console.log(result);
+            console.log("Notification job reached");
+            await occuredNotifs(req, id, notifId);
+            // Send email notification here, assuming 'email' is the recipient email address
+            await sendEmailNotification(email, message);
           } catch (error) {
-            console.log("error occured");
-            console.log(error);
+            console.log("Error occurred during job execution:", error);
           }
         });
-      }        
+      }
+      res.status(200).json({ message: "Notification added successfully" });
     } catch (error) {
       console.log(error);
       res.status(500).json({ message: "Something went wrong" });
