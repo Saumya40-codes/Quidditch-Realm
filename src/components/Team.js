@@ -32,7 +32,7 @@ const Team = () => {
         setTeam(res.data);
       }
       else{
-        alert("You dumb")
+        console.log("error")
       }
     } catch (error) {
       console.log(error);
@@ -95,7 +95,6 @@ const Team = () => {
               objectFit: 'cover',
               margin: '0 auto',
               boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)',
-              borderRadius: '8px',
             }}
           />
         </Box>
