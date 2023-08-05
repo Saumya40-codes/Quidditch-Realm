@@ -2,12 +2,11 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const env = require('dotenv')
 
 // Increase the payload limit
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
-require('dotenv').config();
+
 
 const path = require('path');
 app.set('views', path.join(__dirname, 'views'));
