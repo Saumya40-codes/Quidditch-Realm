@@ -1,6 +1,8 @@
 const User = require('../models/User.js');
 const schedule = require('node-schedule');
 const nodemailer  = require('nodemailer');
+const env = require('dotenv')
+require('dotenv').config();
 
 const getUsers = async (req, res) => {
     try {
@@ -109,8 +111,9 @@ const updateProfile = async (req, res) => {
       }
   
       const notifId = updatedUser.notifications[updatedUser.notifications.length - 1]._id;
+      console.log(notifId)
       const scheduledDate = new Date(date);
-  
+      console.log(scheduledDate)
       if (scheduledDate > new Date()) {
         const job = schedule.scheduleJob(scheduledDate, async function () {
           try {
