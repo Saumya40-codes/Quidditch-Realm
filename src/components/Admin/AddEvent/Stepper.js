@@ -117,7 +117,7 @@ export default function HorizontalLinearStepper({ mode }) {
         setTimeout(() => {
           navigate('/admin');
         }, 3000);
-        const resss = await Axios.put(`https://quidditch-realm.vercel.app/users/addNotification/${userId}`, {
+        const resss = await Axios.post(`https://quidditch-realm.vercel.app/users/addNotification/${userId}`, {
           message: `Match between ${formchanged.team1} and ${formchanged.team2} has been ended. Please add the post match details. If not already added. ${dateTime}`,
           email: userm.email,
           date: dateTime,

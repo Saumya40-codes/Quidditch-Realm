@@ -88,7 +88,7 @@ const MoreDetails = () => {
               receiver: userId,
             });
           }else{
-            const res = await  Axios.put(`https://quidditch-realm.vercel.app/users/addNotification/${userId}`, {
+            const res = await  Axios.post(`https://quidditch-realm.vercel.app/users/addNotification/${userId}`, {
               message: `You had shown interest in match between ${event.team1} and ${event.team2}. It has started, join in!! ${dateTime}`,
               email: userm.email,
               date: dateTime,
