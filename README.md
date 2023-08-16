@@ -12,7 +12,33 @@ Please use following detail to initiate test payments(fake ones) with *stripe*
 * Expiration : *04/24*
 * C.V.C: *424*
 
+## credentials
+
+Either you can **create your own** or use this:
+
+*admin side*
+
+email: check@check.com
+
+pass: check
+
 ---
+
+*user side*
+
+email: wizard@wizard.com
+
+pass: gryffindor
+
+
+---
+
+**Full Demo:**
+
+https://github.com/Saumya40-codes/Quidditch-Realm/assets/115284013/3d5bd3a7-4ca3-4c72-b74d-eea58701a64b
+
+---
+
 
 **Features:**
 * Admin and user-based authentication
